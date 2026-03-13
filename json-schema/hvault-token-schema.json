@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://developer.hashicorp.com/schemas/vault/token.json",
+  "title": "Vault Token",
+  "description": "Represents an authentication token in HashiCorp Vault used to authenticate API requests and carry identity and policy information.",
+  "type": "object",
+  "properties": {
+    "accessor": {
+      "type": "string",
+      "description": "Token accessor used for token management without exposing the token ID"
+    },
+    "creation_time": {
+      "type": "integer",
+      "description": "Token creation time as Unix epoch seconds"
+    },
+    "creation_ttl": {
+      "type": "integer",
+      "description": "Original TTL in seconds"
+    },
+    "display_name": {
+      "type": "string",
+      "description": "Human-readable display name for the token"
+    },
+    "entity_id": {
+      "type": "string",
+      "description": "Identity entity ID associated with the token"
+    },
+    "expire_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Token expiration time"
+    },
+    "explicit_max_ttl": {
+      "type": "integer",
+      "description": "Explicit maximum TTL in seconds"
+    },
+    "id": {
+      "type": "string",
+      "description": "Token ID (the actual secret value)"
+    },
+    "issue_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Token issue time"
+    },
+    "meta": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "Metadata key-value pairs associated with the token"
+    },
+    "num_uses": {
+      "type": "integer",
+      "description": "Remaining number of uses (0 for unlimited)"
+    },
+    "orphan": {
+      "type": "boolean",
+      "description": "Whether the token is an orphan (no parent token)"
+    },
+    "path": {
+      "type": "string",
+      "description": "Auth path that created this token"
+    },
+    "policies": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Policies attached to the token"
+    },
+    "renewable": {
+      "type": "boolean",
+      "description": "Whether the token is renewable"
+    },
+    "ttl": {
+      "type": "integer",
+      "description": "Remaining TTL in seconds"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["service", "batch"],
+      "description": "Token type"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://developer.hashicorp.com/schemas/vault/policy.json",
+  "title": "Vault ACL Policy",
+  "description": "Represents an ACL policy in HashiCorp Vault that defines permissions for paths and operations.",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the policy"
+    },
+    "policy": {
+      "type": "string",
+      "description": "Policy document in HCL or JSON format defining path-based permissions"
+    }
+  }
+}

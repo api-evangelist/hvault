@@ -1,0 +1,1188 @@
+openapi: 3.1.0
+info:
+  title: Vault Auth Methods API
+  description: >-
+    APIs for authentication methods in HashiCorp Vault including Token, AppRole,
+    Kubernetes, LDAP, JWT/OIDC, GitHub, Userpass, and AWS auth methods. These
+    endpoints handle user and machine authentication to obtain Vault tokens.
+  version: '1.0'
+  contact:
+    name: HashiCorp Support
+    email: support@hashicorp.com
+    url: https://support.hashicorp.com/
+  license:
+    name: Business Source License 1.1
+    url: https://github.com/hashicorp/vault/blob/main/LICENSE
+externalDocs:
+  description: Vault Auth Methods API Documentation
+  url: https://developer.hashicorp.com/vault/api-docs/auth
+servers:
+  - url: https://vault.example.com/v1
+    description: Vault Server
+tags:
+  - name: Token
+    description: Token auth method for token lifecycle management
+  - name: AppRole
+    description: AppRole auth method for machine-to-machine authentication
+  - name: Kubernetes
+    description: Kubernetes auth method for pod authentication
+  - name: LDAP
+    description: LDAP auth method for directory-based authentication
+  - name: JWT/OIDC
+    description: JWT/OIDC auth method for identity provider authentication
+  - name: Userpass
+    description: Username and password auth method
+  - name: GitHub
+    description: GitHub auth method for organization-based authentication
+security:
+  - vaultToken: []
+paths:
+  /auth/token/create:
+    post:
+      operationId: createToken
+      summary: Create token
+      description: >-
+        Creates a new token. Certain options are only available when called by
+        a root token. If used via the /auth/token/create/orphan endpoint, a
+        root or sudo token is not required.
+      tags:
+        - Token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTokenRequest'
+      responses:
+        '200':
+          description: Token created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '400':
+          description: Invalid request
+        '403':
+          description: Permission denied
+  /auth/token/create-orphan:
+    post:
+      operationId: createOrphanToken
+      summary: Create orphan token
+      description: >-
+        Creates a new orphan token that has no parent. Requires a root token
+        or sudo capability.
+      tags:
+        - Token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTokenRequest'
+      responses:
+        '200':
+          description: Orphan token created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '403':
+          description: Permission denied
+  /auth/token/create/{role_name}:
+    post:
+      operationId: createTokenWithRole
+      summary: Create token with role
+      description: Creates a new token based on a named token role.
+      tags:
+        - Token
+      parameters:
+        - name: role_name
+          in: path
+          required: true
+          description: Name of the token role
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTokenRequest'
+      responses:
+        '200':
+          description: Token created with role
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '400':
+          description: Invalid request
+        '403':
+          description: Permission denied
+  /auth/token/lookup:
+    post:
+      operationId: lookupToken
+      summary: Lookup token
+      description: Returns information about the specified token.
+      tags:
+        - Token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - token
+              properties:
+                token:
+                  type: string
+                  description: Token to look up
+      responses:
+        '200':
+          description: Token information returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenLookupResponse'
+        '403':
+          description: Permission denied or bad token
+  /auth/token/lookup-self:
+    get:
+      operationId: lookupSelfToken
+      summary: Lookup self token
+      description: Returns information about the token used to make this request.
+      tags:
+        - Token
+      responses:
+        '200':
+          description: Self token information returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenLookupResponse'
+        '403':
+          description: Permission denied
+  /auth/token/renew:
+    post:
+      operationId: renewToken
+      summary: Renew token
+      description: Renews a lease associated with the specified token.
+      tags:
+        - Token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - token
+              properties:
+                token:
+                  type: string
+                  description: Token to renew
+                increment:
+                  type: string
+                  description: Requested renewal increment (e.g., 1h)
+      responses:
+        '200':
+          description: Token renewed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '400':
+          description: Token not renewable
+        '403':
+          description: Permission denied
+  /auth/token/renew-self:
+    post:
+      operationId: renewSelfToken
+      summary: Renew self token
+      description: Renews the lease on the token used to make this request.
+      tags:
+        - Token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                increment:
+                  type: string
+                  description: Requested renewal increment (e.g., 1h)
+      responses:
+        '200':
+          description: Token renewed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '400':
+          description: Token not renewable
+  /auth/token/revoke:
+    post:
+      operationId: revokeToken
+      summary: Revoke token
+      description: Revokes the specified token and all child tokens.
+      tags:
+        - Token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - token
+              properties:
+                token:
+                  type: string
+                  description: Token to revoke
+      responses:
+        '204':
+          description: Token revoked
+        '403':
+          description: Permission denied
+  /auth/token/revoke-self:
+    post:
+      operationId: revokeSelfToken
+      summary: Revoke self token
+      description: Revokes the token used to make this request.
+      tags:
+        - Token
+      responses:
+        '204':
+          description: Token revoked
+  /auth/token/roles/{role_name}:
+    get:
+      operationId: readTokenRole
+      summary: Read token role
+      description: Reads the configuration of the named token role.
+      tags:
+        - Token
+      parameters:
+        - $ref: '#/components/parameters/roleName'
+      responses:
+        '200':
+          description: Token role configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenRole'
+        '404':
+          description: Role not found
+    post:
+      operationId: createOrUpdateTokenRole
+      summary: Create or update token role
+      description: Creates or updates the named token role.
+      tags:
+        - Token
+      parameters:
+        - $ref: '#/components/parameters/roleName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRole'
+      responses:
+        '204':
+          description: Token role created or updated
+        '400':
+          description: Invalid request
+    delete:
+      operationId: deleteTokenRole
+      summary: Delete token role
+      description: Deletes the named token role.
+      tags:
+        - Token
+      parameters:
+        - $ref: '#/components/parameters/roleName'
+      responses:
+        '204':
+          description: Token role deleted
+  /auth/approle/login:
+    post:
+      operationId: loginWithAppRole
+      summary: Login with AppRole
+      description: >-
+        Authenticates with Vault using a role ID and secret ID to obtain a
+        Vault token.
+      tags:
+        - AppRole
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - role_id
+                - secret_id
+              properties:
+                role_id:
+                  type: string
+                  description: The AppRole role ID
+                secret_id:
+                  type: string
+                  description: The AppRole secret ID
+      responses:
+        '200':
+          description: Authentication successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '400':
+          description: Invalid credentials
+      security: []
+  /auth/approle/role/{role_name}:
+    get:
+      operationId: readAppRole
+      summary: Read AppRole
+      description: Reads the properties of the named AppRole.
+      tags:
+        - AppRole
+      parameters:
+        - $ref: '#/components/parameters/roleName'
+      responses:
+        '200':
+          description: AppRole configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppRole'
+        '404':
+          description: Role not found
+    post:
+      operationId: createOrUpdateAppRole
+      summary: Create or update AppRole
+      description: Creates or updates the named AppRole.
+      tags:
+        - AppRole
+      parameters:
+        - $ref: '#/components/parameters/roleName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppRole'
+      responses:
+        '204':
+          description: AppRole created or updated
+        '400':
+          description: Invalid request
+    delete:
+      operationId: deleteAppRole
+      summary: Delete AppRole
+      description: Deletes the named AppRole.
+      tags:
+        - AppRole
+      parameters:
+        - $ref: '#/components/parameters/roleName'
+      responses:
+        '204':
+          description: AppRole deleted
+  /auth/approle/role/{role_name}/role-id:
+    get:
+      operationId: readAppRoleRoleId
+      summary: Read AppRole role ID
+      description: Returns the role ID of the named AppRole.
+      tags:
+        - AppRole
+      parameters:
+        - $ref: '#/components/parameters/roleName'
+      responses:
+        '200':
+          description: Role ID returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      role_id:
+                        type: string
+                        description: The AppRole role ID
+  /auth/approle/role/{role_name}/secret-id:
+    post:
+      operationId: generateAppRoleSecretId
+      summary: Generate AppRole secret ID
+      description: Generates a new secret ID for the named AppRole.
+      tags:
+        - AppRole
+      parameters:
+        - $ref: '#/components/parameters/roleName'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                metadata:
+                  type: string
+                  description: JSON-formatted metadata to associate with the secret ID
+                cidr_list:
+                  type: array
+                  items:
+                    type: string
+                  description: CIDR blocks restricting secret ID usage
+                token_bound_cidrs:
+                  type: array
+                  items:
+                    type: string
+                  description: CIDR blocks restricting token usage
+      responses:
+        '200':
+          description: Secret ID generated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      secret_id:
+                        type: string
+                        description: The generated secret ID
+                      secret_id_accessor:
+                        type: string
+                        description: Accessor for the secret ID
+                      secret_id_num_uses:
+                        type: integer
+                        description: Number of times this secret ID can be used
+                      secret_id_ttl:
+                        type: integer
+                        description: TTL for this secret ID in seconds
+  /auth/kubernetes/login:
+    post:
+      operationId: loginWithKubernetes
+      summary: Login with Kubernetes
+      description: >-
+        Authenticates with Vault using a Kubernetes service account JWT token.
+      tags:
+        - Kubernetes
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - role
+                - jwt
+              properties:
+                role:
+                  type: string
+                  description: Name of the Vault role
+                jwt:
+                  type: string
+                  description: Kubernetes service account JWT token
+      responses:
+        '200':
+          description: Authentication successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '400':
+          description: Invalid credentials
+      security: []
+  /auth/kubernetes/config:
+    get:
+      operationId: readKubernetesConfig
+      summary: Read Kubernetes auth configuration
+      description: Returns the Kubernetes auth method configuration.
+      tags:
+        - Kubernetes
+      responses:
+        '200':
+          description: Configuration returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      kubernetes_host:
+                        type: string
+                        description: Kubernetes API server URL
+                      kubernetes_ca_cert:
+                        type: string
+                        description: PEM-encoded CA certificate
+                      pem_keys:
+                        type: array
+                        items:
+                          type: string
+                        description: PEM-encoded public keys
+                      issuer:
+                        type: string
+                        description: JWT issuer
+    post:
+      operationId: configureKubernetesAuth
+      summary: Configure Kubernetes auth
+      description: Configures the Kubernetes auth method.
+      tags:
+        - Kubernetes
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - kubernetes_host
+              properties:
+                kubernetes_host:
+                  type: string
+                  description: Kubernetes API server URL
+                kubernetes_ca_cert:
+                  type: string
+                  description: PEM-encoded CA certificate
+                token_reviewer_jwt:
+                  type: string
+                  description: Service account JWT for token review
+                pem_keys:
+                  type: array
+                  items:
+                    type: string
+                  description: PEM-encoded public keys for JWT verification
+                issuer:
+                  type: string
+                  description: JWT issuer to validate
+      responses:
+        '204':
+          description: Configuration updated
+        '400':
+          description: Invalid request
+  /auth/kubernetes/role/{name}:
+    get:
+      operationId: readKubernetesRole
+      summary: Read Kubernetes role
+      description: Reads the named Kubernetes auth role configuration.
+      tags:
+        - Kubernetes
+      parameters:
+        - name: name
+          in: path
+          required: true
+          description: Name of the role
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Role configuration returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KubernetesRole'
+        '404':
+          description: Role not found
+    post:
+      operationId: createOrUpdateKubernetesRole
+      summary: Create or update Kubernetes role
+      description: Creates or updates the named Kubernetes auth role.
+      tags:
+        - Kubernetes
+      parameters:
+        - name: name
+          in: path
+          required: true
+          description: Name of the role
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KubernetesRole'
+      responses:
+        '204':
+          description: Role created or updated
+        '400':
+          description: Invalid request
+    delete:
+      operationId: deleteKubernetesRole
+      summary: Delete Kubernetes role
+      description: Deletes the named Kubernetes auth role.
+      tags:
+        - Kubernetes
+      parameters:
+        - name: name
+          in: path
+          required: true
+          description: Name of the role
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Role deleted
+  /auth/ldap/login/{username}:
+    post:
+      operationId: loginWithLdap
+      summary: Login with LDAP
+      description: Authenticates with Vault using LDAP credentials.
+      tags:
+        - LDAP
+      parameters:
+        - name: username
+          in: path
+          required: true
+          description: LDAP username
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - password
+              properties:
+                password:
+                  type: string
+                  description: LDAP password
+      responses:
+        '200':
+          description: Authentication successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '400':
+          description: Invalid credentials
+      security: []
+  /auth/jwt/login:
+    post:
+      operationId: loginWithJwt
+      summary: Login with JWT/OIDC
+      description: Authenticates with Vault using a JWT token.
+      tags:
+        - JWT/OIDC
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - role
+                - jwt
+              properties:
+                role:
+                  type: string
+                  description: Name of the Vault role
+                jwt:
+                  type: string
+                  description: Signed JWT token
+      responses:
+        '200':
+          description: Authentication successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '400':
+          description: Invalid credentials
+      security: []
+  /auth/userpass/login/{username}:
+    post:
+      operationId: loginWithUserpass
+      summary: Login with username and password
+      description: Authenticates with Vault using a username and password.
+      tags:
+        - Userpass
+      parameters:
+        - name: username
+          in: path
+          required: true
+          description: Username
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - password
+              properties:
+                password:
+                  type: string
+                  description: Password for the user
+      responses:
+        '200':
+          description: Authentication successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '400':
+          description: Invalid credentials
+      security: []
+  /auth/userpass/users/{username}:
+    get:
+      operationId: readUserpassUser
+      summary: Read userpass user
+      description: Reads the properties of the named userpass user.
+      tags:
+        - Userpass
+      parameters:
+        - name: username
+          in: path
+          required: true
+          description: Username
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User configuration returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      token_policies:
+                        type: array
+                        items:
+                          type: string
+                      token_ttl:
+                        type: integer
+                      token_max_ttl:
+                        type: integer
+                      token_bound_cidrs:
+                        type: array
+                        items:
+                          type: string
+        '404':
+          description: User not found
+    post:
+      operationId: createOrUpdateUserpassUser
+      summary: Create or update userpass user
+      description: Creates or updates the named userpass user.
+      tags:
+        - Userpass
+      parameters:
+        - name: username
+          in: path
+          required: true
+          description: Username
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - password
+              properties:
+                password:
+                  type: string
+                  description: Password for the user
+                token_policies:
+                  type: array
+                  items:
+                    type: string
+                  description: Policies to assign to tokens
+                token_ttl:
+                  type: string
+                  description: Default token TTL
+                token_max_ttl:
+                  type: string
+                  description: Maximum token TTL
+      responses:
+        '204':
+          description: User created or updated
+        '400':
+          description: Invalid request
+    delete:
+      operationId: deleteUserpassUser
+      summary: Delete userpass user
+      description: Deletes the named userpass user.
+      tags:
+        - Userpass
+      parameters:
+        - name: username
+          in: path
+          required: true
+          description: Username
+          schema:
+            type: string
+      responses:
+        '204':
+          description: User deleted
+  /auth/github/login:
+    post:
+      operationId: loginWithGithub
+      summary: Login with GitHub
+      description: Authenticates with Vault using a GitHub personal access token.
+      tags:
+        - GitHub
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - token
+              properties:
+                token:
+                  type: string
+                  description: GitHub personal access token
+      responses:
+        '200':
+          description: Authentication successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '400':
+          description: Invalid credentials
+      security: []
+components:
+  securitySchemes:
+    vaultToken:
+      type: apiKey
+      in: header
+      name: X-Vault-Token
+      description: Vault authentication token
+  parameters:
+    roleName:
+      name: role_name
+      in: path
+      required: true
+      description: Name of the role
+      schema:
+        type: string
+  schemas:
+    AuthResponse:
+      type: object
+      properties:
+        request_id:
+          type: string
+          description: Unique request identifier
+        lease_id:
+          type: string
+          description: Lease identifier (empty for auth responses)
+        renewable:
+          type: boolean
+          description: Whether the token is renewable
+        lease_duration:
+          type: integer
+          description: Token TTL in seconds
+        auth:
+          type: object
+          properties:
+            client_token:
+              type: string
+              description: The Vault authentication token
+            accessor:
+              type: string
+              description: Token accessor
+            policies:
+              type: array
+              items:
+                type: string
+              description: Policies attached to the token
+            token_policies:
+              type: array
+              items:
+                type: string
+              description: Token-specific policies
+            identity_policies:
+              type: array
+              items:
+                type: string
+              description: Identity-derived policies
+            metadata:
+              type: object
+              additionalProperties:
+                type: string
+              description: Metadata associated with the token
+            lease_duration:
+              type: integer
+              description: Token TTL in seconds
+            renewable:
+              type: boolean
+              description: Whether the token is renewable
+            entity_id:
+              type: string
+              description: Identity entity ID
+            token_type:
+              type: string
+              description: Type of token (service, batch)
+            orphan:
+              type: boolean
+              description: Whether the token is an orphan
+    CreateTokenRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Custom token ID (root only)
+        role_name:
+          type: string
+          description: Name of the token role
+        policies:
+          type: array
+          items:
+            type: string
+          description: Policies to attach to the token
+        meta:
+          type: object
+          additionalProperties:
+            type: string
+          description: Metadata to associate with the token
+        no_parent:
+          type: boolean
+          description: Create an orphan token
+        no_default_policy:
+          type: boolean
+          description: Do not attach the default policy
+        renewable:
+          type: boolean
+          description: Whether the token is renewable
+        ttl:
+          type: string
+          description: Token TTL (e.g., 1h)
+        explicit_max_ttl:
+          type: string
+          description: Explicit maximum TTL
+        display_name:
+          type: string
+          description: Display name for the token
+        num_uses:
+          type: integer
+          description: Maximum number of uses (0 for unlimited)
+        period:
+          type: string
+          description: Renewal period
+        entity_alias:
+          type: string
+          description: Entity alias name
+        type:
+          type: string
+          enum:
+            - service
+            - batch
+          description: Type of token to create
+    TokenLookupResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            accessor:
+              type: string
+              description: Token accessor
+            creation_time:
+              type: integer
+              description: Token creation time as Unix epoch
+            creation_ttl:
+              type: integer
+              description: Original TTL in seconds
+            display_name:
+              type: string
+              description: Display name
+            entity_id:
+              type: string
+              description: Identity entity ID
+            expire_time:
+              type: string
+              format: date-time
+              description: Token expiration time
+            explicit_max_ttl:
+              type: integer
+              description: Explicit max TTL in seconds
+            id:
+              type: string
+              description: Token ID
+            issue_time:
+              type: string
+              format: date-time
+              description: Token issue time
+            meta:
+              type: object
+              additionalProperties:
+                type: string
+              description: Token metadata
+            num_uses:
+              type: integer
+              description: Remaining number of uses
+            orphan:
+              type: boolean
+              description: Whether the token is an orphan
+            path:
+              type: string
+              description: Auth path that created this token
+            policies:
+              type: array
+              items:
+                type: string
+              description: Policies attached to the token
+            renewable:
+              type: boolean
+              description: Whether the token is renewable
+            ttl:
+              type: integer
+              description: Remaining TTL in seconds
+            type:
+              type: string
+              description: Token type (service, batch)
+    TokenRole:
+      type: object
+      properties:
+        allowed_entity_aliases:
+          type: array
+          items:
+            type: string
+          description: Allowed entity aliases
+        allowed_policies:
+          type: array
+          items:
+            type: string
+          description: Policies allowed for tokens created with this role
+        disallowed_policies:
+          type: array
+          items:
+            type: string
+          description: Policies disallowed for tokens
+        orphan:
+          type: boolean
+          description: Whether tokens are created as orphans
+        path_suffix:
+          type: string
+          description: Path suffix for audit logging
+        renewable:
+          type: boolean
+          description: Whether tokens are renewable
+        explicit_max_ttl:
+          type: string
+          description: Explicit max TTL
+        token_period:
+          type: string
+          description: Token period
+        token_type:
+          type: string
+          enum:
+            - default
+            - service
+            - batch
+          description: Token type
+    AppRole:
+      type: object
+      properties:
+        bind_secret_id:
+          type: boolean
+          description: Whether a secret ID is required for login
+        secret_id_bound_cidrs:
+          type: array
+          items:
+            type: string
+          description: CIDR blocks restricting secret ID usage
+        secret_id_num_uses:
+          type: integer
+          description: Number of times a secret ID can be used
+        secret_id_ttl:
+          type: string
+          description: TTL for secret IDs
+        local_secret_ids:
+          type: boolean
+          description: Whether secret IDs are local to the cluster
+        token_ttl:
+          type: string
+          description: Default token TTL
+        token_max_ttl:
+          type: string
+          description: Maximum token TTL
+        token_policies:
+          type: array
+          items:
+            type: string
+          description: Policies to attach to tokens
+        token_bound_cidrs:
+          type: array
+          items:
+            type: string
+          description: CIDR blocks restricting token usage
+        token_explicit_max_ttl:
+          type: string
+          description: Explicit max TTL for tokens
+        token_no_default_policy:
+          type: boolean
+          description: Do not attach the default policy
+        token_num_uses:
+          type: integer
+          description: Maximum number of token uses
+        token_period:
+          type: string
+          description: Token renewal period
+        token_type:
+          type: string
+          enum:
+            - default
+            - service
+            - batch
+          description: Token type
+    KubernetesRole:
+      type: object
+      properties:
+        bound_service_account_names:
+          type: array
+          items:
+            type: string
+          description: Allowed service account names
+        bound_service_account_namespaces:
+          type: array
+          items:
+            type: string
+          description: Allowed Kubernetes namespaces
+        audience:
+          type: string
+          description: Expected audience claim
+        alias_name_source:
+          type: string
+          enum:
+            - serviceaccount_uid
+            - serviceaccount_name
+          description: Source for the identity alias name
+        token_ttl:
+          type: string
+          description: Default token TTL
+        token_max_ttl:
+          type: string
+          description: Maximum token TTL
+        token_policies:
+          type: array
+          items:
+            type: string
+          description: Policies to attach to tokens
+        token_bound_cidrs:
+          type: array
+          items:
+            type: string
+          description: CIDR blocks restricting token usage
+        token_num_uses:
+          type: integer
+          description: Maximum number of token uses
+        token_type:
+          type: string
+          enum:
+            - default
+            - service
+            - batch
+          description: Token type

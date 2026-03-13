@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://developer.hashicorp.com/schemas/vault/entity-alias.json",
+  "title": "Vault Entity Alias",
+  "description": "Represents an entity alias that maps an authentication method identity to a Vault identity entity.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the alias"
+    },
+    "canonical_id": {
+      "type": "string",
+      "description": "Entity ID this alias belongs to"
+    },
+    "mount_accessor": {
+      "type": "string",
+      "description": "Auth mount accessor that created this alias"
+    },
+    "mount_path": {
+      "type": "string",
+      "description": "Auth mount path"
+    },
+    "mount_type": {
+      "type": "string",
+      "description": "Auth mount type (e.g., token, approle, ldap)"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the alias within the auth method"
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "Metadata from the auth method"
+    },
+    "creation_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Alias creation timestamp"
+    },
+    "last_update_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last update timestamp"
+    }
+  }
+}

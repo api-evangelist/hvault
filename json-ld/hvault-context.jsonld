@@ -1,0 +1,196 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "vault": "https://developer.hashicorp.com/schemas/vault/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+
+    "Secret": {
+      "@id": "vault:Secret",
+      "@context": {
+        "data": "vault:secretData",
+        "version": {
+          "@id": "vault:version",
+          "@type": "xsd:integer"
+        },
+        "created_time": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "deletion_time": {
+          "@id": "vault:deletionTime",
+          "@type": "xsd:dateTime"
+        },
+        "destroyed": {
+          "@id": "vault:destroyed",
+          "@type": "xsd:boolean"
+        }
+      }
+    },
+
+    "Entity": {
+      "@id": "vault:Entity",
+      "@context": {
+        "name": "schema:name",
+        "disabled": {
+          "@id": "vault:disabled",
+          "@type": "xsd:boolean"
+        },
+        "policies": "vault:policies",
+        "creation_time": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "last_update_time": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "EntityAlias": {
+      "@id": "vault:EntityAlias",
+      "@context": {
+        "name": "schema:name",
+        "canonical_id": "vault:canonicalId",
+        "mount_accessor": "vault:mountAccessor",
+        "mount_path": "vault:mountPath",
+        "mount_type": "vault:mountType",
+        "creation_time": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "last_update_time": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Group": {
+      "@id": "vault:Group",
+      "@context": {
+        "name": "schema:name",
+        "type": "vault:groupType",
+        "policies": "vault:policies",
+        "member_entity_ids": "vault:memberEntityIds",
+        "member_group_ids": "vault:memberGroupIds",
+        "parent_group_ids": "vault:parentGroupIds",
+        "creation_time": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "last_update_time": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Token": {
+      "@id": "vault:Token",
+      "@context": {
+        "accessor": "vault:accessor",
+        "display_name": "schema:name",
+        "entity_id": "vault:entityId",
+        "policies": "vault:policies",
+        "orphan": {
+          "@id": "vault:orphan",
+          "@type": "xsd:boolean"
+        },
+        "renewable": {
+          "@id": "vault:renewable",
+          "@type": "xsd:boolean"
+        },
+        "ttl": {
+          "@id": "vault:ttl",
+          "@type": "xsd:integer"
+        },
+        "type": "vault:tokenType",
+        "creation_time": {
+          "@id": "dcterms:created",
+          "@type": "xsd:integer"
+        },
+        "expire_time": {
+          "@id": "vault:expireTime",
+          "@type": "xsd:dateTime"
+        },
+        "issue_time": {
+          "@id": "dcterms:issued",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Policy": {
+      "@id": "vault:Policy",
+      "@context": {
+        "name": "schema:name",
+        "policy": "vault:policyDocument"
+      }
+    },
+
+    "AuthMount": {
+      "@id": "vault:AuthMount",
+      "@context": {
+        "type": "vault:authType",
+        "description": "schema:description",
+        "accessor": "vault:accessor",
+        "local": {
+          "@id": "vault:local",
+          "@type": "xsd:boolean"
+        },
+        "seal_wrap": {
+          "@id": "vault:sealWrap",
+          "@type": "xsd:boolean"
+        }
+      }
+    },
+
+    "SecretsMount": {
+      "@id": "vault:SecretsMount",
+      "@context": {
+        "type": "vault:engineType",
+        "description": "schema:description",
+        "accessor": "vault:accessor",
+        "local": {
+          "@id": "vault:local",
+          "@type": "xsd:boolean"
+        },
+        "seal_wrap": {
+          "@id": "vault:sealWrap",
+          "@type": "xsd:boolean"
+        }
+      }
+    },
+
+    "AuditDevice": {
+      "@id": "vault:AuditDevice",
+      "@context": {
+        "type": "vault:auditType",
+        "description": "schema:description",
+        "path": "vault:auditPath",
+        "local": {
+          "@id": "vault:local",
+          "@type": "xsd:boolean"
+        }
+      }
+    },
+
+    "Lease": {
+      "@id": "vault:Lease",
+      "@context": {
+        "lease_id": "vault:leaseId",
+        "lease_duration": {
+          "@id": "vault:leaseDuration",
+          "@type": "xsd:integer"
+        },
+        "renewable": {
+          "@id": "vault:renewable",
+          "@type": "xsd:boolean"
+        }
+      }
+    }
+  }
+}

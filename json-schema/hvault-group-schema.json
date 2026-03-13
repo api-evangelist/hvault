@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://developer.hashicorp.com/schemas/vault/group.json",
+  "title": "Vault Identity Group",
+  "description": "Represents an identity group in HashiCorp Vault that organizes entities and provides group-level policy assignment.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the group"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the group"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["internal", "external"],
+      "description": "Group type (internal for manual membership, external for auth-method-based)"
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "Metadata key-value pairs"
+    },
+    "policies": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Policies assigned to the group"
+    },
+    "member_entity_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Entity IDs that are members of this group"
+    },
+    "member_group_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Group IDs that are subgroups of this group"
+    },
+    "parent_group_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Parent group IDs"
+    },
+    "creation_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Group creation timestamp"
+    },
+    "last_update_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last update timestamp"
+    }
+  }
+}

@@ -1,0 +1,1139 @@
+openapi: 3.1.0
+info:
+  title: Vault Identity API
+  description: >-
+    APIs for managing identity entities, entity aliases, groups, and group
+    aliases in HashiCorp Vault. The identity system provides a unified view
+    of users and machines across all authentication methods.
+  version: '1.0'
+  contact:
+    name: HashiCorp Support
+    email: support@hashicorp.com
+    url: https://support.hashicorp.com/
+  license:
+    name: Business Source License 1.1
+    url: https://github.com/hashicorp/vault/blob/main/LICENSE
+externalDocs:
+  description: Vault Identity API Documentation
+  url: https://developer.hashicorp.com/vault/api-docs/secret/identity
+servers:
+  - url: https://vault.example.com/v1
+    description: Vault Server
+tags:
+  - name: Entity
+    description: Identity entity management
+  - name: Entity Alias
+    description: Identity entity alias management
+  - name: Group
+    description: Identity group management
+  - name: Group Alias
+    description: Identity group alias management
+  - name: Lookup
+    description: Identity lookup operations
+  - name: OIDC
+    description: OIDC identity provider operations
+security:
+  - vaultToken: []
+paths:
+  /identity/entity:
+    post:
+      operationId: createEntity
+      summary: Create entity
+      description: Creates or updates an identity entity.
+      tags:
+        - Entity
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityRequest'
+      responses:
+        '200':
+          description: Entity created or updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Entity'
+        '400':
+          description: Invalid request
+        '403':
+          description: Permission denied
+    get:
+      operationId: listEntities
+      summary: List entities
+      description: Lists all identity entities by ID.
+      tags:
+        - Entity
+      responses:
+        '200':
+          description: Entities listed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      keys:
+                        type: array
+                        items:
+                          type: string
+                        description: List of entity IDs
+                      key_info:
+                        type: object
+                        additionalProperties:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                            aliases:
+                              type: array
+                              items:
+                                type: object
+        '403':
+          description: Permission denied
+  /identity/entity/id/{id}:
+    get:
+      operationId: readEntityById
+      summary: Read entity by ID
+      description: Reads the identity entity with the given ID.
+      tags:
+        - Entity
+      parameters:
+        - $ref: '#/components/parameters/entityId'
+      responses:
+        '200':
+          description: Entity returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Entity'
+        '403':
+          description: Permission denied
+        '404':
+          description: Entity not found
+    post:
+      operationId: updateEntityById
+      summary: Update entity by ID
+      description: Updates the identity entity with the given ID.
+      tags:
+        - Entity
+      parameters:
+        - $ref: '#/components/parameters/entityId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityRequest'
+      responses:
+        '200':
+          description: Entity updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Entity'
+        '400':
+          description: Invalid request
+        '403':
+          description: Permission denied
+    delete:
+      operationId: deleteEntityById
+      summary: Delete entity by ID
+      description: Deletes the identity entity with the given ID.
+      tags:
+        - Entity
+      parameters:
+        - $ref: '#/components/parameters/entityId'
+      responses:
+        '204':
+          description: Entity deleted
+        '403':
+          description: Permission denied
+  /identity/entity/name/{name}:
+    get:
+      operationId: readEntityByName
+      summary: Read entity by name
+      description: Reads the identity entity with the given name.
+      tags:
+        - Entity
+      parameters:
+        - name: name
+          in: path
+          required: true
+          description: Name of the entity
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Entity returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Entity'
+        '404':
+          description: Entity not found
+    post:
+      operationId: updateEntityByName
+      summary: Update entity by name
+      description: Updates the identity entity with the given name.
+      tags:
+        - Entity
+      parameters:
+        - name: name
+          in: path
+          required: true
+          description: Name of the entity
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityRequest'
+      responses:
+        '200':
+          description: Entity updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Entity'
+        '400':
+          description: Invalid request
+    delete:
+      operationId: deleteEntityByName
+      summary: Delete entity by name
+      description: Deletes the identity entity with the given name.
+      tags:
+        - Entity
+      parameters:
+        - name: name
+          in: path
+          required: true
+          description: Name of the entity
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Entity deleted
+  /identity/entity/batch-delete:
+    post:
+      operationId: batchDeleteEntities
+      summary: Batch delete entities
+      description: Deletes multiple identity entities by their IDs.
+      tags:
+        - Entity
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - entity_ids
+              properties:
+                entity_ids:
+                  type: array
+                  items:
+                    type: string
+                  description: List of entity IDs to delete
+      responses:
+        '204':
+          description: Entities deleted
+        '403':
+          description: Permission denied
+  /identity/entity/merge:
+    post:
+      operationId: mergeEntities
+      summary: Merge entities
+      description: >-
+        Merges two or more entities into a single entity. Aliases from the
+        source entities are transferred to the destination entity.
+      tags:
+        - Entity
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - from_entity_ids
+                - to_entity_id
+              properties:
+                from_entity_ids:
+                  type: array
+                  items:
+                    type: string
+                  description: Entity IDs to merge from
+                to_entity_id:
+                  type: string
+                  description: Entity ID to merge into
+                force:
+                  type: boolean
+                  description: Force merge even if there are conflicting aliases
+      responses:
+        '204':
+          description: Entities merged
+        '400':
+          description: Invalid request
+        '403':
+          description: Permission denied
+  /identity/entity-alias:
+    post:
+      operationId: createEntityAlias
+      summary: Create entity alias
+      description: >-
+        Creates an entity alias that maps an authentication method's identity
+        to a Vault entity.
+      tags:
+        - Entity Alias
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityAliasRequest'
+      responses:
+        '200':
+          description: Entity alias created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/EntityAlias'
+        '400':
+          description: Invalid request
+        '403':
+          description: Permission denied
+  /identity/entity-alias/id/{id}:
+    get:
+      operationId: readEntityAlias
+      summary: Read entity alias
+      description: Reads the entity alias with the given ID.
+      tags:
+        - Entity Alias
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Entity alias ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Entity alias returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/EntityAlias'
+        '404':
+          description: Entity alias not found
+    post:
+      operationId: updateEntityAlias
+      summary: Update entity alias
+      description: Updates the entity alias with the given ID.
+      tags:
+        - Entity Alias
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Entity alias ID
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityAliasRequest'
+      responses:
+        '200':
+          description: Entity alias updated
+        '400':
+          description: Invalid request
+    delete:
+      operationId: deleteEntityAlias
+      summary: Delete entity alias
+      description: Deletes the entity alias with the given ID.
+      tags:
+        - Entity Alias
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Entity alias ID
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Entity alias deleted
+  /identity/group:
+    post:
+      operationId: createGroup
+      summary: Create group
+      description: Creates or updates an identity group.
+      tags:
+        - Group
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupRequest'
+      responses:
+        '200':
+          description: Group created or updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Group'
+        '400':
+          description: Invalid request
+        '403':
+          description: Permission denied
+    get:
+      operationId: listGroups
+      summary: List groups
+      description: Lists all identity groups by ID.
+      tags:
+        - Group
+      responses:
+        '200':
+          description: Groups listed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      keys:
+                        type: array
+                        items:
+                          type: string
+                        description: List of group IDs
+        '403':
+          description: Permission denied
+  /identity/group/id/{id}:
+    get:
+      operationId: readGroupById
+      summary: Read group by ID
+      description: Reads the identity group with the given ID.
+      tags:
+        - Group
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Group ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Group returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Group'
+        '404':
+          description: Group not found
+    post:
+      operationId: updateGroupById
+      summary: Update group by ID
+      description: Updates the identity group with the given ID.
+      tags:
+        - Group
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Group ID
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupRequest'
+      responses:
+        '200':
+          description: Group updated
+        '400':
+          description: Invalid request
+    delete:
+      operationId: deleteGroupById
+      summary: Delete group by ID
+      description: Deletes the identity group with the given ID.
+      tags:
+        - Group
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Group ID
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Group deleted
+  /identity/group/name/{name}:
+    get:
+      operationId: readGroupByName
+      summary: Read group by name
+      description: Reads the identity group with the given name.
+      tags:
+        - Group
+      parameters:
+        - name: name
+          in: path
+          required: true
+          description: Name of the group
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Group returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Group'
+        '404':
+          description: Group not found
+    post:
+      operationId: updateGroupByName
+      summary: Update group by name
+      description: Updates the identity group with the given name.
+      tags:
+        - Group
+      parameters:
+        - name: name
+          in: path
+          required: true
+          description: Name of the group
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupRequest'
+      responses:
+        '200':
+          description: Group updated
+        '400':
+          description: Invalid request
+    delete:
+      operationId: deleteGroupByName
+      summary: Delete group by name
+      description: Deletes the identity group with the given name.
+      tags:
+        - Group
+      parameters:
+        - name: name
+          in: path
+          required: true
+          description: Name of the group
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Group deleted
+  /identity/group-alias:
+    post:
+      operationId: createGroupAlias
+      summary: Create group alias
+      description: >-
+        Creates a group alias that maps an external group from an auth method
+        to a Vault identity group.
+      tags:
+        - Group Alias
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupAliasRequest'
+      responses:
+        '200':
+          description: Group alias created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        description: Group alias ID
+                      canonical_id:
+                        type: string
+                        description: Group ID
+        '400':
+          description: Invalid request
+        '403':
+          description: Permission denied
+  /identity/group-alias/id/{id}:
+    get:
+      operationId: readGroupAlias
+      summary: Read group alias
+      description: Reads the group alias with the given ID.
+      tags:
+        - Group Alias
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Group alias ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Group alias returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/GroupAlias'
+        '404':
+          description: Group alias not found
+    post:
+      operationId: updateGroupAlias
+      summary: Update group alias
+      description: Updates the group alias with the given ID.
+      tags:
+        - Group Alias
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Group alias ID
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupAliasRequest'
+      responses:
+        '200':
+          description: Group alias updated
+        '400':
+          description: Invalid request
+    delete:
+      operationId: deleteGroupAlias
+      summary: Delete group alias
+      description: Deletes the group alias with the given ID.
+      tags:
+        - Group Alias
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Group alias ID
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Group alias deleted
+  /identity/lookup/entity:
+    post:
+      operationId: lookupEntity
+      summary: Lookup entity
+      description: >-
+        Looks up an entity by any of its identifying attributes such as name,
+        ID, or alias details.
+      tags:
+        - Lookup
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Entity name to look up
+                id:
+                  type: string
+                  description: Entity ID to look up
+                alias_id:
+                  type: string
+                  description: Alias ID to look up
+                alias_name:
+                  type: string
+                  description: Alias name to look up
+                alias_mount_accessor:
+                  type: string
+                  description: Auth mount accessor for alias lookup
+      responses:
+        '200':
+          description: Entity found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Entity'
+        '204':
+          description: Entity not found
+        '400':
+          description: Invalid request
+  /identity/lookup/group:
+    post:
+      operationId: lookupGroup
+      summary: Lookup group
+      description: >-
+        Looks up a group by any of its identifying attributes such as name, ID,
+        or alias details.
+      tags:
+        - Lookup
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Group name to look up
+                id:
+                  type: string
+                  description: Group ID to look up
+                alias_id:
+                  type: string
+                  description: Alias ID to look up
+                alias_name:
+                  type: string
+                  description: Alias name to look up
+                alias_mount_accessor:
+                  type: string
+                  description: Auth mount accessor for alias lookup
+      responses:
+        '200':
+          description: Group found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Group'
+        '204':
+          description: Group not found
+        '400':
+          description: Invalid request
+  /identity/oidc/token/{name}:
+    get:
+      operationId: readOidcToken
+      summary: Read OIDC token
+      description: >-
+        Generates an OIDC identity token for the requesting entity based on
+        the named role.
+      tags:
+        - OIDC
+      parameters:
+        - name: name
+          in: path
+          required: true
+          description: Name of the OIDC role
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OIDC token generated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      token:
+                        type: string
+                        description: Signed OIDC identity token
+                      client_id:
+                        type: string
+                        description: Client ID for the OIDC role
+                      ttl:
+                        type: integer
+                        description: Token TTL in seconds
+        '403':
+          description: Permission denied
+  /identity/oidc/.well-known/openid-configuration:
+    get:
+      operationId: readOidcWellKnownConfig
+      summary: Read OIDC discovery configuration
+      description: >-
+        Returns the OIDC discovery document for Vault's identity OIDC provider.
+      tags:
+        - OIDC
+      responses:
+        '200':
+          description: OIDC discovery configuration
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  issuer:
+                    type: string
+                    description: OIDC issuer URL
+                  jwks_uri:
+                    type: string
+                    description: URL for the JWKS endpoint
+                  authorization_endpoint:
+                    type: string
+                  token_endpoint:
+                    type: string
+                  id_token_signing_alg_values_supported:
+                    type: array
+                    items:
+                      type: string
+                  subject_types_supported:
+                    type: array
+                    items:
+                      type: string
+                  response_types_supported:
+                    type: array
+                    items:
+                      type: string
+                  scopes_supported:
+                    type: array
+                    items:
+                      type: string
+      security: []
+  /identity/oidc/.well-known/keys:
+    get:
+      operationId: readOidcJwks
+      summary: Read OIDC JWKS
+      description: Returns the public keys used to verify OIDC identity tokens.
+      tags:
+        - OIDC
+      responses:
+        '200':
+          description: JWKS returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  keys:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        kty:
+                          type: string
+                        kid:
+                          type: string
+                        use:
+                          type: string
+                        n:
+                          type: string
+                        e:
+                          type: string
+                        alg:
+                          type: string
+      security: []
+components:
+  securitySchemes:
+    vaultToken:
+      type: apiKey
+      in: header
+      name: X-Vault-Token
+      description: Vault authentication token
+  parameters:
+    entityId:
+      name: id
+      in: path
+      required: true
+      description: Entity unique identifier
+      schema:
+        type: string
+  schemas:
+    Entity:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the entity
+        name:
+          type: string
+          description: Name of the entity
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+          description: Metadata key-value pairs
+        disabled:
+          type: boolean
+          description: Whether the entity is disabled
+        aliases:
+          type: array
+          items:
+            $ref: '#/components/schemas/EntityAlias'
+          description: Entity aliases
+        direct_group_ids:
+          type: array
+          items:
+            type: string
+          description: IDs of groups the entity directly belongs to
+        inherited_group_ids:
+          type: array
+          items:
+            type: string
+          description: IDs of groups inherited through group hierarchy
+        policies:
+          type: array
+          items:
+            type: string
+          description: Policies directly assigned to the entity
+        creation_time:
+          type: string
+          format: date-time
+          description: Entity creation time
+        last_update_time:
+          type: string
+          format: date-time
+          description: Last update time
+    EntityRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the entity
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+          description: Metadata key-value pairs
+        policies:
+          type: array
+          items:
+            type: string
+          description: Policies to assign to the entity
+        disabled:
+          type: boolean
+          description: Whether the entity is disabled
+    EntityAlias:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the alias
+        canonical_id:
+          type: string
+          description: Entity ID this alias belongs to
+        mount_accessor:
+          type: string
+          description: Auth mount accessor
+        mount_path:
+          type: string
+          description: Auth mount path
+        mount_type:
+          type: string
+          description: Auth mount type
+        name:
+          type: string
+          description: Name of the alias (auth-method-specific identifier)
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+          description: Metadata from the auth method
+        creation_time:
+          type: string
+          format: date-time
+        last_update_time:
+          type: string
+          format: date-time
+    EntityAliasRequest:
+      type: object
+      required:
+        - name
+        - mount_accessor
+        - canonical_id
+      properties:
+        name:
+          type: string
+          description: Name of the alias
+        mount_accessor:
+          type: string
+          description: Auth mount accessor
+        canonical_id:
+          type: string
+          description: Entity ID to associate with
+        custom_metadata:
+          type: object
+          additionalProperties:
+            type: string
+          description: Custom metadata
+    Group:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the group
+        name:
+          type: string
+          description: Name of the group
+        type:
+          type: string
+          enum:
+            - internal
+            - external
+          description: Group type
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+          description: Metadata key-value pairs
+        policies:
+          type: array
+          items:
+            type: string
+          description: Policies assigned to the group
+        member_entity_ids:
+          type: array
+          items:
+            type: string
+          description: Entity IDs that are members of this group
+        member_group_ids:
+          type: array
+          items:
+            type: string
+          description: Group IDs that are members of this group
+        parent_group_ids:
+          type: array
+          items:
+            type: string
+          description: Parent group IDs
+        alias:
+          $ref: '#/components/schemas/GroupAlias'
+        creation_time:
+          type: string
+          format: date-time
+        last_update_time:
+          type: string
+          format: date-time
+    GroupRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the group
+        type:
+          type: string
+          enum:
+            - internal
+            - external
+          description: Group type (cannot be changed after creation)
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+          description: Metadata key-value pairs
+        policies:
+          type: array
+          items:
+            type: string
+          description: Policies to assign to the group
+        member_entity_ids:
+          type: array
+          items:
+            type: string
+          description: Entity IDs to add as members
+        member_group_ids:
+          type: array
+          items:
+            type: string
+          description: Group IDs to add as members
+    GroupAlias:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the alias
+        canonical_id:
+          type: string
+          description: Group ID this alias belongs to
+        mount_accessor:
+          type: string
+          description: Auth mount accessor
+        mount_path:
+          type: string
+          description: Auth mount path
+        mount_type:
+          type: string
+          description: Auth mount type
+        name:
+          type: string
+          description: Name of the alias (external group name)
+        creation_time:
+          type: string
+          format: date-time
+        last_update_time:
+          type: string
+          format: date-time
+    GroupAliasRequest:
+      type: object
+      required:
+        - name
+        - mount_accessor
+        - canonical_id
+      properties:
+        name:
+          type: string
+          description: Name of the alias (external group identifier)
+        mount_accessor:
+          type: string
+          description: Auth mount accessor
+        canonical_id:
+          type: string
+          description: Group ID to associate with

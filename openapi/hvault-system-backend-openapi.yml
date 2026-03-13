@@ -1,0 +1,880 @@
+openapi: 3.1.0
+info:
+  title: Vault System Backend API
+  description: >-
+    API for system-level operations in HashiCorp Vault including health checks,
+    seal status, initialization, authentication management, secrets engine
+    configuration, audit devices, policies, and general Vault configuration.
+  version: '1.0'
+  contact:
+    name: HashiCorp Support
+    email: support@hashicorp.com
+    url: https://support.hashicorp.com/
+  license:
+    name: Business Source License 1.1
+    url: https://github.com/hashicorp/vault/blob/main/LICENSE
+externalDocs:
+  description: Vault System Backend API Documentation
+  url: https://developer.hashicorp.com/vault/api-docs/system
+servers:
+  - url: https://vault.example.com/v1
+    description: Vault Server
+tags:
+  - name: Health
+    description: Health and status endpoints
+  - name: Seal
+    description: Seal and unseal operations
+  - name: Init
+    description: Vault initialization
+  - name: Auth
+    description: Auth method management
+  - name: Mounts
+    description: Secrets engine mount management
+  - name: Policy
+    description: Policy management
+  - name: Audit
+    description: Audit device management
+  - name: Leader
+    description: HA leader status
+  - name: Configuration
+    description: General Vault configuration
+security:
+  - vaultToken: []
+paths:
+  /sys/health:
+    get:
+      operationId: getSystemHealth
+      summary: Read health status
+      description: >-
+        Returns the health status of the Vault server. This is an unauthenticated
+        endpoint used for health checks by load balancers and monitoring systems.
+      tags:
+        - Health
+      parameters:
+        - name: standbyok
+          in: query
+          description: Whether to return 200 for standby nodes
+          schema:
+            type: boolean
+        - name: activecode
+          in: query
+          description: HTTP status code for active nodes
+          schema:
+            type: integer
+            default: 200
+        - name: standbycode
+          in: query
+          description: HTTP status code for standby nodes
+          schema:
+            type: integer
+            default: 429
+        - name: sealedcode
+          in: query
+          description: HTTP status code for sealed vaults
+          schema:
+            type: integer
+            default: 503
+        - name: uninitcode
+          in: query
+          description: HTTP status code for uninitialized vaults
+          schema:
+            type: integer
+            default: 501
+      responses:
+        '200':
+          description: Vault is initialized, unsealed, and active
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+        '429':
+          description: Vault is unsealed and in standby mode
+        '472':
+          description: Vault is in data recovery mode replication secondary
+        '501':
+          description: Vault is not initialized
+        '503':
+          description: Vault is sealed
+      security: []
+  /sys/seal-status:
+    get:
+      operationId: getSealStatus
+      summary: Read seal status
+      description: >-
+        Returns the seal status of the Vault server. This is an unauthenticated
+        endpoint.
+      tags:
+        - Seal
+      responses:
+        '200':
+          description: Seal status returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SealStatusResponse'
+      security: []
+  /sys/seal:
+    put:
+      operationId: sealVault
+      summary: Seal the Vault
+      description: >-
+        Seals the Vault. In HA mode, only an active node can be sealed. Standby
+        nodes should be restarted to seal them.
+      tags:
+        - Seal
+      responses:
+        '204':
+          description: Vault sealed successfully
+        '500':
+          description: Server error
+  /sys/unseal:
+    put:
+      operationId: unsealVault
+      summary: Submit unseal key
+      description: >-
+        Submit a portion of a master key to unseal the Vault. Multiple keys must
+        be submitted until the threshold is reached.
+      tags:
+        - Seal
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                key:
+                  type: string
+                  description: A single unseal key share
+                reset:
+                  type: boolean
+                  description: Reset the unseal progress
+                migrate:
+                  type: boolean
+                  description: Migrate the unseal key to a new seal type
+      responses:
+        '200':
+          description: Unseal progress updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SealStatusResponse'
+      security: []
+  /sys/init:
+    get:
+      operationId: getInitStatus
+      summary: Read initialization status
+      description: Returns the initialization status of the Vault server.
+      tags:
+        - Init
+      responses:
+        '200':
+          description: Initialization status returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  initialized:
+                    type: boolean
+                    description: Whether the Vault is initialized
+      security: []
+    put:
+      operationId: initializeVault
+      summary: Initialize Vault
+      description: >-
+        Initializes a new Vault by generating the master key shares and the
+        initial root token.
+      tags:
+        - Init
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - secret_shares
+                - secret_threshold
+              properties:
+                secret_shares:
+                  type: integer
+                  description: Number of key shares to split the master key into
+                secret_threshold:
+                  type: integer
+                  description: Number of key shares required to reconstruct the master key
+                pgp_keys:
+                  type: array
+                  items:
+                    type: string
+                  description: PGP keys to encrypt the key shares
+                root_token_pgp_key:
+                  type: string
+                  description: PGP key to encrypt the root token
+      responses:
+        '200':
+          description: Vault initialized successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InitResponse'
+      security: []
+  /sys/auth:
+    get:
+      operationId: listAuthMethods
+      summary: List auth methods
+      description: Lists all enabled auth methods in the Vault.
+      tags:
+        - Auth
+      responses:
+        '200':
+          description: Auth methods listed
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/AuthMount'
+        '403':
+          description: Permission denied
+  /sys/auth/{path}:
+    post:
+      operationId: enableAuthMethod
+      summary: Enable auth method
+      description: Enables a new auth method at the given path.
+      tags:
+        - Auth
+      parameters:
+        - $ref: '#/components/parameters/mountPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - type
+              properties:
+                type:
+                  type: string
+                  description: Auth method type (e.g., token, approle, ldap, kubernetes)
+                description:
+                  type: string
+                  description: Human-friendly description
+                config:
+                  type: object
+                  description: Configuration options
+                  properties:
+                    default_lease_ttl:
+                      type: string
+                      description: Default lease TTL
+                    max_lease_ttl:
+                      type: string
+                      description: Maximum lease TTL
+                    listing_visibility:
+                      type: string
+                      description: Listing visibility
+      responses:
+        '204':
+          description: Auth method enabled
+        '400':
+          description: Invalid request
+        '403':
+          description: Permission denied
+    delete:
+      operationId: disableAuthMethod
+      summary: Disable auth method
+      description: Disables the auth method at the given path.
+      tags:
+        - Auth
+      parameters:
+        - $ref: '#/components/parameters/mountPath'
+      responses:
+        '204':
+          description: Auth method disabled
+        '403':
+          description: Permission denied
+  /sys/mounts:
+    get:
+      operationId: listSecretsMounts
+      summary: List secrets engines
+      description: Lists all mounted secrets engines.
+      tags:
+        - Mounts
+      responses:
+        '200':
+          description: Secrets engines listed
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/SecretsMount'
+        '403':
+          description: Permission denied
+  /sys/mounts/{path}:
+    post:
+      operationId: enableSecretsEngine
+      summary: Enable secrets engine
+      description: Enables a new secrets engine at the given path.
+      tags:
+        - Mounts
+      parameters:
+        - $ref: '#/components/parameters/mountPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - type
+              properties:
+                type:
+                  type: string
+                  description: Secrets engine type (e.g., kv, aws, pki, database)
+                description:
+                  type: string
+                  description: Human-friendly description
+                config:
+                  type: object
+                  description: Configuration options
+                  properties:
+                    default_lease_ttl:
+                      type: string
+                    max_lease_ttl:
+                      type: string
+                options:
+                  type: object
+                  description: Engine-specific options
+                  properties:
+                    version:
+                      type: string
+                      description: KV engine version (1 or 2)
+      responses:
+        '204':
+          description: Secrets engine enabled
+        '400':
+          description: Invalid request
+        '403':
+          description: Permission denied
+    delete:
+      operationId: disableSecretsEngine
+      summary: Disable secrets engine
+      description: Disables the secrets engine at the given path.
+      tags:
+        - Mounts
+      parameters:
+        - $ref: '#/components/parameters/mountPath'
+      responses:
+        '204':
+          description: Secrets engine disabled
+        '403':
+          description: Permission denied
+  /sys/policies/acl:
+    get:
+      operationId: listPolicies
+      summary: List ACL policies
+      description: Lists all configured ACL policies.
+      tags:
+        - Policy
+      responses:
+        '200':
+          description: Policies listed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  keys:
+                    type: array
+                    items:
+                      type: string
+                    description: List of policy names
+        '403':
+          description: Permission denied
+  /sys/policies/acl/{name}:
+    get:
+      operationId: readPolicy
+      summary: Read ACL policy
+      description: Reads an existing ACL policy by name.
+      tags:
+        - Policy
+      parameters:
+        - $ref: '#/components/parameters/policyName'
+      responses:
+        '200':
+          description: Policy returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Policy'
+        '403':
+          description: Permission denied
+        '404':
+          description: Policy not found
+    put:
+      operationId: createOrUpdatePolicy
+      summary: Create or update ACL policy
+      description: Creates a new or updates an existing ACL policy.
+      tags:
+        - Policy
+      parameters:
+        - $ref: '#/components/parameters/policyName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - policy
+              properties:
+                policy:
+                  type: string
+                  description: The policy document in HCL or JSON format
+      responses:
+        '204':
+          description: Policy created or updated
+        '400':
+          description: Invalid policy
+        '403':
+          description: Permission denied
+    delete:
+      operationId: deletePolicy
+      summary: Delete ACL policy
+      description: Deletes an ACL policy by name.
+      tags:
+        - Policy
+      parameters:
+        - $ref: '#/components/parameters/policyName'
+      responses:
+        '204':
+          description: Policy deleted
+        '403':
+          description: Permission denied
+  /sys/audit:
+    get:
+      operationId: listAuditDevices
+      summary: List audit devices
+      description: Lists all enabled audit devices.
+      tags:
+        - Audit
+      responses:
+        '200':
+          description: Audit devices listed
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/AuditDevice'
+        '403':
+          description: Permission denied
+  /sys/audit/{path}:
+    put:
+      operationId: enableAuditDevice
+      summary: Enable audit device
+      description: Enables a new audit device at the given path.
+      tags:
+        - Audit
+      parameters:
+        - $ref: '#/components/parameters/mountPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - type
+              properties:
+                type:
+                  type: string
+                  description: Audit device type (file, syslog, socket)
+                description:
+                  type: string
+                  description: Human-friendly description
+                options:
+                  type: object
+                  description: Configuration options for the audit device
+                  properties:
+                    file_path:
+                      type: string
+                      description: Path to the audit log file (for file type)
+                    log_raw:
+                      type: boolean
+                      description: Whether to log raw requests/responses
+      responses:
+        '204':
+          description: Audit device enabled
+        '400':
+          description: Invalid request
+        '403':
+          description: Permission denied
+    delete:
+      operationId: disableAuditDevice
+      summary: Disable audit device
+      description: Disables an audit device at the given path.
+      tags:
+        - Audit
+      parameters:
+        - $ref: '#/components/parameters/mountPath'
+      responses:
+        '204':
+          description: Audit device disabled
+        '403':
+          description: Permission denied
+  /sys/leader:
+    get:
+      operationId: readLeaderStatus
+      summary: Read leader status
+      description: >-
+        Returns the high availability status and current leader instance of
+        the Vault cluster.
+      tags:
+        - Leader
+      responses:
+        '200':
+          description: Leader status returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeaderResponse'
+  /sys/config/auditing/request-headers:
+    get:
+      operationId: listAuditRequestHeaders
+      summary: List audited request headers
+      description: Lists the request headers configured for auditing.
+      tags:
+        - Configuration
+      responses:
+        '200':
+          description: Audited headers listed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  headers:
+                    type: object
+                    additionalProperties:
+                      type: object
+                      properties:
+                        hmac:
+                          type: boolean
+        '403':
+          description: Permission denied
+  /sys/generate-root/attempt:
+    get:
+      operationId: readRootGenerationProgress
+      summary: Read root generation progress
+      description: Reads the status of the current root generation attempt.
+      tags:
+        - Configuration
+      responses:
+        '200':
+          description: Root generation progress returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  started:
+                    type: boolean
+                  nonce:
+                    type: string
+                  progress:
+                    type: integer
+                  required:
+                    type: integer
+                  complete:
+                    type: boolean
+                  encoded_token:
+                    type: string
+                  encoded_root_token:
+                    type: string
+                  pgp_fingerprint:
+                    type: string
+      security: []
+    put:
+      operationId: startRootGeneration
+      summary: Start root token generation
+      description: Initializes a new root generation attempt.
+      tags:
+        - Configuration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pgp_key:
+                  type: string
+                  description: PGP key to encrypt the generated root token
+      responses:
+        '200':
+          description: Root generation started
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  started:
+                    type: boolean
+                  nonce:
+                    type: string
+                  progress:
+                    type: integer
+                  required:
+                    type: integer
+                  complete:
+                    type: boolean
+                  pgp_fingerprint:
+                    type: string
+      security: []
+    delete:
+      operationId: cancelRootGeneration
+      summary: Cancel root token generation
+      description: Cancels the current root generation attempt.
+      tags:
+        - Configuration
+      responses:
+        '204':
+          description: Root generation cancelled
+      security: []
+components:
+  securitySchemes:
+    vaultToken:
+      type: apiKey
+      in: header
+      name: X-Vault-Token
+      description: Vault authentication token
+  parameters:
+    mountPath:
+      name: path
+      in: path
+      required: true
+      description: The path to mount or access the resource
+      schema:
+        type: string
+    policyName:
+      name: name
+      in: path
+      required: true
+      description: Name of the policy
+      schema:
+        type: string
+  schemas:
+    HealthResponse:
+      type: object
+      properties:
+        initialized:
+          type: boolean
+          description: Whether the Vault is initialized
+        sealed:
+          type: boolean
+          description: Whether the Vault is sealed
+        standby:
+          type: boolean
+          description: Whether the node is in standby mode
+        performance_standby:
+          type: boolean
+          description: Whether the node is a performance standby
+        replication_performance_mode:
+          type: string
+          description: Replication performance mode
+        replication_dr_mode:
+          type: string
+          description: Replication disaster recovery mode
+        server_time_utc:
+          type: integer
+          description: Server time in UTC epoch seconds
+        version:
+          type: string
+          description: Vault server version
+        cluster_name:
+          type: string
+          description: Name of the Vault cluster
+        cluster_id:
+          type: string
+          description: Unique identifier for the cluster
+    SealStatusResponse:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Type of seal (shamir, awskms, etc.)
+        initialized:
+          type: boolean
+          description: Whether the Vault is initialized
+        sealed:
+          type: boolean
+          description: Whether the Vault is sealed
+        t:
+          type: integer
+          description: Threshold of keys needed to unseal
+        n:
+          type: integer
+          description: Total number of key shares
+        progress:
+          type: integer
+          description: Number of unseal keys provided so far
+        nonce:
+          type: string
+          description: Nonce for the current unseal attempt
+        version:
+          type: string
+          description: Vault server version
+        build_date:
+          type: string
+          description: Build date of the Vault binary
+        migration:
+          type: boolean
+          description: Whether migration is in progress
+        cluster_name:
+          type: string
+          description: Name of the Vault cluster
+        cluster_id:
+          type: string
+          description: Unique identifier for the cluster
+        recovery_seal:
+          type: boolean
+          description: Whether recovery seal is configured
+        storage_type:
+          type: string
+          description: Type of storage backend
+    InitResponse:
+      type: object
+      properties:
+        keys:
+          type: array
+          items:
+            type: string
+          description: Master key shares (base64 or PGP-encrypted)
+        keys_base64:
+          type: array
+          items:
+            type: string
+          description: Master key shares in base64 format
+        root_token:
+          type: string
+          description: Initial root token
+    AuthMount:
+      type: object
+      properties:
+        accessor:
+          type: string
+          description: Unique accessor for this auth mount
+        config:
+          type: object
+          properties:
+            default_lease_ttl:
+              type: integer
+              description: Default lease TTL in seconds
+            max_lease_ttl:
+              type: integer
+              description: Maximum lease TTL in seconds
+            token_type:
+              type: string
+              description: Token type produced by this auth method
+        description:
+          type: string
+          description: Human-friendly description
+        external_entropy_access:
+          type: boolean
+          description: Whether external entropy is used
+        local:
+          type: boolean
+          description: Whether the mount is local only
+        seal_wrap:
+          type: boolean
+          description: Whether seal wrapping is enabled
+        type:
+          type: string
+          description: Type of auth method
+        uuid:
+          type: string
+          description: Unique identifier for this mount
+    SecretsMount:
+      type: object
+      properties:
+        accessor:
+          type: string
+          description: Unique accessor for this secrets mount
+        config:
+          type: object
+          properties:
+            default_lease_ttl:
+              type: integer
+            max_lease_ttl:
+              type: integer
+        description:
+          type: string
+          description: Human-friendly description
+        external_entropy_access:
+          type: boolean
+        local:
+          type: boolean
+        seal_wrap:
+          type: boolean
+        type:
+          type: string
+          description: Type of secrets engine
+        uuid:
+          type: string
+        options:
+          type: object
+          description: Engine-specific options
+    Policy:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the policy
+        policy:
+          type: string
+          description: Policy document in HCL or JSON format
+    AuditDevice:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Type of audit device (file, syslog, socket)
+        description:
+          type: string
+          description: Human-friendly description
+        options:
+          type: object
+          description: Configuration options for the audit device
+        path:
+          type: string
+          description: Path at which the audit device is enabled
+        local:
+          type: boolean
+          description: Whether the audit device is local only
+    LeaderResponse:
+      type: object
+      properties:
+        ha_enabled:
+          type: boolean
+          description: Whether high availability is enabled
+        is_self:
+          type: boolean
+          description: Whether the responding node is the leader
+        active_time:
+          type: string
+          format: date-time
+          description: Time the leader became active
+        leader_address:
+          type: string
+          description: Address of the leader node
+        leader_cluster_address:
+          type: string
+          description: Cluster address of the leader node
+        performance_standby:
+          type: boolean
+          description: Whether the node is a performance standby
+        performance_standby_last_remote_wal:
+          type: integer
+          description: Last remote WAL on performance standby

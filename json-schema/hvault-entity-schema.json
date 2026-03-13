@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://developer.hashicorp.com/schemas/vault/entity.json",
+  "title": "Vault Identity Entity",
+  "description": "Represents an identity entity in HashiCorp Vault that provides a unified view of a user or machine across multiple authentication methods.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the entity"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the entity"
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "Metadata key-value pairs associated with the entity"
+    },
+    "disabled": {
+      "type": "boolean",
+      "description": "Whether the entity is disabled"
+    },
+    "aliases": {
+      "type": "array",
+      "items": {
+        "$ref": "hvault-entity-alias-schema.json"
+      },
+      "description": "Authentication method aliases for this entity"
+    },
+    "direct_group_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "IDs of groups the entity directly belongs to"
+    },
+    "inherited_group_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "IDs of groups inherited through group hierarchy"
+    },
+    "policies": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Policies directly assigned to the entity"
+    },
+    "creation_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Entity creation timestamp"
+    },
+    "last_update_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last update timestamp"
+    }
+  }
+}

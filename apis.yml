@@ -4,7 +4,7 @@ description: 'HashiCorp Vault secures, stores, and tightly controls access to to
   '
 image: https://www.vaultproject.io/img/logo-hashicorp.svg
 created: '2024-01-15'
-modified: '2024-01-15'
+modified: '2026-03-04'
 specificationVersion: '0.16'
 tags:
 - secrets management
@@ -26,12 +26,14 @@ apis:
   - configuration
   - administration
   properties:
-  - type: X-documentation
+  - type: Documentation
     url: https://developer.hashicorp.com/vault/api-docs/system
   - type: X-openapi
     url: https://github.com/hashicorp/vault/blob/main/openapi.json
-  - type: X-authentication
+  - type: Authentication
     url: https://developer.hashicorp.com/vault/docs/auth
+  - type: OpenAPI
+    url: openapi/hvault-system-backend-openapi.yml
   contact:
   - FN: HashiCorp Support
     email: support@hashicorp.com
@@ -49,7 +51,7 @@ apis:
   - databases
   - cloud
   properties:
-  - type: X-documentation
+  - type: Documentation
     url: https://developer.hashicorp.com/vault/api-docs/secret
   - type: X-kv-docs
     url: https://developer.hashicorp.com/vault/api-docs/secret/kv/kv-v2
@@ -57,6 +59,8 @@ apis:
     url: https://developer.hashicorp.com/vault/api-docs/secret/aws
   - type: X-database-docs
     url: https://developer.hashicorp.com/vault/api-docs/secret/databases
+  - type: OpenAPI
+    url: openapi/hvault-secrets-engines-openapi.yml
   contact:
   - FN: HashiCorp Support
     email: support@hashicorp.com
@@ -72,7 +76,7 @@ apis:
   - identity
   - access control
   properties:
-  - type: X-documentation
+  - type: Documentation
     url: https://developer.hashicorp.com/vault/api-docs/auth
   - type: X-token-docs
     url: https://developer.hashicorp.com/vault/api-docs/auth/token
@@ -80,6 +84,8 @@ apis:
     url: https://developer.hashicorp.com/vault/api-docs/auth/approle
   - type: X-kubernetes-docs
     url: https://developer.hashicorp.com/vault/api-docs/auth/kubernetes
+  - type: OpenAPI
+    url: openapi/hvault-auth-methods-openapi.yml
   contact:
   - FN: HashiCorp Support
     email: support@hashicorp.com
@@ -95,16 +101,16 @@ apis:
   - entities
   - groups
   properties:
-  - type: X-documentation
+  - type: Documentation
     url: https://developer.hashicorp.com/vault/api-docs/secret/identity
+  - type: OpenAPI
+    url: openapi/hvault-identity-openapi.yml
   contact:
   - FN: HashiCorp Support
     email: support@hashicorp.com
 maintainers:
-- FN: HashiCorp
-  email: support@hashicorp.com
-  X-twitter: HashiCorp
-  X-github: hashicorp
+- FN: Kin Lane
+  email: kin@apievangelist.com
 common:
 - type: X-website
   url: https://www.vaultproject.io/
@@ -128,6 +134,20 @@ common:
   url: https://www.hashicorp.com/blog
 - type: X-status
   url: https://status.hashicorp.com/
+- type: JSON-LD
+  url: json-ld/hvault-context.jsonld
+- type: JSONSchema
+  url: json-schema/hvault-secret-schema.json
+- type: JSONSchema
+  url: json-schema/hvault-entity-schema.json
+- type: JSONSchema
+  url: json-schema/hvault-entity-alias-schema.json
+- type: JSONSchema
+  url: json-schema/hvault-token-schema.json
+- type: JSONSchema
+  url: json-schema/hvault-policy-schema.json
+- type: JSONSchema
+  url: json-schema/hvault-group-schema.json
 include:
 - name: Vault Client Libraries
   url: https://developer.hashicorp.com/vault/api-docs/libraries
