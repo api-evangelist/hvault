@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Vault Auth Methods API
+  title: HashiCorp Vault Vault Auth Methods API
   description: >-
     APIs for authentication methods in HashiCorp Vault including Token, AppRole,
     Kubernetes, LDAP, JWT/OIDC, GitHub, Userpass, and AWS auth methods. These
@@ -40,7 +40,7 @@ paths:
   /auth/token/create:
     post:
       operationId: createToken
-      summary: Create token
+      summary: HashiCorp Vault Create token
       description: >-
         Creates a new token. Certain options are only available when called by
         a root token. If used via the /auth/token/create/orphan endpoint, a
@@ -66,7 +66,7 @@ paths:
   /auth/token/create-orphan:
     post:
       operationId: createOrphanToken
-      summary: Create orphan token
+      summary: HashiCorp Vault Create orphan token
       description: >-
         Creates a new orphan token that has no parent. Requires a root token
         or sudo capability.
@@ -89,7 +89,7 @@ paths:
   /auth/token/create/{role_name}:
     post:
       operationId: createTokenWithRole
-      summary: Create token with role
+      summary: HashiCorp Vault Create token with role
       description: Creates a new token based on a named token role.
       tags:
         - Token
@@ -119,7 +119,7 @@ paths:
   /auth/token/lookup:
     post:
       operationId: lookupToken
-      summary: Lookup token
+      summary: HashiCorp Vault Lookup token
       description: Returns information about the specified token.
       tags:
         - Token
@@ -147,7 +147,7 @@ paths:
   /auth/token/lookup-self:
     get:
       operationId: lookupSelfToken
-      summary: Lookup self token
+      summary: HashiCorp Vault Lookup self token
       description: Returns information about the token used to make this request.
       tags:
         - Token
@@ -163,7 +163,7 @@ paths:
   /auth/token/renew:
     post:
       operationId: renewToken
-      summary: Renew token
+      summary: HashiCorp Vault Renew token
       description: Renews a lease associated with the specified token.
       tags:
         - Token
@@ -196,7 +196,7 @@ paths:
   /auth/token/renew-self:
     post:
       operationId: renewSelfToken
-      summary: Renew self token
+      summary: HashiCorp Vault Renew self token
       description: Renews the lease on the token used to make this request.
       tags:
         - Token
@@ -221,7 +221,7 @@ paths:
   /auth/token/revoke:
     post:
       operationId: revokeToken
-      summary: Revoke token
+      summary: HashiCorp Vault Revoke token
       description: Revokes the specified token and all child tokens.
       tags:
         - Token
@@ -245,7 +245,7 @@ paths:
   /auth/token/revoke-self:
     post:
       operationId: revokeSelfToken
-      summary: Revoke self token
+      summary: HashiCorp Vault Revoke self token
       description: Revokes the token used to make this request.
       tags:
         - Token
@@ -255,7 +255,7 @@ paths:
   /auth/token/roles/{role_name}:
     get:
       operationId: readTokenRole
-      summary: Read token role
+      summary: HashiCorp Vault Read token role
       description: Reads the configuration of the named token role.
       tags:
         - Token
@@ -272,7 +272,7 @@ paths:
           description: Role not found
     post:
       operationId: createOrUpdateTokenRole
-      summary: Create or update token role
+      summary: HashiCorp Vault Create or update token role
       description: Creates or updates the named token role.
       tags:
         - Token
@@ -291,7 +291,7 @@ paths:
           description: Invalid request
     delete:
       operationId: deleteTokenRole
-      summary: Delete token role
+      summary: HashiCorp Vault Delete token role
       description: Deletes the named token role.
       tags:
         - Token
@@ -303,7 +303,7 @@ paths:
   /auth/approle/login:
     post:
       operationId: loginWithAppRole
-      summary: Login with AppRole
+      summary: HashiCorp Vault Login with AppRole
       description: >-
         Authenticates with Vault using a role ID and secret ID to obtain a
         Vault token.
@@ -338,7 +338,7 @@ paths:
   /auth/approle/role/{role_name}:
     get:
       operationId: readAppRole
-      summary: Read AppRole
+      summary: HashiCorp Vault Read AppRole
       description: Reads the properties of the named AppRole.
       tags:
         - AppRole
@@ -355,7 +355,7 @@ paths:
           description: Role not found
     post:
       operationId: createOrUpdateAppRole
-      summary: Create or update AppRole
+      summary: HashiCorp Vault Create or update AppRole
       description: Creates or updates the named AppRole.
       tags:
         - AppRole
@@ -374,7 +374,7 @@ paths:
           description: Invalid request
     delete:
       operationId: deleteAppRole
-      summary: Delete AppRole
+      summary: HashiCorp Vault Delete AppRole
       description: Deletes the named AppRole.
       tags:
         - AppRole
@@ -386,7 +386,7 @@ paths:
   /auth/approle/role/{role_name}/role-id:
     get:
       operationId: readAppRoleRoleId
-      summary: Read AppRole role ID
+      summary: HashiCorp Vault Read AppRole role ID
       description: Returns the role ID of the named AppRole.
       tags:
         - AppRole
@@ -409,7 +409,7 @@ paths:
   /auth/approle/role/{role_name}/secret-id:
     post:
       operationId: generateAppRoleSecretId
-      summary: Generate AppRole secret ID
+      summary: HashiCorp Vault Generate AppRole secret ID
       description: Generates a new secret ID for the named AppRole.
       tags:
         - AppRole
@@ -460,7 +460,7 @@ paths:
   /auth/kubernetes/login:
     post:
       operationId: loginWithKubernetes
-      summary: Login with Kubernetes
+      summary: HashiCorp Vault Login with Kubernetes
       description: >-
         Authenticates with Vault using a Kubernetes service account JWT token.
       tags:
@@ -494,7 +494,7 @@ paths:
   /auth/kubernetes/config:
     get:
       operationId: readKubernetesConfig
-      summary: Read Kubernetes auth configuration
+      summary: HashiCorp Vault Read Kubernetes auth configuration
       description: Returns the Kubernetes auth method configuration.
       tags:
         - Kubernetes
@@ -525,7 +525,7 @@ paths:
                         description: JWT issuer
     post:
       operationId: configureKubernetesAuth
-      summary: Configure Kubernetes auth
+      summary: HashiCorp Vault Configure Kubernetes auth
       description: Configures the Kubernetes auth method.
       tags:
         - Kubernetes
@@ -563,7 +563,7 @@ paths:
   /auth/kubernetes/role/{name}:
     get:
       operationId: readKubernetesRole
-      summary: Read Kubernetes role
+      summary: HashiCorp Vault Read Kubernetes role
       description: Reads the named Kubernetes auth role configuration.
       tags:
         - Kubernetes
@@ -585,7 +585,7 @@ paths:
           description: Role not found
     post:
       operationId: createOrUpdateKubernetesRole
-      summary: Create or update Kubernetes role
+      summary: HashiCorp Vault Create or update Kubernetes role
       description: Creates or updates the named Kubernetes auth role.
       tags:
         - Kubernetes
@@ -609,7 +609,7 @@ paths:
           description: Invalid request
     delete:
       operationId: deleteKubernetesRole
-      summary: Delete Kubernetes role
+      summary: HashiCorp Vault Delete Kubernetes role
       description: Deletes the named Kubernetes auth role.
       tags:
         - Kubernetes
@@ -626,7 +626,7 @@ paths:
   /auth/ldap/login/{username}:
     post:
       operationId: loginWithLdap
-      summary: Login with LDAP
+      summary: HashiCorp Vault Login with LDAP
       description: Authenticates with Vault using LDAP credentials.
       tags:
         - LDAP
@@ -662,7 +662,7 @@ paths:
   /auth/jwt/login:
     post:
       operationId: loginWithJwt
-      summary: Login with JWT/OIDC
+      summary: HashiCorp Vault Login with JWT/OIDC
       description: Authenticates with Vault using a JWT token.
       tags:
         - JWT/OIDC
@@ -695,7 +695,7 @@ paths:
   /auth/userpass/login/{username}:
     post:
       operationId: loginWithUserpass
-      summary: Login with username and password
+      summary: HashiCorp Vault Login with username and password
       description: Authenticates with Vault using a username and password.
       tags:
         - Userpass
@@ -731,7 +731,7 @@ paths:
   /auth/userpass/users/{username}:
     get:
       operationId: readUserpassUser
-      summary: Read userpass user
+      summary: HashiCorp Vault Read userpass user
       description: Reads the properties of the named userpass user.
       tags:
         - Userpass
@@ -769,7 +769,7 @@ paths:
           description: User not found
     post:
       operationId: createOrUpdateUserpassUser
-      summary: Create or update userpass user
+      summary: HashiCorp Vault Create or update userpass user
       description: Creates or updates the named userpass user.
       tags:
         - Userpass
@@ -810,7 +810,7 @@ paths:
           description: Invalid request
     delete:
       operationId: deleteUserpassUser
-      summary: Delete userpass user
+      summary: HashiCorp Vault Delete userpass user
       description: Deletes the named userpass user.
       tags:
         - Userpass
@@ -827,7 +827,7 @@ paths:
   /auth/github/login:
     post:
       operationId: loginWithGithub
-      summary: Login with GitHub
+      summary: HashiCorp Vault Login with GitHub
       description: Authenticates with Vault using a GitHub personal access token.
       tags:
         - GitHub

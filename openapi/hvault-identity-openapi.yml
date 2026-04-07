@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Vault Identity API
+  title: HashiCorp Vault Vault Identity API
   description: >-
     APIs for managing identity entities, entity aliases, groups, and group
     aliases in HashiCorp Vault. The identity system provides a unified view
@@ -38,7 +38,7 @@ paths:
   /identity/entity:
     post:
       operationId: createEntity
-      summary: Create entity
+      summary: HashiCorp Vault Create entity
       description: Creates or updates an identity entity.
       tags:
         - Entity
@@ -64,7 +64,7 @@ paths:
           description: Permission denied
     get:
       operationId: listEntities
-      summary: List entities
+      summary: HashiCorp Vault List entities
       description: Lists all identity entities by ID.
       tags:
         - Entity
@@ -100,7 +100,7 @@ paths:
   /identity/entity/id/{id}:
     get:
       operationId: readEntityById
-      summary: Read entity by ID
+      summary: HashiCorp Vault Read entity by ID
       description: Reads the identity entity with the given ID.
       tags:
         - Entity
@@ -122,7 +122,7 @@ paths:
           description: Entity not found
     post:
       operationId: updateEntityById
-      summary: Update entity by ID
+      summary: HashiCorp Vault Update entity by ID
       description: Updates the identity entity with the given ID.
       tags:
         - Entity
@@ -150,7 +150,7 @@ paths:
           description: Permission denied
     delete:
       operationId: deleteEntityById
-      summary: Delete entity by ID
+      summary: HashiCorp Vault Delete entity by ID
       description: Deletes the identity entity with the given ID.
       tags:
         - Entity
@@ -164,7 +164,7 @@ paths:
   /identity/entity/name/{name}:
     get:
       operationId: readEntityByName
-      summary: Read entity by name
+      summary: HashiCorp Vault Read entity by name
       description: Reads the identity entity with the given name.
       tags:
         - Entity
@@ -189,7 +189,7 @@ paths:
           description: Entity not found
     post:
       operationId: updateEntityByName
-      summary: Update entity by name
+      summary: HashiCorp Vault Update entity by name
       description: Updates the identity entity with the given name.
       tags:
         - Entity
@@ -220,7 +220,7 @@ paths:
           description: Invalid request
     delete:
       operationId: deleteEntityByName
-      summary: Delete entity by name
+      summary: HashiCorp Vault Delete entity by name
       description: Deletes the identity entity with the given name.
       tags:
         - Entity
@@ -237,7 +237,7 @@ paths:
   /identity/entity/batch-delete:
     post:
       operationId: batchDeleteEntities
-      summary: Batch delete entities
+      summary: HashiCorp Vault Batch delete entities
       description: Deletes multiple identity entities by their IDs.
       tags:
         - Entity
@@ -263,7 +263,7 @@ paths:
   /identity/entity/merge:
     post:
       operationId: mergeEntities
-      summary: Merge entities
+      summary: HashiCorp Vault Merge entities
       description: >-
         Merges two or more entities into a single entity. Aliases from the
         source entities are transferred to the destination entity.
@@ -300,7 +300,7 @@ paths:
   /identity/entity-alias:
     post:
       operationId: createEntityAlias
-      summary: Create entity alias
+      summary: HashiCorp Vault Create entity alias
       description: >-
         Creates an entity alias that maps an authentication method's identity
         to a Vault entity.
@@ -329,7 +329,7 @@ paths:
   /identity/entity-alias/id/{id}:
     get:
       operationId: readEntityAlias
-      summary: Read entity alias
+      summary: HashiCorp Vault Read entity alias
       description: Reads the entity alias with the given ID.
       tags:
         - Entity Alias
@@ -354,7 +354,7 @@ paths:
           description: Entity alias not found
     post:
       operationId: updateEntityAlias
-      summary: Update entity alias
+      summary: HashiCorp Vault Update entity alias
       description: Updates the entity alias with the given ID.
       tags:
         - Entity Alias
@@ -378,7 +378,7 @@ paths:
           description: Invalid request
     delete:
       operationId: deleteEntityAlias
-      summary: Delete entity alias
+      summary: HashiCorp Vault Delete entity alias
       description: Deletes the entity alias with the given ID.
       tags:
         - Entity Alias
@@ -395,7 +395,7 @@ paths:
   /identity/group:
     post:
       operationId: createGroup
-      summary: Create group
+      summary: HashiCorp Vault Create group
       description: Creates or updates an identity group.
       tags:
         - Group
@@ -421,7 +421,7 @@ paths:
           description: Permission denied
     get:
       operationId: listGroups
-      summary: List groups
+      summary: HashiCorp Vault List groups
       description: Lists all identity groups by ID.
       tags:
         - Group
@@ -446,7 +446,7 @@ paths:
   /identity/group/id/{id}:
     get:
       operationId: readGroupById
-      summary: Read group by ID
+      summary: HashiCorp Vault Read group by ID
       description: Reads the identity group with the given ID.
       tags:
         - Group
@@ -471,7 +471,7 @@ paths:
           description: Group not found
     post:
       operationId: updateGroupById
-      summary: Update group by ID
+      summary: HashiCorp Vault Update group by ID
       description: Updates the identity group with the given ID.
       tags:
         - Group
@@ -495,7 +495,7 @@ paths:
           description: Invalid request
     delete:
       operationId: deleteGroupById
-      summary: Delete group by ID
+      summary: HashiCorp Vault Delete group by ID
       description: Deletes the identity group with the given ID.
       tags:
         - Group
@@ -512,7 +512,7 @@ paths:
   /identity/group/name/{name}:
     get:
       operationId: readGroupByName
-      summary: Read group by name
+      summary: HashiCorp Vault Read group by name
       description: Reads the identity group with the given name.
       tags:
         - Group
@@ -537,7 +537,7 @@ paths:
           description: Group not found
     post:
       operationId: updateGroupByName
-      summary: Update group by name
+      summary: HashiCorp Vault Update group by name
       description: Updates the identity group with the given name.
       tags:
         - Group
@@ -561,7 +561,7 @@ paths:
           description: Invalid request
     delete:
       operationId: deleteGroupByName
-      summary: Delete group by name
+      summary: HashiCorp Vault Delete group by name
       description: Deletes the identity group with the given name.
       tags:
         - Group
@@ -578,7 +578,7 @@ paths:
   /identity/group-alias:
     post:
       operationId: createGroupAlias
-      summary: Create group alias
+      summary: HashiCorp Vault Create group alias
       description: >-
         Creates a group alias that maps an external group from an auth method
         to a Vault identity group.
@@ -614,7 +614,7 @@ paths:
   /identity/group-alias/id/{id}:
     get:
       operationId: readGroupAlias
-      summary: Read group alias
+      summary: HashiCorp Vault Read group alias
       description: Reads the group alias with the given ID.
       tags:
         - Group Alias
@@ -639,7 +639,7 @@ paths:
           description: Group alias not found
     post:
       operationId: updateGroupAlias
-      summary: Update group alias
+      summary: HashiCorp Vault Update group alias
       description: Updates the group alias with the given ID.
       tags:
         - Group Alias
@@ -663,7 +663,7 @@ paths:
           description: Invalid request
     delete:
       operationId: deleteGroupAlias
-      summary: Delete group alias
+      summary: HashiCorp Vault Delete group alias
       description: Deletes the group alias with the given ID.
       tags:
         - Group Alias
@@ -680,7 +680,7 @@ paths:
   /identity/lookup/entity:
     post:
       operationId: lookupEntity
-      summary: Lookup entity
+      summary: HashiCorp Vault Lookup entity
       description: >-
         Looks up an entity by any of its identifying attributes such as name,
         ID, or alias details.
@@ -725,7 +725,7 @@ paths:
   /identity/lookup/group:
     post:
       operationId: lookupGroup
-      summary: Lookup group
+      summary: HashiCorp Vault Lookup group
       description: >-
         Looks up a group by any of its identifying attributes such as name, ID,
         or alias details.
@@ -770,7 +770,7 @@ paths:
   /identity/oidc/token/{name}:
     get:
       operationId: readOidcToken
-      summary: Read OIDC token
+      summary: HashiCorp Vault Read OIDC token
       description: >-
         Generates an OIDC identity token for the requesting entity based on
         the named role.
@@ -808,7 +808,7 @@ paths:
   /identity/oidc/.well-known/openid-configuration:
     get:
       operationId: readOidcWellKnownConfig
-      summary: Read OIDC discovery configuration
+      summary: HashiCorp Vault Read OIDC discovery configuration
       description: >-
         Returns the OIDC discovery document for Vault's identity OIDC provider.
       tags:
@@ -851,7 +851,7 @@ paths:
   /identity/oidc/.well-known/keys:
     get:
       operationId: readOidcJwks
-      summary: Read OIDC JWKS
+      summary: HashiCorp Vault Read OIDC JWKS
       description: Returns the public keys used to verify OIDC identity tokens.
       tags:
         - OIDC

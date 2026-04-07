@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Vault System Backend API
+  title: HashiCorp Vault Vault System Backend API
   description: >-
     API for system-level operations in HashiCorp Vault including health checks,
     seal status, initialization, authentication management, secrets engine
@@ -44,7 +44,7 @@ paths:
   /sys/health:
     get:
       operationId: getSystemHealth
-      summary: Read health status
+      summary: HashiCorp Vault Read health status
       description: >-
         Returns the health status of the Vault server. This is an unauthenticated
         endpoint used for health checks by load balancers and monitoring systems.
@@ -99,7 +99,7 @@ paths:
   /sys/seal-status:
     get:
       operationId: getSealStatus
-      summary: Read seal status
+      summary: HashiCorp Vault Read seal status
       description: >-
         Returns the seal status of the Vault server. This is an unauthenticated
         endpoint.
@@ -116,7 +116,7 @@ paths:
   /sys/seal:
     put:
       operationId: sealVault
-      summary: Seal the Vault
+      summary: HashiCorp Vault Seal the Vault
       description: >-
         Seals the Vault. In HA mode, only an active node can be sealed. Standby
         nodes should be restarted to seal them.
@@ -130,7 +130,7 @@ paths:
   /sys/unseal:
     put:
       operationId: unsealVault
-      summary: Submit unseal key
+      summary: HashiCorp Vault Submit unseal key
       description: >-
         Submit a portion of a master key to unseal the Vault. Multiple keys must
         be submitted until the threshold is reached.
@@ -163,7 +163,7 @@ paths:
   /sys/init:
     get:
       operationId: getInitStatus
-      summary: Read initialization status
+      summary: HashiCorp Vault Read initialization status
       description: Returns the initialization status of the Vault server.
       tags:
         - Init
@@ -181,7 +181,7 @@ paths:
       security: []
     put:
       operationId: initializeVault
-      summary: Initialize Vault
+      summary: HashiCorp Vault Initialize Vault
       description: >-
         Initializes a new Vault by generating the master key shares and the
         initial root token.
@@ -222,7 +222,7 @@ paths:
   /sys/auth:
     get:
       operationId: listAuthMethods
-      summary: List auth methods
+      summary: HashiCorp Vault List auth methods
       description: Lists all enabled auth methods in the Vault.
       tags:
         - Auth
@@ -240,7 +240,7 @@ paths:
   /sys/auth/{path}:
     post:
       operationId: enableAuthMethod
-      summary: Enable auth method
+      summary: HashiCorp Vault Enable auth method
       description: Enables a new auth method at the given path.
       tags:
         - Auth
@@ -283,7 +283,7 @@ paths:
           description: Permission denied
     delete:
       operationId: disableAuthMethod
-      summary: Disable auth method
+      summary: HashiCorp Vault Disable auth method
       description: Disables the auth method at the given path.
       tags:
         - Auth
@@ -297,7 +297,7 @@ paths:
   /sys/mounts:
     get:
       operationId: listSecretsMounts
-      summary: List secrets engines
+      summary: HashiCorp Vault List secrets engines
       description: Lists all mounted secrets engines.
       tags:
         - Mounts
@@ -315,7 +315,7 @@ paths:
   /sys/mounts/{path}:
     post:
       operationId: enableSecretsEngine
-      summary: Enable secrets engine
+      summary: HashiCorp Vault Enable secrets engine
       description: Enables a new secrets engine at the given path.
       tags:
         - Mounts
@@ -360,7 +360,7 @@ paths:
           description: Permission denied
     delete:
       operationId: disableSecretsEngine
-      summary: Disable secrets engine
+      summary: HashiCorp Vault Disable secrets engine
       description: Disables the secrets engine at the given path.
       tags:
         - Mounts
@@ -374,7 +374,7 @@ paths:
   /sys/policies/acl:
     get:
       operationId: listPolicies
-      summary: List ACL policies
+      summary: HashiCorp Vault List ACL policies
       description: Lists all configured ACL policies.
       tags:
         - Policy
@@ -396,7 +396,7 @@ paths:
   /sys/policies/acl/{name}:
     get:
       operationId: readPolicy
-      summary: Read ACL policy
+      summary: HashiCorp Vault Read ACL policy
       description: Reads an existing ACL policy by name.
       tags:
         - Policy
@@ -415,7 +415,7 @@ paths:
           description: Policy not found
     put:
       operationId: createOrUpdatePolicy
-      summary: Create or update ACL policy
+      summary: HashiCorp Vault Create or update ACL policy
       description: Creates a new or updates an existing ACL policy.
       tags:
         - Policy
@@ -442,7 +442,7 @@ paths:
           description: Permission denied
     delete:
       operationId: deletePolicy
-      summary: Delete ACL policy
+      summary: HashiCorp Vault Delete ACL policy
       description: Deletes an ACL policy by name.
       tags:
         - Policy
@@ -456,7 +456,7 @@ paths:
   /sys/audit:
     get:
       operationId: listAuditDevices
-      summary: List audit devices
+      summary: HashiCorp Vault List audit devices
       description: Lists all enabled audit devices.
       tags:
         - Audit
@@ -474,7 +474,7 @@ paths:
   /sys/audit/{path}:
     put:
       operationId: enableAuditDevice
-      summary: Enable audit device
+      summary: HashiCorp Vault Enable audit device
       description: Enables a new audit device at the given path.
       tags:
         - Audit
@@ -514,7 +514,7 @@ paths:
           description: Permission denied
     delete:
       operationId: disableAuditDevice
-      summary: Disable audit device
+      summary: HashiCorp Vault Disable audit device
       description: Disables an audit device at the given path.
       tags:
         - Audit
@@ -528,7 +528,7 @@ paths:
   /sys/leader:
     get:
       operationId: readLeaderStatus
-      summary: Read leader status
+      summary: HashiCorp Vault Read leader status
       description: >-
         Returns the high availability status and current leader instance of
         the Vault cluster.
@@ -544,7 +544,7 @@ paths:
   /sys/config/auditing/request-headers:
     get:
       operationId: listAuditRequestHeaders
-      summary: List audited request headers
+      summary: HashiCorp Vault List audited request headers
       description: Lists the request headers configured for auditing.
       tags:
         - Configuration
@@ -568,7 +568,7 @@ paths:
   /sys/generate-root/attempt:
     get:
       operationId: readRootGenerationProgress
-      summary: Read root generation progress
+      summary: HashiCorp Vault Read root generation progress
       description: Reads the status of the current root generation attempt.
       tags:
         - Configuration
@@ -599,7 +599,7 @@ paths:
       security: []
     put:
       operationId: startRootGeneration
-      summary: Start root token generation
+      summary: HashiCorp Vault Start root token generation
       description: Initializes a new root generation attempt.
       tags:
         - Configuration
@@ -635,7 +635,7 @@ paths:
       security: []
     delete:
       operationId: cancelRootGeneration
-      summary: Cancel root token generation
+      summary: HashiCorp Vault Cancel root token generation
       description: Cancels the current root generation attempt.
       tags:
         - Configuration
