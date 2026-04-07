@@ -20,24 +20,24 @@ servers:
   - url: https://vault.example.com/v1
     description: Vault Server
 tags:
-  - name: Health
-    description: Health and status endpoints
-  - name: Seal
-    description: Seal and unseal operations
-  - name: Init
-    description: Vault initialization
+  - name: Audit
+    description: Audit device management
   - name: Auth
     description: Auth method management
+  - name: Configuration
+    description: General Vault configuration
+  - name: Health
+    description: Health and status endpoints
+  - name: Init
+    description: Vault initialization
+  - name: Leader
+    description: HA leader status
   - name: Mounts
     description: Secrets engine mount management
   - name: Policy
     description: Policy management
-  - name: Audit
-    description: Audit device management
-  - name: Leader
-    description: HA leader status
-  - name: Configuration
-    description: General Vault configuration
+  - name: Seal
+    description: Seal and unseal operations
 security:
   - vaultToken: []
 paths:

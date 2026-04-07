@@ -20,20 +20,20 @@ servers:
   - url: https://vault.example.com/v1
     description: Vault Server
 tags:
-  - name: Token
-    description: Token auth method for token lifecycle management
   - name: AppRole
     description: AppRole auth method for machine-to-machine authentication
+  - name: GitHub
+    description: GitHub auth method for organization-based authentication
+  - name: JWT/OIDC
+    description: JWT/OIDC auth method for identity provider authentication
   - name: Kubernetes
     description: Kubernetes auth method for pod authentication
   - name: LDAP
     description: LDAP auth method for directory-based authentication
-  - name: JWT/OIDC
-    description: JWT/OIDC auth method for identity provider authentication
+  - name: Token
+    description: Token auth method for token lifecycle management
   - name: Userpass
     description: Username and password auth method
-  - name: GitHub
-    description: GitHub auth method for organization-based authentication
 security:
   - vaultToken: []
 paths:
