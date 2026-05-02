@@ -8,7 +8,7 @@ description: >-
   more.
 image: https://www.vaultproject.io/img/logo-hashicorp.svg
 created: '2024-01-15'
-modified: '2026-03-16'
+modified: '2026-04-28'
 specificationVersion: '0.16'
 tags:
   - Encryption

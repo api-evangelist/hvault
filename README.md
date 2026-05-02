@@ -1,87 +1,87 @@
 # HashiCorp Vault (hvault)
-HashiCorp Vault secures, stores, and tightly controls access to tokens,  passwords, certificates, API keys, and other secrets in modern computing.  Vault handles leasing, key revocation, key rolling, and auditing. Through  a unified API, users can access an encrypted Key/Value store and network  encryption-as-a-service, or generate AWS IAM/STS credentials, SQL/NoSQL  databases, X.509 certificates, SSH credentials, and more.
 
+HashiCorp Vault secures, stores, and tightly controls access to tokens, passwords, certificates, API keys, and other secrets in modern computing. Vault handles leasing, key revocation, key rolling, and auditing. Through a unified API, users can access an encrypted Key/Value store and network encryption-as-a-service, or generate AWS IAM/STS credentials, SQL/NoSQL databases, X.509 certificates, SSH credentials, and more.
 
-**URL:** [Visit APIs.json URL](https://www.vaultproject.io/api-docs)
+**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/hvault/refs/heads/main/apis.yml)
 
-## Tags:
+## Tags
 
- - secrets management, security, encryption, identity, infrastructure
+- Encryption, Identity, Infrastructure, Secrets Management, Security
 
 ## Timestamps
 
-- **Created:** 2024-01-15 
-- **Modified:** 2024-01-15 
+- **Created:** 2024-01-15
+- **Modified:** 2026-04-28
 
 ## APIs
 
 ### Vault System Backend API
-API for system-level operations including authentication, secrets engines,  audit devices, and general Vault configuration.
 
+API for system-level operations including authentication, secrets engines, audit devices, and general Vault configuration.
 
 **Human URL:** [https://www.vaultproject.io/](https://www.vaultproject.io/)
 
+#### Tags
 
-#### Tags:
-
- - system, configuration, administration
+- Administration, Configuration, System
 
 #### Properties
 
-- [X-documentation](https://developer.hashicorp.com/vault/api-docs/system)
+- [Documentation](https://developer.hashicorp.com/vault/api-docs/system)
 - [X-openapi](https://github.com/hashicorp/vault/blob/main/openapi.json)
-- [X-authentication](https://developer.hashicorp.com/vault/docs/auth)
+- [Authentication](https://developer.hashicorp.com/vault/docs/auth)
+- [OpenAPI](openapi/hvault-system-backend-openapi.yml)
 
 ### Vault Secrets Engines API
-APIs for various secrets engines including Key/Value, AWS, Azure,  databases, PKI, SSH, and more.
 
+APIs for various secrets engines including Key/Value, AWS, Azure, databases, PKI, SSH, and more.
 
 **Human URL:** [https://developer.hashicorp.com/vault/docs/secrets](https://developer.hashicorp.com/vault/docs/secrets)
 
+#### Tags
 
-#### Tags:
-
- - secrets, kv, databases, cloud
+- Cloud, Databases, Kv, Secrets
 
 #### Properties
 
-- [X-documentation](https://developer.hashicorp.com/vault/api-docs/secret)
+- [Documentation](https://developer.hashicorp.com/vault/api-docs/secret)
 - [X-kv-docs](https://developer.hashicorp.com/vault/api-docs/secret/kv/kv-v2)
 - [X-aws-docs](https://developer.hashicorp.com/vault/api-docs/secret/aws)
 - [X-database-docs](https://developer.hashicorp.com/vault/api-docs/secret/databases)
+- [OpenAPI](openapi/hvault-secrets-engines-openapi.yml)
 
 ### Vault Auth Methods API
-APIs for authentication methods including Token, AppRole, Kubernetes,  LDAP, JWT/OIDC, GitHub, and more.
 
+APIs for authentication methods including Token, AppRole, Kubernetes, LDAP, JWT/OIDC, GitHub, and more.
 
 **Human URL:** [https://developer.hashicorp.com/vault/docs/auth](https://developer.hashicorp.com/vault/docs/auth)
 
+#### Tags
 
-#### Tags:
-
- - authentication, identity, access control
+- Access Control, Authentication, Identity
 
 #### Properties
 
-- [X-documentation](https://developer.hashicorp.com/vault/api-docs/auth)
+- [Documentation](https://developer.hashicorp.com/vault/api-docs/auth)
 - [X-token-docs](https://developer.hashicorp.com/vault/api-docs/auth/token)
 - [X-approle-docs](https://developer.hashicorp.com/vault/api-docs/auth/approle)
 - [X-kubernetes-docs](https://developer.hashicorp.com/vault/api-docs/auth/kubernetes)
+- [OpenAPI](openapi/hvault-auth-methods-openapi.yml)
 
 ### Vault Identity API
-APIs for managing entities, entity aliases, and groups for identity  management across authentication methods.
 
+APIs for managing entities, entity aliases, and groups for identity management across authentication methods.
 
 **Human URL:** [https://developer.hashicorp.com/vault/docs/secrets/identity](https://developer.hashicorp.com/vault/docs/secrets/identity)
 
+#### Tags
 
-#### Tags:
-
- - identity, entities, groups
+- Entities, Groups, Identity
 
 #### Properties
 
-- [X-documentation](https://developer.hashicorp.com/vault/api-docs/secret/identity)
+- [Documentation](https://developer.hashicorp.com/vault/api-docs/secret/identity)
+- [OpenAPI](openapi/hvault-identity-openapi.yml)
 
 ## Common Properties
 
@@ -96,9 +96,16 @@ APIs for managing entities, entity aliases, and groups for identity  management 
 - [X-pricing](https://www.hashicorp.com/products/vault/pricing)
 - [X-blog](https://www.hashicorp.com/blog)
 - [X-status](https://status.hashicorp.com/)
+- [JSON-LD](json-ld/hvault-context.jsonld)
+- [JSON Schema - Secret](json-schema/hvault-secret-schema.json)
+- [JSON Schema - Entity](json-schema/hvault-entity-schema.json)
+- [JSON Schema - Entity Alias](json-schema/hvault-entity-alias-schema.json)
+- [JSON Schema - Token](json-schema/hvault-token-schema.json)
+- [JSON Schema - Policy](json-schema/hvault-policy-schema.json)
+- [JSON Schema - Group](json-schema/hvault-group-schema.json)
 
 ## Maintainers
 
-**FN:** HashiCorp
+**FN:** Kin Lane
 
-**Email:** support@hashicorp.com
+**Email:** kin@apievangelist.com
