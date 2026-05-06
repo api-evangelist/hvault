@@ -4,175 +4,129 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: HashiCorp Vault
 providerId: hvault
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: false
 tags:
-  - Encryption
-  - Identity
-  - Infrastructure
   - Secrets Management
+  - Identity
   - Security
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
+  - Infrastructure
+  - Encryption
+description: HashiCorp Vault is offered in three modes - free open-source Community Edition (Apache
+  2.0 / BSL), self-managed Enterprise (annual contract priced by client count and modules), and HCP
+  Vault Dedicated/HCP Vault Secrets (managed cloud, pay-as-you-go via cluster-hour or per-secret).
+  HashiCorp does not publish per-tier list pricing on its public site; enterprise pricing is sales-led
+  and HCP cluster-hour rates are exposed only after sign-in to the HashiCorp Cloud Platform console.
+  IBM acquired HashiCorp in 2025 and Vault is now offered through the IBM HashiCorp Cloud Platform
+  with $500 free credit for new accounts.
+notes: 'Public list pricing for Vault Enterprise and HCP Vault tiers is not published. Specific
+  per-cluster, per-secret, and per-client costs require sign-in to https://portal.cloud.hashicorp.com
+  or contact with HashiCorp/IBM sales. The plan entries below describe the offering structure rather
+  than dollar-denominated rate cards.'
+sources:
+  - https://www.hashicorp.com/products/vault
+  - https://www.hashicorp.com/en/pricing?tab=vault
+  - https://developer.hashicorp.com/vault
 plans:
-  - id: hvault-free
-    name: Free
+  - id: hvault-community
+    name: Vault Community Edition
     type: freemium
-    description: Free entry tier for the HashiCorp Vault API surface. Intended for evaluation, prototyping,
-      and low-volume integrations. Real limits and pricing must be reconciled with the provider's published
-      plan documentation.
+    description: Free, open-source self-managed Vault distribution. Includes secret engines, auth
+      methods, and core APIs.
     entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 1000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://vault.example.com/v1/sys
-          - https://vault.example.com/v1
-          - https://vault.example.com/v1/auth
-          - https://vault.example.com/v1/identity
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 10
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://vault.example.com/v1/sys
-          - https://vault.example.com/v1
-          - https://vault.example.com/v1/auth
-          - https://vault.example.com/v1/identity
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: Vault System Backend API
-      - name: Vault Secrets Engines API
-      - name: Vault Auth Methods API
-      - name: Vault Identity API
-  - id: hvault-pro
-    name: Professional
-    type: paid
-    description: Production tier for HashiCorp Vault. Provides higher quotas, priority support, and access
-      to the broader API portfolio. Pricing placeholder; align with the provider's pricing page.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 100000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://vault.example.com/v1/sys
-          - https://vault.example.com/v1
-          - https://vault.example.com/v1/auth
-          - https://vault.example.com/v1/identity
-        unit: 1
-        price: TBD
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://vault.example.com/v1/sys
-          - https://vault.example.com/v1
-          - https://vault.example.com/v1/auth
-          - https://vault.example.com/v1/identity
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
-        type: metered
-        metric: requests
+      - label: Self-managed binary
+        name: community_binary
+        type: flat
+        metric: cluster
         limit: -1
-        timeFrame: month
+        timeFrame: usage
         geo: global
-        domains:
-          - https://vault.example.com/v1/sys
-          - https://vault.example.com/v1
-          - https://vault.example.com/v1/auth
-          - https://vault.example.com/v1/identity
-        unit: 1000
-        price: TBD
+        unit: 1
+        price: '0.00'
         userMultiplied: false
     elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
-      - name: Vault System Backend API
-      - name: Vault Secrets Engines API
-      - name: Vault Auth Methods API
-      - name: Vault Identity API
+      - name: All open-source secret engines (KV, AWS, PKI, SSH, databases)
+      - name: All open-source auth methods (Token, AppRole, Kubernetes, OIDC)
+      - name: Single-cluster HA via Raft or Consul backend
+      - name: Community support (forums, GitHub issues)
+      - name: BSL / MPL 2.0 licensing
   - id: hvault-enterprise
-    name: Enterprise
+    name: Vault Enterprise (Self-Managed)
     type: enterprise
-    description: Custom-negotiated tier for HashiCorp Vault. Includes dedicated capacity, contractual
-      SLAs, security review, data residency options, and named technical account management.
+    description: Self-managed Vault with enterprise modules (DR/PR replication, namespaces, HSM auto-unseal,
+      FIPS 140-2, performance standby, control groups, sentinel policies). Sold via annual contract.
     entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
-        type: quota
-        metric: requests
+      - label: Enterprise license
+        name: enterprise_license
+        type: subscription
+        metric: client
         limit: -1
-        timeFrame: month
-        geo: configurable
-        domains:
-          - https://vault.example.com/v1/sys
-          - https://vault.example.com/v1
-          - https://vault.example.com/v1/auth
-          - https://vault.example.com/v1/identity
+        timeFrame: year
+        geo: global
         unit: 1
-        price: custom
-        userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
-        domains:
-          - https://vault.example.com/v1/sys
-          - https://vault.example.com/v1
-          - https://vault.example.com/v1/auth
-          - https://vault.example.com/v1/identity
-        unit: 1
-        price: custom
+        price: contact sales
         userMultiplied: false
     elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
-      - name: Vault System Backend API
-      - name: Vault Secrets Engines API
-      - name: Vault Auth Methods API
-      - name: Vault Identity API
+      - name: Disaster Recovery and Performance Replication
+      - name: Namespaces
+      - name: HSM auto-unseal and seal wrap
+      - name: FIPS 140-2 compliance
+      - name: Performance Standby nodes
+      - name: Control Groups and Sentinel policy engine
+      - name: 24x7 enterprise support
+  - id: hvault-hcp-dedicated
+    name: HCP Vault Dedicated
+    type: usage-based
+    description: Fully-managed single-tenant Vault clusters on AWS / Azure with cluster-hour pricing.
+      Sizes - Development, Standard Small, Standard Medium, Standard Large, Plus Small, Plus Medium,
+      Plus Large.
+    entries:
+      - label: Cluster-hour
+        name: cluster_hour
+        type: metered
+        metric: cluster-hour
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: see https://portal.cloud.hashicorp.com (sign-in required)
+        userMultiplied: false
+    elements:
+      - name: Single-tenant managed cluster
+      - name: Multi-region replication (Plus tier)
+      - name: AWS and Azure regions
+      - name: HashiCorp-operated SLA
+      - name: $500 free IBM HashiCorp Cloud Platform credit (new accounts)
+  - id: hvault-hcp-secrets
+    name: HCP Vault Secrets
+    type: usage-based
+    description: Multi-tenant managed secrets-as-a-service offering with per-secret-per-month pricing.
+      Free starter tier with limited secret count; standard and plus tiers raise the cap.
+    entries:
+      - label: Free secrets
+        name: hcp_secrets_free
+        type: quota
+        metric: secret
+        limit: 25
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: Per-secret monthly fee (Standard / Plus)
+        name: hcp_secrets_per_secret
+        type: metered
+        metric: secret
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: see https://portal.cloud.hashicorp.com (sign-in required)
+        userMultiplied: false
+    elements:
+      - name: Multi-tenant managed service
+      - name: Native sync to AWS, Azure, GCP, Vercel, GitHub Actions
+      - name: Application-scoped projects and secrets
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
