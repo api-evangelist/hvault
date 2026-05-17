@@ -138,7 +138,7 @@ common:
     url: https://www.hashicorp.com/blog
   - type: X-status
     url: https://status.hashicorp.com/
-  - type: JSON-LD
+  - type: JSONLD
     url: json-ld/hvault-context.jsonld
   - type: JSONSchema
     url: json-schema/hvault-secret-schema.json
