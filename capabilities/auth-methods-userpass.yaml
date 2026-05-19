@@ -1,0 +1,208 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: HashiCorp Vault Vault Auth Methods API — Userpass
+  description: 'HashiCorp Vault Vault Auth Methods API — Userpass. 4 operations. Lead operation: HashiCorp Vault Login with
+    username and password. Self-contained Naftiko capability covering one Hvault business surface.'
+  tags:
+  - Hvault
+  - Userpass
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    HVAULT_API_KEY: HVAULT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: auth-methods-userpass
+    baseUri: https://vault.example.com/v1
+    description: HashiCorp Vault Vault Auth Methods API — Userpass business capability. Self-contained, no shared references.
+    resources:
+    - name: auth-userpass-login-username
+      path: /auth/userpass/login/{username}
+      operations:
+      - name: loginwithuserpass
+        method: POST
+        description: HashiCorp Vault Login with username and password
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: username
+          in: path
+          type: string
+          description: Username
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: auth-userpass-users-username
+      path: /auth/userpass/users/{username}
+      operations:
+      - name: readuserpassuser
+        method: GET
+        description: HashiCorp Vault Read userpass user
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: username
+          in: path
+          type: string
+          description: Username
+          required: true
+      - name: createorupdateuserpassuser
+        method: POST
+        description: HashiCorp Vault Create or update userpass user
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: username
+          in: path
+          type: string
+          description: Username
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteuserpassuser
+        method: DELETE
+        description: HashiCorp Vault Delete userpass user
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: username
+          in: path
+          type: string
+          description: Username
+          required: true
+    authentication:
+      type: apikey
+      key: X-Vault-Token
+      value: '{{env.HVAULT_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: auth-methods-userpass-rest
+    port: 8080
+    description: REST adapter for HashiCorp Vault Vault Auth Methods API — Userpass. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/auth/userpass/login/{username}
+      name: auth-userpass-login-username
+      description: REST surface for auth-userpass-login-username.
+      operations:
+      - method: POST
+        name: loginwithuserpass
+        description: HashiCorp Vault Login with username and password
+        call: auth-methods-userpass.loginwithuserpass
+        with:
+          username: rest.username
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/auth/userpass/users/{username}
+      name: auth-userpass-users-username
+      description: REST surface for auth-userpass-users-username.
+      operations:
+      - method: GET
+        name: readuserpassuser
+        description: HashiCorp Vault Read userpass user
+        call: auth-methods-userpass.readuserpassuser
+        with:
+          username: rest.username
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createorupdateuserpassuser
+        description: HashiCorp Vault Create or update userpass user
+        call: auth-methods-userpass.createorupdateuserpassuser
+        with:
+          username: rest.username
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteuserpassuser
+        description: HashiCorp Vault Delete userpass user
+        call: auth-methods-userpass.deleteuserpassuser
+        with:
+          username: rest.username
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: auth-methods-userpass-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for HashiCorp Vault Vault Auth Methods API — Userpass. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: hashicorp-vault-login-username-and
+      description: HashiCorp Vault Login with username and password
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: auth-methods-userpass.loginwithuserpass
+      with:
+        username: tools.username
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: hashicorp-vault-read-userpass-user
+      description: HashiCorp Vault Read userpass user
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: auth-methods-userpass.readuserpassuser
+      with:
+        username: tools.username
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: hashicorp-vault-create-update-userpass
+      description: HashiCorp Vault Create or update userpass user
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: auth-methods-userpass.createorupdateuserpassuser
+      with:
+        username: tools.username
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: hashicorp-vault-delete-userpass-user
+      description: HashiCorp Vault Delete userpass user
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: auth-methods-userpass.deleteuserpassuser
+      with:
+        username: tools.username
+      outputParameters:
+      - type: object
+        mapping: $.

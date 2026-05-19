@@ -1,0 +1,497 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: HashiCorp Vault Vault Auth Methods API — Token
+  description: 'HashiCorp Vault Vault Auth Methods API — Token. 12 operations. Lead operation: HashiCorp Vault Create token.
+    Self-contained Naftiko capability covering one Hvault business surface.'
+  tags:
+  - Hvault
+  - Token
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    HVAULT_API_KEY: HVAULT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: auth-methods-token
+    baseUri: https://vault.example.com/v1
+    description: HashiCorp Vault Vault Auth Methods API — Token business capability. Self-contained, no shared references.
+    resources:
+    - name: auth-token-create
+      path: /auth/token/create
+      operations:
+      - name: createtoken
+        method: POST
+        description: HashiCorp Vault Create token
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: auth-token-create-orphan
+      path: /auth/token/create-orphan
+      operations:
+      - name: createorphantoken
+        method: POST
+        description: HashiCorp Vault Create orphan token
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: auth-token-create-role_name
+      path: /auth/token/create/{role_name}
+      operations:
+      - name: createtokenwithrole
+        method: POST
+        description: HashiCorp Vault Create token with role
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: role_name
+          in: path
+          type: string
+          description: Name of the token role
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: auth-token-lookup
+      path: /auth/token/lookup
+      operations:
+      - name: lookuptoken
+        method: POST
+        description: HashiCorp Vault Lookup token
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: auth-token-lookup-self
+      path: /auth/token/lookup-self
+      operations:
+      - name: lookupselftoken
+        method: GET
+        description: HashiCorp Vault Lookup self token
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: auth-token-renew
+      path: /auth/token/renew
+      operations:
+      - name: renewtoken
+        method: POST
+        description: HashiCorp Vault Renew token
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: auth-token-renew-self
+      path: /auth/token/renew-self
+      operations:
+      - name: renewselftoken
+        method: POST
+        description: HashiCorp Vault Renew self token
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: auth-token-revoke
+      path: /auth/token/revoke
+      operations:
+      - name: revoketoken
+        method: POST
+        description: HashiCorp Vault Revoke token
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: auth-token-revoke-self
+      path: /auth/token/revoke-self
+      operations:
+      - name: revokeselftoken
+        method: POST
+        description: HashiCorp Vault Revoke self token
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: auth-token-roles-role_name
+      path: /auth/token/roles/{role_name}
+      operations:
+      - name: readtokenrole
+        method: GET
+        description: HashiCorp Vault Read token role
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createorupdatetokenrole
+        method: POST
+        description: HashiCorp Vault Create or update token role
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletetokenrole
+        method: DELETE
+        description: HashiCorp Vault Delete token role
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: X-Vault-Token
+      value: '{{env.HVAULT_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: auth-methods-token-rest
+    port: 8080
+    description: REST adapter for HashiCorp Vault Vault Auth Methods API — Token. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/auth/token/create
+      name: auth-token-create
+      description: REST surface for auth-token-create.
+      operations:
+      - method: POST
+        name: createtoken
+        description: HashiCorp Vault Create token
+        call: auth-methods-token.createtoken
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/auth/token/create-orphan
+      name: auth-token-create-orphan
+      description: REST surface for auth-token-create-orphan.
+      operations:
+      - method: POST
+        name: createorphantoken
+        description: HashiCorp Vault Create orphan token
+        call: auth-methods-token.createorphantoken
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/auth/token/create/{role-name}
+      name: auth-token-create-role-name
+      description: REST surface for auth-token-create-role_name.
+      operations:
+      - method: POST
+        name: createtokenwithrole
+        description: HashiCorp Vault Create token with role
+        call: auth-methods-token.createtokenwithrole
+        with:
+          role_name: rest.role_name
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/auth/token/lookup
+      name: auth-token-lookup
+      description: REST surface for auth-token-lookup.
+      operations:
+      - method: POST
+        name: lookuptoken
+        description: HashiCorp Vault Lookup token
+        call: auth-methods-token.lookuptoken
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/auth/token/lookup-self
+      name: auth-token-lookup-self
+      description: REST surface for auth-token-lookup-self.
+      operations:
+      - method: GET
+        name: lookupselftoken
+        description: HashiCorp Vault Lookup self token
+        call: auth-methods-token.lookupselftoken
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/auth/token/renew
+      name: auth-token-renew
+      description: REST surface for auth-token-renew.
+      operations:
+      - method: POST
+        name: renewtoken
+        description: HashiCorp Vault Renew token
+        call: auth-methods-token.renewtoken
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/auth/token/renew-self
+      name: auth-token-renew-self
+      description: REST surface for auth-token-renew-self.
+      operations:
+      - method: POST
+        name: renewselftoken
+        description: HashiCorp Vault Renew self token
+        call: auth-methods-token.renewselftoken
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/auth/token/revoke
+      name: auth-token-revoke
+      description: REST surface for auth-token-revoke.
+      operations:
+      - method: POST
+        name: revoketoken
+        description: HashiCorp Vault Revoke token
+        call: auth-methods-token.revoketoken
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/auth/token/revoke-self
+      name: auth-token-revoke-self
+      description: REST surface for auth-token-revoke-self.
+      operations:
+      - method: POST
+        name: revokeselftoken
+        description: HashiCorp Vault Revoke self token
+        call: auth-methods-token.revokeselftoken
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/auth/token/roles/{role-name}
+      name: auth-token-roles-role-name
+      description: REST surface for auth-token-roles-role_name.
+      operations:
+      - method: GET
+        name: readtokenrole
+        description: HashiCorp Vault Read token role
+        call: auth-methods-token.readtokenrole
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createorupdatetokenrole
+        description: HashiCorp Vault Create or update token role
+        call: auth-methods-token.createorupdatetokenrole
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletetokenrole
+        description: HashiCorp Vault Delete token role
+        call: auth-methods-token.deletetokenrole
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: auth-methods-token-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for HashiCorp Vault Vault Auth Methods API — Token. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: hashicorp-vault-create-token
+      description: HashiCorp Vault Create token
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: auth-methods-token.createtoken
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: hashicorp-vault-create-orphan-token
+      description: HashiCorp Vault Create orphan token
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: auth-methods-token.createorphantoken
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: hashicorp-vault-create-token-role
+      description: HashiCorp Vault Create token with role
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: auth-methods-token.createtokenwithrole
+      with:
+        role_name: tools.role_name
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: hashicorp-vault-lookup-token
+      description: HashiCorp Vault Lookup token
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: auth-methods-token.lookuptoken
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: hashicorp-vault-lookup-self-token
+      description: HashiCorp Vault Lookup self token
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: auth-methods-token.lookupselftoken
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: hashicorp-vault-renew-token
+      description: HashiCorp Vault Renew token
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: auth-methods-token.renewtoken
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: hashicorp-vault-renew-self-token
+      description: HashiCorp Vault Renew self token
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: auth-methods-token.renewselftoken
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: hashicorp-vault-revoke-token
+      description: HashiCorp Vault Revoke token
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: auth-methods-token.revoketoken
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: hashicorp-vault-revoke-self-token
+      description: HashiCorp Vault Revoke self token
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: auth-methods-token.revokeselftoken
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: hashicorp-vault-read-token-role
+      description: HashiCorp Vault Read token role
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: auth-methods-token.readtokenrole
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: hashicorp-vault-create-update-token
+      description: HashiCorp Vault Create or update token role
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: auth-methods-token.createorupdatetokenrole
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: hashicorp-vault-delete-token-role
+      description: HashiCorp Vault Delete token role
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: auth-methods-token.deletetokenrole
+      outputParameters:
+      - type: object
+        mapping: $.

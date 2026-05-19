@@ -1,0 +1,164 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: HashiCorp Vault Vault System Backend API — Configuration
+  description: 'HashiCorp Vault Vault System Backend API — Configuration. 4 operations. Lead operation: HashiCorp Vault List
+    audited request headers. Self-contained Naftiko capability covering one Hvault business surface.'
+  tags:
+  - Hvault
+  - Configuration
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    HVAULT_API_KEY: HVAULT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: system-backend-configuration
+    baseUri: https://vault.example.com/v1
+    description: HashiCorp Vault Vault System Backend API — Configuration business capability. Self-contained, no shared references.
+    resources:
+    - name: sys-config-auditing-request-headers
+      path: /sys/config/auditing/request-headers
+      operations:
+      - name: listauditrequestheaders
+        method: GET
+        description: HashiCorp Vault List audited request headers
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: sys-generate-root-attempt
+      path: /sys/generate-root/attempt
+      operations:
+      - name: readrootgenerationprogress
+        method: GET
+        description: HashiCorp Vault Read root generation progress
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: startrootgeneration
+        method: PUT
+        description: HashiCorp Vault Start root token generation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: cancelrootgeneration
+        method: DELETE
+        description: HashiCorp Vault Cancel root token generation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: X-Vault-Token
+      value: '{{env.HVAULT_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: system-backend-configuration-rest
+    port: 8080
+    description: REST adapter for HashiCorp Vault Vault System Backend API — Configuration. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/sys/config/auditing/request-headers
+      name: sys-config-auditing-request-headers
+      description: REST surface for sys-config-auditing-request-headers.
+      operations:
+      - method: GET
+        name: listauditrequestheaders
+        description: HashiCorp Vault List audited request headers
+        call: system-backend-configuration.listauditrequestheaders
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/sys/generate-root/attempt
+      name: sys-generate-root-attempt
+      description: REST surface for sys-generate-root-attempt.
+      operations:
+      - method: GET
+        name: readrootgenerationprogress
+        description: HashiCorp Vault Read root generation progress
+        call: system-backend-configuration.readrootgenerationprogress
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: startrootgeneration
+        description: HashiCorp Vault Start root token generation
+        call: system-backend-configuration.startrootgeneration
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: cancelrootgeneration
+        description: HashiCorp Vault Cancel root token generation
+        call: system-backend-configuration.cancelrootgeneration
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: system-backend-configuration-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for HashiCorp Vault Vault System Backend API — Configuration. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: hashicorp-vault-list-audited-request
+      description: HashiCorp Vault List audited request headers
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: system-backend-configuration.listauditrequestheaders
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: hashicorp-vault-read-root-generation
+      description: HashiCorp Vault Read root generation progress
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: system-backend-configuration.readrootgenerationprogress
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: hashicorp-vault-start-root-token
+      description: HashiCorp Vault Start root token generation
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: system-backend-configuration.startrootgeneration
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: hashicorp-vault-cancel-root-token
+      description: HashiCorp Vault Cancel root token generation
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: system-backend-configuration.cancelrootgeneration
+      outputParameters:
+      - type: object
+        mapping: $.

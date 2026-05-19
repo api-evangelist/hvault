@@ -1,0 +1,146 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: HashiCorp Vault Vault System Backend API — Seal
+  description: 'HashiCorp Vault Vault System Backend API — Seal. 3 operations. Lead operation: HashiCorp Vault Seal the Vault.
+    Self-contained Naftiko capability covering one Hvault business surface.'
+  tags:
+  - Hvault
+  - Seal
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    HVAULT_API_KEY: HVAULT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: system-backend-seal
+    baseUri: https://vault.example.com/v1
+    description: HashiCorp Vault Vault System Backend API — Seal business capability. Self-contained, no shared references.
+    resources:
+    - name: sys-seal
+      path: /sys/seal
+      operations:
+      - name: sealvault
+        method: PUT
+        description: HashiCorp Vault Seal the Vault
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: sys-seal-status
+      path: /sys/seal-status
+      operations:
+      - name: getsealstatus
+        method: GET
+        description: HashiCorp Vault Read seal status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: sys-unseal
+      path: /sys/unseal
+      operations:
+      - name: unsealvault
+        method: PUT
+        description: HashiCorp Vault Submit unseal key
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: X-Vault-Token
+      value: '{{env.HVAULT_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: system-backend-seal-rest
+    port: 8080
+    description: REST adapter for HashiCorp Vault Vault System Backend API — Seal. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/sys/seal
+      name: sys-seal
+      description: REST surface for sys-seal.
+      operations:
+      - method: PUT
+        name: sealvault
+        description: HashiCorp Vault Seal the Vault
+        call: system-backend-seal.sealvault
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/sys/seal-status
+      name: sys-seal-status
+      description: REST surface for sys-seal-status.
+      operations:
+      - method: GET
+        name: getsealstatus
+        description: HashiCorp Vault Read seal status
+        call: system-backend-seal.getsealstatus
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/sys/unseal
+      name: sys-unseal
+      description: REST surface for sys-unseal.
+      operations:
+      - method: PUT
+        name: unsealvault
+        description: HashiCorp Vault Submit unseal key
+        call: system-backend-seal.unsealvault
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: system-backend-seal-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for HashiCorp Vault Vault System Backend API — Seal. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: hashicorp-vault-seal-vault
+      description: HashiCorp Vault Seal the Vault
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: system-backend-seal.sealvault
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: hashicorp-vault-read-seal-status
+      description: HashiCorp Vault Read seal status
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: system-backend-seal.getsealstatus
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: hashicorp-vault-submit-unseal-key
+      description: HashiCorp Vault Submit unseal key
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: system-backend-seal.unsealvault
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

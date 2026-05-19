@@ -1,0 +1,201 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: HashiCorp Vault Vault Identity API — Group Alias
+  description: 'HashiCorp Vault Vault Identity API — Group Alias. 4 operations. Lead operation: HashiCorp Vault Create group
+    alias. Self-contained Naftiko capability covering one Hvault business surface.'
+  tags:
+  - Hvault
+  - Group Alias
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    HVAULT_API_KEY: HVAULT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: identity-group-alias
+    baseUri: https://vault.example.com/v1
+    description: HashiCorp Vault Vault Identity API — Group Alias business capability. Self-contained, no shared references.
+    resources:
+    - name: identity-group-alias
+      path: /identity/group-alias
+      operations:
+      - name: creategroupalias
+        method: POST
+        description: HashiCorp Vault Create group alias
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: identity-group-alias-id-id
+      path: /identity/group-alias/id/{id}
+      operations:
+      - name: readgroupalias
+        method: GET
+        description: HashiCorp Vault Read group alias
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: Group alias ID
+          required: true
+      - name: updategroupalias
+        method: POST
+        description: HashiCorp Vault Update group alias
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: Group alias ID
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletegroupalias
+        method: DELETE
+        description: HashiCorp Vault Delete group alias
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: Group alias ID
+          required: true
+    authentication:
+      type: apikey
+      key: X-Vault-Token
+      value: '{{env.HVAULT_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: identity-group-alias-rest
+    port: 8080
+    description: REST adapter for HashiCorp Vault Vault Identity API — Group Alias. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/identity/group-alias
+      name: identity-group-alias
+      description: REST surface for identity-group-alias.
+      operations:
+      - method: POST
+        name: creategroupalias
+        description: HashiCorp Vault Create group alias
+        call: identity-group-alias.creategroupalias
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/identity/group-alias/id/{id}
+      name: identity-group-alias-id-id
+      description: REST surface for identity-group-alias-id-id.
+      operations:
+      - method: GET
+        name: readgroupalias
+        description: HashiCorp Vault Read group alias
+        call: identity-group-alias.readgroupalias
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: updategroupalias
+        description: HashiCorp Vault Update group alias
+        call: identity-group-alias.updategroupalias
+        with:
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletegroupalias
+        description: HashiCorp Vault Delete group alias
+        call: identity-group-alias.deletegroupalias
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: identity-group-alias-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for HashiCorp Vault Vault Identity API — Group Alias. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: hashicorp-vault-create-group-alias
+      description: HashiCorp Vault Create group alias
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: identity-group-alias.creategroupalias
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: hashicorp-vault-read-group-alias
+      description: HashiCorp Vault Read group alias
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: identity-group-alias.readgroupalias
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: hashicorp-vault-update-group-alias
+      description: HashiCorp Vault Update group alias
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: identity-group-alias.updategroupalias
+      with:
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: hashicorp-vault-delete-group-alias
+      description: HashiCorp Vault Delete group alias
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: identity-group-alias.deletegroupalias
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
