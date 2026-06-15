@@ -1,0 +1,3585 @@
+{
+  "item": [
+    {
+      "id": "10a11c29-6591-4080-a092-249bc7806872",
+      "name": "Audit",
+      "description": {
+        "content": "Audit device management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fe9a5622-66c5-4ef2-aac5-c94a60a1e7ff",
+          "name": "HashiCorp Vault List audit devices",
+          "request": {
+            "name": "HashiCorp Vault List audit devices",
+            "description": {
+              "content": "Lists all enabled audit devices.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sys",
+                "audit"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "27de26d4-e7c7-4a54-8d78-75899091614c",
+              "name": "Audit devices listed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "audit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": {\n    \"type\": \"string\",\n    \"description\": \"string\",\n    \"options\": {},\n    \"path\": \"string\",\n    \"local\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0c4a436e-ef8f-4776-a458-c37a4b50a9b2",
+              "name": "Permission denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "audit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c6cb2dd1-0070-4a99-8659-bc3847a1e453",
+          "name": "HashiCorp Vault Enable audit device",
+          "request": {
+            "name": "HashiCorp Vault Enable audit device",
+            "description": {
+              "content": "Enables a new audit device at the given path.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sys",
+                "audit",
+                ":path"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "path",
+                  "description": "(Required) The path to mount or access the resource"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"description\": \"<string>\",\n  \"options\": {\n    \"file_path\": \"<string>\",\n    \"log_raw\": \"<boolean>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "893b0b55-ae9b-4cf0-953b-3c6ba22f55b7",
+              "name": "Audit device enabled",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "audit",
+                    ":path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "path",
+                      "description": "(Required) The path to mount or access the resource"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"description\": \"<string>\",\n  \"options\": {\n    \"file_path\": \"<string>\",\n    \"log_raw\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f29f6ea9-5647-484b-b822-08bb179c595d",
+              "name": "Invalid request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "audit",
+                    ":path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "path",
+                      "description": "(Required) The path to mount or access the resource"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"description\": \"<string>\",\n  \"options\": {\n    \"file_path\": \"<string>\",\n    \"log_raw\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "42ee44e6-826d-40ef-a19d-2ff4c5a03bd1",
+              "name": "Permission denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "audit",
+                    ":path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "path",
+                      "description": "(Required) The path to mount or access the resource"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"description\": \"<string>\",\n  \"options\": {\n    \"file_path\": \"<string>\",\n    \"log_raw\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6e409021-5475-45d2-87a9-b4e3e5feaf7e",
+          "name": "HashiCorp Vault Disable audit device",
+          "request": {
+            "name": "HashiCorp Vault Disable audit device",
+            "description": {
+              "content": "Disables an audit device at the given path.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sys",
+                "audit",
+                ":path"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "path",
+                  "description": "(Required) The path to mount or access the resource"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "912f902c-a0b1-42e0-badc-fcc697f20b3e",
+              "name": "Audit device disabled",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "audit",
+                    ":path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "path",
+                      "description": "(Required) The path to mount or access the resource"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ba89e76b-c726-4918-82b2-f86d9bfc0c73",
+              "name": "Permission denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "audit",
+                    ":path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "path",
+                      "description": "(Required) The path to mount or access the resource"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "3aa78ca4-05b8-43a3-8f3f-b3a726a7dc55",
+      "name": "Auth",
+      "description": {
+        "content": "Auth method management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3e531a01-5090-4275-b811-4f274ade0540",
+          "name": "HashiCorp Vault List auth methods",
+          "request": {
+            "name": "HashiCorp Vault List auth methods",
+            "description": {
+              "content": "Lists all enabled auth methods in the Vault.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sys",
+                "auth"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "734a3a67-4e55-43ba-9ac5-a32c9ffcce29",
+              "name": "Auth methods listed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "auth"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": {\n    \"accessor\": \"string\",\n    \"config\": {\n      \"default_lease_ttl\": 1818,\n      \"max_lease_ttl\": 9501,\n      \"token_type\": \"string\"\n    },\n    \"description\": \"string\",\n    \"external_entropy_access\": true,\n    \"local\": true,\n    \"seal_wrap\": true,\n    \"type\": \"string\",\n    \"uuid\": \"string\"\n  },\n  \"key_1\": {\n    \"accessor\": \"string\",\n    \"config\": {\n      \"default_lease_ttl\": 4619,\n      \"max_lease_ttl\": 916,\n      \"token_type\": \"string\"\n    },\n    \"description\": \"string\",\n    \"external_entropy_access\": false,\n    \"local\": false,\n    \"seal_wrap\": false,\n    \"type\": \"string\",\n    \"uuid\": \"string\"\n  },\n  \"key_2\": {\n    \"accessor\": \"string\",\n    \"config\": {\n      \"default_lease_ttl\": 748,\n      \"max_lease_ttl\": 9933,\n      \"token_type\": \"string\"\n    },\n    \"description\": \"string\",\n    \"external_entropy_access\": true,\n    \"local\": true,\n    \"seal_wrap\": false,\n    \"type\": \"string\",\n    \"uuid\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c95a0e92-1dea-4c66-b4ea-a79f995c4138",
+              "name": "Permission denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "auth"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7ab1c5e0-4b27-4e0b-b747-8a6ba4ccc37d",
+          "name": "HashiCorp Vault Enable auth method",
+          "request": {
+            "name": "HashiCorp Vault Enable auth method",
+            "description": {
+              "content": "Enables a new auth method at the given path.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sys",
+                "auth",
+                ":path"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "path",
+                  "description": "(Required) The path to mount or access the resource"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"description\": \"<string>\",\n  \"config\": {\n    \"default_lease_ttl\": \"<string>\",\n    \"max_lease_ttl\": \"<string>\",\n    \"listing_visibility\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9b9aba2f-1698-421b-a57b-1b58b6037964",
+              "name": "Auth method enabled",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "auth",
+                    ":path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "path",
+                      "description": "(Required) The path to mount or access the resource"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"description\": \"<string>\",\n  \"config\": {\n    \"default_lease_ttl\": \"<string>\",\n    \"max_lease_ttl\": \"<string>\",\n    \"listing_visibility\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0daa9b03-bd2e-4913-94ff-6ca9d1b3d4ac",
+              "name": "Invalid request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "auth",
+                    ":path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "path",
+                      "description": "(Required) The path to mount or access the resource"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"description\": \"<string>\",\n  \"config\": {\n    \"default_lease_ttl\": \"<string>\",\n    \"max_lease_ttl\": \"<string>\",\n    \"listing_visibility\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "eaade60e-11f6-4d1a-8a09-3ff7a28932cf",
+              "name": "Permission denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "auth",
+                    ":path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "path",
+                      "description": "(Required) The path to mount or access the resource"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"description\": \"<string>\",\n  \"config\": {\n    \"default_lease_ttl\": \"<string>\",\n    \"max_lease_ttl\": \"<string>\",\n    \"listing_visibility\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b88dbea1-e8e6-4c28-8936-d7786e155cba",
+          "name": "HashiCorp Vault Disable auth method",
+          "request": {
+            "name": "HashiCorp Vault Disable auth method",
+            "description": {
+              "content": "Disables the auth method at the given path.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sys",
+                "auth",
+                ":path"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "path",
+                  "description": "(Required) The path to mount or access the resource"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "75604a3e-c6bf-4efe-8f55-66609c30c3b1",
+              "name": "Auth method disabled",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "auth",
+                    ":path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "path",
+                      "description": "(Required) The path to mount or access the resource"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0897592b-4ab5-4b7a-bcb9-24f365f08ec4",
+              "name": "Permission denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "auth",
+                    ":path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "path",
+                      "description": "(Required) The path to mount or access the resource"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "72a07ace-b32c-40f2-8b9e-09a6df9a5dbf",
+      "name": "Configuration",
+      "description": {
+        "content": "General Vault configuration",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0e1de88e-8da5-401b-a25d-8296bfbceb88",
+          "name": "HashiCorp Vault List audited request headers",
+          "request": {
+            "name": "HashiCorp Vault List audited request headers",
+            "description": {
+              "content": "Lists the request headers configured for auditing.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sys",
+                "config",
+                "auditing",
+                "request-headers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fe4ca194-da65-412b-8a2d-d6a7e3acd0e0",
+              "name": "Audited headers listed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "config",
+                    "auditing",
+                    "request-headers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"headers\": {\n    \"key_0\": {\n      \"hmac\": true\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e1e2e09f-7119-43c6-9ada-ab7ecb94e079",
+              "name": "Permission denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "config",
+                    "auditing",
+                    "request-headers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "782a44a2-ae6c-48a3-b741-b0c3b3133078",
+          "name": "HashiCorp Vault Read root generation progress",
+          "request": {
+            "name": "HashiCorp Vault Read root generation progress",
+            "description": {
+              "content": "Reads the status of the current root generation attempt.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sys",
+                "generate-root",
+                "attempt"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "150731ca-96c0-466b-81f1-fa7ac75ab2b7",
+              "name": "Root generation progress returned",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "generate-root",
+                    "attempt"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"started\": false,\n  \"nonce\": \"string\",\n  \"progress\": 2463,\n  \"required\": 637,\n  \"complete\": true,\n  \"encoded_token\": \"string\",\n  \"encoded_root_token\": \"string\",\n  \"pgp_fingerprint\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2fe50fea-a745-40cc-b43d-6e2b48eb39b9",
+          "name": "HashiCorp Vault Start root token generation",
+          "request": {
+            "name": "HashiCorp Vault Start root token generation",
+            "description": {
+              "content": "Initializes a new root generation attempt.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sys",
+                "generate-root",
+                "attempt"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pgp_key\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f90da9fd-37a0-413e-932a-fc4b2c378688",
+              "name": "Root generation started",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "generate-root",
+                    "attempt"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pgp_key\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"started\": true,\n  \"nonce\": \"string\",\n  \"progress\": 9873,\n  \"required\": 5573,\n  \"complete\": true,\n  \"pgp_fingerprint\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4685d97d-abf5-46a4-802b-48f9830a5d52",
+          "name": "HashiCorp Vault Cancel root token generation",
+          "request": {
+            "name": "HashiCorp Vault Cancel root token generation",
+            "description": {
+              "content": "Cancels the current root generation attempt.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sys",
+                "generate-root",
+                "attempt"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1c765c6c-8e41-43b2-8d64-fd7f5ab1e32a",
+              "name": "Root generation cancelled",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "generate-root",
+                    "attempt"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "6dfdb83e-4b2c-4f10-980e-de56d32b4493",
+      "name": "Health",
+      "description": {
+        "content": "Health and status endpoints",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "18e1e62e-5edc-4ab5-b5f5-61eb45039fa7",
+          "name": "HashiCorp Vault Read health status",
+          "request": {
+            "name": "HashiCorp Vault Read health status",
+            "description": {
+              "content": "Returns the health status of the Vault server. This is an unauthenticated endpoint used for health checks by load balancers and monitoring systems.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sys",
+                "health"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "standbyok",
+                  "value": "<boolean>",
+                  "description": "Whether to return 200 for standby nodes"
+                },
+                {
+                  "disabled": false,
+                  "key": "activecode",
+                  "value": "200",
+                  "description": "HTTP status code for active nodes"
+                },
+                {
+                  "disabled": false,
+                  "key": "standbycode",
+                  "value": "429",
+                  "description": "HTTP status code for standby nodes"
+                },
+                {
+                  "disabled": false,
+                  "key": "sealedcode",
+                  "value": "503",
+                  "description": "HTTP status code for sealed vaults"
+                },
+                {
+                  "disabled": false,
+                  "key": "uninitcode",
+                  "value": "501",
+                  "description": "HTTP status code for uninitialized vaults"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "104dc07b-a867-4273-bb7e-87f48023c4ac",
+              "name": "Vault is initialized, unsealed, and active",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "health"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "standbyok",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "activecode",
+                      "value": "200"
+                    },
+                    {
+                      "key": "standbycode",
+                      "value": "429"
+                    },
+                    {
+                      "key": "sealedcode",
+                      "value": "503"
+                    },
+                    {
+                      "key": "uninitcode",
+                      "value": "501"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"initialized\": false,\n  \"sealed\": true,\n  \"standby\": true,\n  \"performance_standby\": false,\n  \"replication_performance_mode\": \"string\",\n  \"replication_dr_mode\": \"string\",\n  \"server_time_utc\": 8725,\n  \"version\": \"string\",\n  \"cluster_name\": \"string\",\n  \"cluster_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bf606999-8774-4151-bf2b-bc205d291798",
+              "name": "Vault is unsealed and in standby mode",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "health"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "standbyok",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "activecode",
+                      "value": "200"
+                    },
+                    {
+                      "key": "standbycode",
+                      "value": "429"
+                    },
+                    {
+                      "key": "sealedcode",
+                      "value": "503"
+                    },
+                    {
+                      "key": "uninitcode",
+                      "value": "501"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b21d1b17-f7a4-4ace-9f8e-456c0f19f32e",
+              "name": "Vault is in data recovery mode replication secondary",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "health"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "standbyok",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "activecode",
+                      "value": "200"
+                    },
+                    {
+                      "key": "standbycode",
+                      "value": "429"
+                    },
+                    {
+                      "key": "sealedcode",
+                      "value": "503"
+                    },
+                    {
+                      "key": "uninitcode",
+                      "value": "501"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "code": 472,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "45102506-e967-43db-b118-f07ffe9589a1",
+              "name": "Vault is not initialized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "health"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "standbyok",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "activecode",
+                      "value": "200"
+                    },
+                    {
+                      "key": "standbycode",
+                      "value": "429"
+                    },
+                    {
+                      "key": "sealedcode",
+                      "value": "503"
+                    },
+                    {
+                      "key": "uninitcode",
+                      "value": "501"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Implemented",
+              "code": 501,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2dd152b0-79f5-4a9f-a1ee-3c64ace9df80",
+              "name": "Vault is sealed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "health"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "standbyok",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "activecode",
+                      "value": "200"
+                    },
+                    {
+                      "key": "standbycode",
+                      "value": "429"
+                    },
+                    {
+                      "key": "sealedcode",
+                      "value": "503"
+                    },
+                    {
+                      "key": "uninitcode",
+                      "value": "501"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "58a28674-c25e-4b63-99c3-619ba6987e7b",
+      "name": "Init",
+      "description": {
+        "content": "Vault initialization",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "209e97a3-e2ae-47db-a7ba-3b4eeceaee29",
+          "name": "HashiCorp Vault Read initialization status",
+          "request": {
+            "name": "HashiCorp Vault Read initialization status",
+            "description": {
+              "content": "Returns the initialization status of the Vault server.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sys",
+                "init"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2f75134a-d419-4612-b8e3-d43640bc174c",
+              "name": "Initialization status returned",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "init"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"initialized\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a3959080-a783-4cb3-8c8b-2a0cc15228d8",
+          "name": "HashiCorp Vault Initialize Vault",
+          "request": {
+            "name": "HashiCorp Vault Initialize Vault",
+            "description": {
+              "content": "Initializes a new Vault by generating the master key shares and the initial root token.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sys",
+                "init"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"secret_shares\": \"<integer>\",\n  \"secret_threshold\": \"<integer>\",\n  \"pgp_keys\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"root_token_pgp_key\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3af6c5e9-342b-46d5-bce5-54a8180392dd",
+              "name": "Vault initialized successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "init"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"secret_shares\": \"<integer>\",\n  \"secret_threshold\": \"<integer>\",\n  \"pgp_keys\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"root_token_pgp_key\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"keys\": [\n    \"string\",\n    \"string\"\n  ],\n  \"keys_base64\": [\n    \"string\",\n    \"string\"\n  ],\n  \"root_token\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "e5ecdd9e-5550-4a93-b095-fcc07be7c504",
+      "name": "Leader",
+      "description": {
+        "content": "HA leader status",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2ba61418-a31b-43c4-8e25-18a00a177657",
+          "name": "HashiCorp Vault Read leader status",
+          "request": {
+            "name": "HashiCorp Vault Read leader status",
+            "description": {
+              "content": "Returns the high availability status and current leader instance of the Vault cluster.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sys",
+                "leader"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b6932172-887b-4418-b3f3-294a9b085b90",
+              "name": "Leader status returned",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "leader"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ha_enabled\": false,\n  \"is_self\": true,\n  \"active_time\": \"1989-08-15T17:20:50.824Z\",\n  \"leader_address\": \"string\",\n  \"leader_cluster_address\": \"string\",\n  \"performance_standby\": true,\n  \"performance_standby_last_remote_wal\": 3346\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "d606120a-7f51-423b-bb09-80a325e8f7cb",
+      "name": "Mounts",
+      "description": {
+        "content": "Secrets engine mount management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f2b01696-a0d1-4859-82e2-972f71d57083",
+          "name": "HashiCorp Vault List secrets engines",
+          "request": {
+            "name": "HashiCorp Vault List secrets engines",
+            "description": {
+              "content": "Lists all mounted secrets engines.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sys",
+                "mounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b8ad746c-666d-492c-a08d-6f83f908194a",
+              "name": "Secrets engines listed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "mounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": {\n    \"accessor\": \"string\",\n    \"config\": {\n      \"default_lease_ttl\": 3000,\n      \"max_lease_ttl\": 1670\n    },\n    \"description\": \"string\",\n    \"external_entropy_access\": true,\n    \"local\": true,\n    \"seal_wrap\": false,\n    \"type\": \"string\",\n    \"uuid\": \"string\",\n    \"options\": {}\n  },\n  \"key_1\": {\n    \"accessor\": \"string\",\n    \"config\": {\n      \"default_lease_ttl\": 754,\n      \"max_lease_ttl\": 3487\n    },\n    \"description\": \"string\",\n    \"external_entropy_access\": false,\n    \"local\": false,\n    \"seal_wrap\": false,\n    \"type\": \"string\",\n    \"uuid\": \"string\",\n    \"options\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1e4c0127-5e6f-4a0b-b825-752a8040462e",
+              "name": "Permission denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "mounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ce10269c-9b43-45f1-8732-79cdcc4ab5cf",
+          "name": "HashiCorp Vault Enable secrets engine",
+          "request": {
+            "name": "HashiCorp Vault Enable secrets engine",
+            "description": {
+              "content": "Enables a new secrets engine at the given path.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sys",
+                "mounts",
+                ":path"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "path",
+                  "description": "(Required) The path to mount or access the resource"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"description\": \"<string>\",\n  \"config\": {\n    \"default_lease_ttl\": \"<string>\",\n    \"max_lease_ttl\": \"<string>\"\n  },\n  \"options\": {\n    \"version\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "65058775-79e1-4918-925e-7aab7f827866",
+              "name": "Secrets engine enabled",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "mounts",
+                    ":path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "path",
+                      "description": "(Required) The path to mount or access the resource"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"description\": \"<string>\",\n  \"config\": {\n    \"default_lease_ttl\": \"<string>\",\n    \"max_lease_ttl\": \"<string>\"\n  },\n  \"options\": {\n    \"version\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "288c3893-2dc4-4cc4-bc62-2fcf3f4b7228",
+              "name": "Invalid request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "mounts",
+                    ":path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "path",
+                      "description": "(Required) The path to mount or access the resource"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"description\": \"<string>\",\n  \"config\": {\n    \"default_lease_ttl\": \"<string>\",\n    \"max_lease_ttl\": \"<string>\"\n  },\n  \"options\": {\n    \"version\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2e522425-d0ca-4dc5-957f-074aaaec1c6f",
+              "name": "Permission denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "mounts",
+                    ":path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "path",
+                      "description": "(Required) The path to mount or access the resource"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"description\": \"<string>\",\n  \"config\": {\n    \"default_lease_ttl\": \"<string>\",\n    \"max_lease_ttl\": \"<string>\"\n  },\n  \"options\": {\n    \"version\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "80251deb-605d-4b41-a7fe-0f1dd3dd5f1b",
+          "name": "HashiCorp Vault Disable secrets engine",
+          "request": {
+            "name": "HashiCorp Vault Disable secrets engine",
+            "description": {
+              "content": "Disables the secrets engine at the given path.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sys",
+                "mounts",
+                ":path"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "path",
+                  "description": "(Required) The path to mount or access the resource"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e45e7f52-677c-401d-9cf4-02155249ca5d",
+              "name": "Secrets engine disabled",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "mounts",
+                    ":path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "path",
+                      "description": "(Required) The path to mount or access the resource"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "72f5a8c5-dfbc-488f-802f-7ac08b683bb7",
+              "name": "Permission denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "mounts",
+                    ":path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "path",
+                      "description": "(Required) The path to mount or access the resource"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "30afd7c3-5139-435e-a5bf-884f6a1d2165",
+      "name": "Policy",
+      "description": {
+        "content": "Policy management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8eefd522-777b-41ff-9e8a-fec900825650",
+          "name": "HashiCorp Vault List ACL policies",
+          "request": {
+            "name": "HashiCorp Vault List ACL policies",
+            "description": {
+              "content": "Lists all configured ACL policies.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sys",
+                "policies",
+                "acl"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "479f9f14-7bfb-463a-9ca6-c92e26c25859",
+              "name": "Policies listed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "policies",
+                    "acl"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"keys\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ac256f06-8dbb-4548-8e6c-3269b11fbbf6",
+              "name": "Permission denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "policies",
+                    "acl"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d2785d30-bd57-48e3-a7d4-06f853cb796b",
+          "name": "HashiCorp Vault Read ACL policy",
+          "request": {
+            "name": "HashiCorp Vault Read ACL policy",
+            "description": {
+              "content": "Reads an existing ACL policy by name.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sys",
+                "policies",
+                "acl",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the policy"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8c502771-a130-4664-8cdb-65c82049d02d",
+              "name": "Policy returned",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "policies",
+                    "acl",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the policy"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"policy\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7930abd4-ec62-4c94-86d1-02c38b6b4150",
+              "name": "Permission denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "policies",
+                    "acl",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the policy"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f362595a-db9f-4062-8e8e-dbb4f5528e5b",
+              "name": "Policy not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "policies",
+                    "acl",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the policy"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "11f7009d-ba34-4608-8ac4-f7e00bce2420",
+          "name": "HashiCorp Vault Create or update ACL policy",
+          "request": {
+            "name": "HashiCorp Vault Create or update ACL policy",
+            "description": {
+              "content": "Creates a new or updates an existing ACL policy.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sys",
+                "policies",
+                "acl",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the policy"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"policy\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3816851b-d845-40d4-9a27-13834d7ee730",
+              "name": "Policy created or updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "policies",
+                    "acl",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the policy"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"policy\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "24d10ee1-dd4c-4ece-bb1f-32e949c83a48",
+              "name": "Invalid policy",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "policies",
+                    "acl",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the policy"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"policy\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fa2a62b9-15b4-4b7f-a3e6-ba352cbaef97",
+              "name": "Permission denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "policies",
+                    "acl",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the policy"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"policy\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "53c73c88-c299-4f63-ace2-ec8bd8c837a2",
+          "name": "HashiCorp Vault Delete ACL policy",
+          "request": {
+            "name": "HashiCorp Vault Delete ACL policy",
+            "description": {
+              "content": "Deletes an ACL policy by name.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sys",
+                "policies",
+                "acl",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the policy"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4e22725e-5008-46b0-9383-4c803f364801",
+              "name": "Policy deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "policies",
+                    "acl",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the policy"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "38a1653e-f2d3-4c28-9772-17416d080538",
+              "name": "Permission denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "policies",
+                    "acl",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the policy"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "c1032f47-aaf1-4ed0-b436-7da1571d9449",
+      "name": "Seal",
+      "description": {
+        "content": "Seal and unseal operations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0b57bcb4-cb48-4cff-9540-49854e404190",
+          "name": "HashiCorp Vault Read seal status",
+          "request": {
+            "name": "HashiCorp Vault Read seal status",
+            "description": {
+              "content": "Returns the seal status of the Vault server. This is an unauthenticated endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sys",
+                "seal-status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a18e2512-5661-4089-95b7-3aecc3987a10",
+              "name": "Seal status returned",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "seal-status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"initialized\": false,\n  \"sealed\": false,\n  \"t\": 6149,\n  \"n\": 4921,\n  \"progress\": 2700,\n  \"nonce\": \"string\",\n  \"version\": \"string\",\n  \"build_date\": \"string\",\n  \"migration\": true,\n  \"cluster_name\": \"string\",\n  \"cluster_id\": \"string\",\n  \"recovery_seal\": false,\n  \"storage_type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9afbb36e-b97a-4c61-a62d-25aad4de3d0e",
+          "name": "HashiCorp Vault Seal the Vault",
+          "request": {
+            "name": "HashiCorp Vault Seal the Vault",
+            "description": {
+              "content": "Seals the Vault. In HA mode, only an active node can be sealed. Standby nodes should be restarted to seal them.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sys",
+                "seal"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "PUT",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "13891e73-0f38-4a54-8a4c-b43841facafc",
+              "name": "Vault sealed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "seal"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fa02e464-a242-4781-8276-237ab0a2f78b",
+              "name": "Server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "seal"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1b4be611-c9f2-4632-8432-cbd57e87c99b",
+          "name": "HashiCorp Vault Submit unseal key",
+          "request": {
+            "name": "HashiCorp Vault Submit unseal key",
+            "description": {
+              "content": "Submit a portion of a master key to unseal the Vault. Multiple keys must be submitted until the threshold is reached.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sys",
+                "unseal"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key\": \"<string>\",\n  \"reset\": \"<boolean>\",\n  \"migrate\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b442b149-d91c-41dd-abd3-0788ad4a8de9",
+              "name": "Unseal progress updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "unseal"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key\": \"<string>\",\n  \"reset\": \"<boolean>\",\n  \"migrate\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"initialized\": false,\n  \"sealed\": false,\n  \"t\": 6149,\n  \"n\": 4921,\n  \"progress\": 2700,\n  \"nonce\": \"string\",\n  \"version\": \"string\",\n  \"build_date\": \"string\",\n  \"migration\": true,\n  \"cluster_name\": \"string\",\n  \"cluster_id\": \"string\",\n  \"recovery_seal\": false,\n  \"storage_type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://vault.example.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Vault-Token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "20235283-5153-475d-94cb-028576a0f724",
+    "name": "HashiCorp Vault Vault System Backend API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API for system-level operations in HashiCorp Vault including health checks, seal status, initialization, authentication management, secrets engine configuration, audit devices, policies, and general Vault configuration.\n\nContact Support:\n Name: HashiCorp Support\n Email: support@hashicorp.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,486 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "HashiCorp Vault Vault System Backend API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Vault-Token",
+      "value": "{{X-Vault-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Health",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "HashiCorp Vault Read health status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vault.example.com/v1/sys/health",
+            "params": [
+              {
+                "name": "standbyok",
+                "value": "",
+                "type": "query",
+                "description": "Whether to return 200 for standby nodes"
+              },
+              {
+                "name": "activecode",
+                "value": "",
+                "type": "query",
+                "description": "HTTP status code for active nodes"
+              },
+              {
+                "name": "standbycode",
+                "value": "",
+                "type": "query",
+                "description": "HTTP status code for standby nodes"
+              },
+              {
+                "name": "sealedcode",
+                "value": "",
+                "type": "query",
+                "description": "HTTP status code for sealed vaults"
+              },
+              {
+                "name": "uninitcode",
+                "value": "",
+                "type": "query",
+                "description": "HTTP status code for uninitialized vaults"
+              }
+            ]
+          },
+          "docs": "Returns the health status of the Vault server. This is an unauthenticated endpoint used for health checks by load balancers and monitoring systems."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Seal",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "HashiCorp Vault Read seal status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vault.example.com/v1/sys/seal-status"
+          },
+          "docs": "Returns the seal status of the Vault server. This is an unauthenticated endpoint."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Seal the Vault",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://vault.example.com/v1/sys/seal"
+          },
+          "docs": "Seals the Vault. In HA mode, only an active node can be sealed. Standby nodes should be restarted to seal them."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Submit unseal key",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://vault.example.com/v1/sys/unseal",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit a portion of a master key to unseal the Vault. Multiple keys must be submitted until the threshold is reached."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Init",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "HashiCorp Vault Read initialization status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vault.example.com/v1/sys/init"
+          },
+          "docs": "Returns the initialization status of the Vault server."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Initialize Vault",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://vault.example.com/v1/sys/init",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initializes a new Vault by generating the master key shares and the initial root token."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Auth",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "HashiCorp Vault List auth methods",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vault.example.com/v1/sys/auth"
+          },
+          "docs": "Lists all enabled auth methods in the Vault."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Enable auth method",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vault.example.com/v1/sys/auth/:path",
+            "params": [
+              {
+                "name": "path",
+                "value": "",
+                "type": "path",
+                "description": "The path to mount or access the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Enables a new auth method at the given path."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Disable auth method",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://vault.example.com/v1/sys/auth/:path",
+            "params": [
+              {
+                "name": "path",
+                "value": "",
+                "type": "path",
+                "description": "The path to mount or access the resource"
+              }
+            ]
+          },
+          "docs": "Disables the auth method at the given path."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Mounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "HashiCorp Vault List secrets engines",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vault.example.com/v1/sys/mounts"
+          },
+          "docs": "Lists all mounted secrets engines."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Enable secrets engine",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vault.example.com/v1/sys/mounts/:path",
+            "params": [
+              {
+                "name": "path",
+                "value": "",
+                "type": "path",
+                "description": "The path to mount or access the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Enables a new secrets engine at the given path."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Disable secrets engine",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://vault.example.com/v1/sys/mounts/:path",
+            "params": [
+              {
+                "name": "path",
+                "value": "",
+                "type": "path",
+                "description": "The path to mount or access the resource"
+              }
+            ]
+          },
+          "docs": "Disables the secrets engine at the given path."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Policy",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "HashiCorp Vault List ACL policies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vault.example.com/v1/sys/policies/acl"
+          },
+          "docs": "Lists all configured ACL policies."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Read ACL policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vault.example.com/v1/sys/policies/acl/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the policy"
+              }
+            ]
+          },
+          "docs": "Reads an existing ACL policy by name."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Create or update ACL policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://vault.example.com/v1/sys/policies/acl/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the policy"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new or updates an existing ACL policy."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Delete ACL policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://vault.example.com/v1/sys/policies/acl/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the policy"
+              }
+            ]
+          },
+          "docs": "Deletes an ACL policy by name."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Audit",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "HashiCorp Vault List audit devices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vault.example.com/v1/sys/audit"
+          },
+          "docs": "Lists all enabled audit devices."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Enable audit device",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://vault.example.com/v1/sys/audit/:path",
+            "params": [
+              {
+                "name": "path",
+                "value": "",
+                "type": "path",
+                "description": "The path to mount or access the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Enables a new audit device at the given path."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Disable audit device",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://vault.example.com/v1/sys/audit/:path",
+            "params": [
+              {
+                "name": "path",
+                "value": "",
+                "type": "path",
+                "description": "The path to mount or access the resource"
+              }
+            ]
+          },
+          "docs": "Disables an audit device at the given path."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Leader",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "HashiCorp Vault Read leader status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vault.example.com/v1/sys/leader"
+          },
+          "docs": "Returns the high availability status and current leader instance of the Vault cluster."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Configuration",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "HashiCorp Vault List audited request headers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vault.example.com/v1/sys/config/auditing/request-headers"
+          },
+          "docs": "Lists the request headers configured for auditing."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Read root generation progress",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vault.example.com/v1/sys/generate-root/attempt"
+          },
+          "docs": "Reads the status of the current root generation attempt."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Start root token generation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://vault.example.com/v1/sys/generate-root/attempt",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initializes a new root generation attempt."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Cancel root token generation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://vault.example.com/v1/sys/generate-root/attempt"
+          },
+          "docs": "Cancels the current root generation attempt."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

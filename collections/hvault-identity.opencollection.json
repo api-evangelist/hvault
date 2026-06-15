@@ -1,0 +1,615 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "HashiCorp Vault Vault Identity API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Vault-Token",
+      "value": "{{X-Vault-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Entity",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "HashiCorp Vault List entities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vault.example.com/v1/identity/entity"
+          },
+          "docs": "Lists all identity entities by ID."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Create entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vault.example.com/v1/identity/entity",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates an identity entity."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Read entity by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vault.example.com/v1/identity/entity/id/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Entity unique identifier"
+              }
+            ]
+          },
+          "docs": "Reads the identity entity with the given ID."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Update entity by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vault.example.com/v1/identity/entity/id/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Entity unique identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the identity entity with the given ID."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Delete entity by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://vault.example.com/v1/identity/entity/id/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Entity unique identifier"
+              }
+            ]
+          },
+          "docs": "Deletes the identity entity with the given ID."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Read entity by name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vault.example.com/v1/identity/entity/name/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the entity"
+              }
+            ]
+          },
+          "docs": "Reads the identity entity with the given name."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Update entity by name",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vault.example.com/v1/identity/entity/name/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the entity"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the identity entity with the given name."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Delete entity by name",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://vault.example.com/v1/identity/entity/name/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the entity"
+              }
+            ]
+          },
+          "docs": "Deletes the identity entity with the given name."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Batch delete entities",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vault.example.com/v1/identity/entity/batch-delete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes multiple identity entities by their IDs."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Merge entities",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vault.example.com/v1/identity/entity/merge",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Merges two or more entities into a single entity. Aliases from the source entities are transferred to the destination entity."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Entity Alias",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "HashiCorp Vault Create entity alias",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vault.example.com/v1/identity/entity-alias",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates an entity alias that maps an authentication method's identity to a Vault entity."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Read entity alias",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vault.example.com/v1/identity/entity-alias/id/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Entity alias ID"
+              }
+            ]
+          },
+          "docs": "Reads the entity alias with the given ID."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Update entity alias",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vault.example.com/v1/identity/entity-alias/id/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Entity alias ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the entity alias with the given ID."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Delete entity alias",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://vault.example.com/v1/identity/entity-alias/id/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Entity alias ID"
+              }
+            ]
+          },
+          "docs": "Deletes the entity alias with the given ID."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Group",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "HashiCorp Vault List groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vault.example.com/v1/identity/group"
+          },
+          "docs": "Lists all identity groups by ID."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Create group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vault.example.com/v1/identity/group",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates an identity group."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Read group by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vault.example.com/v1/identity/group/id/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Group ID"
+              }
+            ]
+          },
+          "docs": "Reads the identity group with the given ID."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Update group by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vault.example.com/v1/identity/group/id/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Group ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the identity group with the given ID."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Delete group by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://vault.example.com/v1/identity/group/id/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Group ID"
+              }
+            ]
+          },
+          "docs": "Deletes the identity group with the given ID."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Read group by name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vault.example.com/v1/identity/group/name/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the group"
+              }
+            ]
+          },
+          "docs": "Reads the identity group with the given name."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Update group by name",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vault.example.com/v1/identity/group/name/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the group"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the identity group with the given name."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Delete group by name",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://vault.example.com/v1/identity/group/name/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the group"
+              }
+            ]
+          },
+          "docs": "Deletes the identity group with the given name."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Group Alias",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "HashiCorp Vault Create group alias",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vault.example.com/v1/identity/group-alias",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a group alias that maps an external group from an auth method to a Vault identity group."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Read group alias",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vault.example.com/v1/identity/group-alias/id/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Group alias ID"
+              }
+            ]
+          },
+          "docs": "Reads the group alias with the given ID."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Update group alias",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vault.example.com/v1/identity/group-alias/id/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Group alias ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the group alias with the given ID."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Delete group alias",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://vault.example.com/v1/identity/group-alias/id/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Group alias ID"
+              }
+            ]
+          },
+          "docs": "Deletes the group alias with the given ID."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Lookup",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "HashiCorp Vault Lookup entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vault.example.com/v1/identity/lookup/entity",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Looks up an entity by any of its identifying attributes such as name, ID, or alias details."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Lookup group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vault.example.com/v1/identity/lookup/group",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Looks up a group by any of its identifying attributes such as name, ID, or alias details."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "OIDC",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "HashiCorp Vault Read OIDC token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vault.example.com/v1/identity/oidc/token/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the OIDC role"
+              }
+            ]
+          },
+          "docs": "Generates an OIDC identity token for the requesting entity based on the named role."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Read OIDC discovery configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vault.example.com/v1/identity/oidc/.well-known/openid-configuration"
+          },
+          "docs": "Returns the OIDC discovery document for Vault's identity OIDC provider."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Read OIDC JWKS",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vault.example.com/v1/identity/oidc/.well-known/keys"
+          },
+          "docs": "Returns the public keys used to verify OIDC identity tokens."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,627 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "HashiCorp Vault Vault Auth Methods API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Vault-Token",
+      "value": "{{X-Vault-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Token",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "HashiCorp Vault Create token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vault.example.com/v1/auth/token/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new token. Certain options are only available when called by a root token. If used via the /auth/token/create/orphan endpoint, a root or sudo token is not required."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Create orphan token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vault.example.com/v1/auth/token/create-orphan",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new orphan token that has no parent. Requires a root token or sudo capability."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Create token with role",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vault.example.com/v1/auth/token/create/:role_name",
+            "params": [
+              {
+                "name": "role_name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the token role"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new token based on a named token role."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Lookup token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vault.example.com/v1/auth/token/lookup",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns information about the specified token."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Lookup self token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vault.example.com/v1/auth/token/lookup-self"
+          },
+          "docs": "Returns information about the token used to make this request."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Renew token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vault.example.com/v1/auth/token/renew",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Renews a lease associated with the specified token."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Renew self token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vault.example.com/v1/auth/token/renew-self",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Renews the lease on the token used to make this request."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Revoke token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vault.example.com/v1/auth/token/revoke",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Revokes the specified token and all child tokens."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Revoke self token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vault.example.com/v1/auth/token/revoke-self"
+          },
+          "docs": "Revokes the token used to make this request."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Read token role",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vault.example.com/v1/auth/token/roles/:role_name",
+            "params": [
+              {
+                "name": "role_name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the role"
+              }
+            ]
+          },
+          "docs": "Reads the configuration of the named token role."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Create or update token role",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vault.example.com/v1/auth/token/roles/:role_name",
+            "params": [
+              {
+                "name": "role_name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the role"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates the named token role."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Delete token role",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://vault.example.com/v1/auth/token/roles/:role_name",
+            "params": [
+              {
+                "name": "role_name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the role"
+              }
+            ]
+          },
+          "docs": "Deletes the named token role."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "AppRole",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "HashiCorp Vault Login with AppRole",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vault.example.com/v1/auth/approle/login",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Authenticates with Vault using a role ID and secret ID to obtain a Vault token."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Read AppRole",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vault.example.com/v1/auth/approle/role/:role_name",
+            "params": [
+              {
+                "name": "role_name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the role"
+              }
+            ]
+          },
+          "docs": "Reads the properties of the named AppRole."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Create or update AppRole",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vault.example.com/v1/auth/approle/role/:role_name",
+            "params": [
+              {
+                "name": "role_name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the role"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates the named AppRole."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Delete AppRole",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://vault.example.com/v1/auth/approle/role/:role_name",
+            "params": [
+              {
+                "name": "role_name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the role"
+              }
+            ]
+          },
+          "docs": "Deletes the named AppRole."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Read AppRole role ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vault.example.com/v1/auth/approle/role/:role_name/role-id",
+            "params": [
+              {
+                "name": "role_name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the role"
+              }
+            ]
+          },
+          "docs": "Returns the role ID of the named AppRole."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Generate AppRole secret ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vault.example.com/v1/auth/approle/role/:role_name/secret-id",
+            "params": [
+              {
+                "name": "role_name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the role"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generates a new secret ID for the named AppRole."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Kubernetes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "HashiCorp Vault Login with Kubernetes",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vault.example.com/v1/auth/kubernetes/login",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Authenticates with Vault using a Kubernetes service account JWT token."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Read Kubernetes auth configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vault.example.com/v1/auth/kubernetes/config"
+          },
+          "docs": "Returns the Kubernetes auth method configuration."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Configure Kubernetes auth",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vault.example.com/v1/auth/kubernetes/config",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Configures the Kubernetes auth method."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Read Kubernetes role",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vault.example.com/v1/auth/kubernetes/role/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the role"
+              }
+            ]
+          },
+          "docs": "Reads the named Kubernetes auth role configuration."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Create or update Kubernetes role",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vault.example.com/v1/auth/kubernetes/role/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the role"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates the named Kubernetes auth role."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Delete Kubernetes role",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://vault.example.com/v1/auth/kubernetes/role/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the role"
+              }
+            ]
+          },
+          "docs": "Deletes the named Kubernetes auth role."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "LDAP",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "HashiCorp Vault Login with LDAP",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vault.example.com/v1/auth/ldap/login/:username",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "LDAP username"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Authenticates with Vault using LDAP credentials."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "JWT/OIDC",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "HashiCorp Vault Login with JWT/OIDC",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vault.example.com/v1/auth/jwt/login",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Authenticates with Vault using a JWT token."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Userpass",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "HashiCorp Vault Login with username and password",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vault.example.com/v1/auth/userpass/login/:username",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "Username"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Authenticates with Vault using a username and password."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Read userpass user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vault.example.com/v1/auth/userpass/users/:username",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "Username"
+              }
+            ]
+          },
+          "docs": "Reads the properties of the named userpass user."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Create or update userpass user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vault.example.com/v1/auth/userpass/users/:username",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "Username"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates the named userpass user."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Delete userpass user",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://vault.example.com/v1/auth/userpass/users/:username",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "Username"
+              }
+            ]
+          },
+          "docs": "Deletes the named userpass user."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "GitHub",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "HashiCorp Vault Login with GitHub",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vault.example.com/v1/auth/github/login",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Authenticates with Vault using a GitHub personal access token."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
