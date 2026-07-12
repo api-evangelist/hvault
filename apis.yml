@@ -108,6 +108,10 @@ maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
 common:
+  - type: DomainSecurity
+    url: security/hvault-domain-security.yml
+  - type: Authentication
+    url: authentication/hvault-authentication.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/hashicorp
   - type: X-website

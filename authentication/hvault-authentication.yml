@@ -1,0 +1,20 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/hvault-auth-methods-openapi.yml, openapi/hvault-identity-openapi.yml, openapi/hvault-secrets-engines-openapi.yml,
+  openapi/hvault-system-backend-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: vaultToken
+  type: apiKey
+  in: header
+  parameter: X-Vault-Token
+  description: Vault authentication token
+  sources:
+  - openapi/hvault-auth-methods-openapi.yml
+  - openapi/hvault-identity-openapi.yml
+  - openapi/hvault-secrets-engines-openapi.yml
+  - openapi/hvault-system-backend-openapi.yml
