@@ -108,6 +108,8 @@ maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
 common:
+  - type: AgenticAccess
+    url: agentic-access/hvault-agentic-access.yml
   - type: DomainSecurity
     url: security/hvault-domain-security.yml
   - type: Authentication
