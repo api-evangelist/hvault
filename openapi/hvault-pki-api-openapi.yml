@@ -1,0 +1,212 @@
+openapi: 3.1.0
+info:
+  title: HashiCorp Vault Vault Auth Methods AppRole PKI API
+  description: APIs for authentication methods in HashiCorp Vault including Token, AppRole, Kubernetes, LDAP, JWT/OIDC, GitHub, Userpass, and AWS auth methods. These endpoints handle user and machine authentication to obtain Vault tokens.
+  version: '1.0'
+  contact:
+    name: HashiCorp Support
+    email: support@hashicorp.com
+    url: https://support.hashicorp.com/
+  license:
+    name: Business Source License 1.1
+    url: https://github.com/hashicorp/vault/blob/main/LICENSE
+servers:
+- url: https://vault.example.com/v1
+  description: Vault Server
+security:
+- vaultToken: []
+tags:
+- name: PKI
+  description: PKI certificate management secrets engine
+paths:
+  /pki/issue/{name}:
+    post:
+      operationId: issueCertificate
+      summary: HashiCorp Vault Issue certificate
+      description: Generates a new certificate based on the named role. The private key is returned in the response.
+      tags:
+      - PKI
+      parameters:
+      - name: name
+        in: path
+        required: true
+        description: Name of the PKI role
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - common_name
+              properties:
+                common_name:
+                  type: string
+                  description: Common name for the certificate
+                alt_names:
+                  type: string
+                  description: Comma-separated SANs
+                ip_sans:
+                  type: string
+                  description: Comma-separated IP SANs
+                ttl:
+                  type: string
+                  description: Requested TTL (e.g., 24h)
+                format:
+                  type: string
+                  enum:
+                  - pem
+                  - der
+                  - pem_bundle
+                  description: Output format
+      responses:
+        '200':
+          description: Certificate issued
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertificateResponse'
+        '400':
+          description: Invalid request
+        '403':
+          description: Permission denied
+  /pki/ca:
+    get:
+      operationId: readCaCertificate
+      summary: HashiCorp Vault Read CA certificate
+      description: Returns the CA certificate in PEM format.
+      tags:
+      - PKI
+      responses:
+        '200':
+          description: CA certificate returned
+          content:
+            application/pem-certificate-chain:
+              schema:
+                type: string
+      security: []
+  /pki/roles/{name}:
+    get:
+      operationId: readPkiRole
+      summary: HashiCorp Vault Read PKI role
+      description: Reads the configuration for the named PKI role.
+      tags:
+      - PKI
+      parameters:
+      - name: name
+        in: path
+        required: true
+        description: Name of the PKI role
+        schema:
+          type: string
+      responses:
+        '200':
+          description: PKI role configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PkiRole'
+        '404':
+          description: Role not found
+    post:
+      operationId: createOrUpdatePkiRole
+      summary: HashiCorp Vault Create or update PKI role
+      description: Creates or updates the named PKI role.
+      tags:
+      - PKI
+      parameters:
+      - name: name
+        in: path
+        required: true
+        description: Name of the PKI role
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PkiRole'
+      responses:
+        '204':
+          description: Role created or updated
+        '400':
+          description: Invalid request
+components:
+  schemas:
+    CertificateResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            certificate:
+              type: string
+              description: PEM-encoded certificate
+            issuing_ca:
+              type: string
+              description: PEM-encoded issuing CA certificate
+            ca_chain:
+              type: array
+              items:
+                type: string
+              description: Full CA chain
+            private_key:
+              type: string
+              description: PEM-encoded private key
+            private_key_type:
+              type: string
+              description: Type of private key (rsa, ec, ed25519)
+            serial_number:
+              type: string
+              description: Certificate serial number
+            expiration:
+              type: integer
+              description: Expiration time as Unix epoch
+    PkiRole:
+      type: object
+      properties:
+        allowed_domains:
+          type: array
+          items:
+            type: string
+          description: Allowed domain names
+        allow_subdomains:
+          type: boolean
+          description: Whether subdomains are allowed
+        allow_bare_domains:
+          type: boolean
+          description: Whether bare domains are allowed
+        allow_glob_domains:
+          type: boolean
+          description: Whether glob patterns in domains are allowed
+        allow_ip_sans:
+          type: boolean
+          description: Whether IP SANs are allowed
+        max_ttl:
+          type: string
+          description: Maximum TTL for certificates
+        ttl:
+          type: string
+          description: Default TTL for certificates
+        key_type:
+          type: string
+          enum:
+          - rsa
+          - ec
+          - ed25519
+          description: Key type for generated certificates
+        key_bits:
+          type: integer
+          description: Number of bits for the key
+  securitySchemes:
+    vaultToken:
+      type: apiKey
+      in: header
+      name: X-Vault-Token
+      description: Vault authentication token
+externalDocs:
+  description: Vault Auth Methods API Documentation
+  url: https://developer.hashicorp.com/vault/api-docs/auth

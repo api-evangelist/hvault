@@ -1,0 +1,178 @@
+openapi: 3.1.0
+info:
+  title: HashiCorp Vault Vault Auth Methods AppRole Entity Alias API
+  description: APIs for authentication methods in HashiCorp Vault including Token, AppRole, Kubernetes, LDAP, JWT/OIDC, GitHub, Userpass, and AWS auth methods. These endpoints handle user and machine authentication to obtain Vault tokens.
+  version: '1.0'
+  contact:
+    name: HashiCorp Support
+    email: support@hashicorp.com
+    url: https://support.hashicorp.com/
+  license:
+    name: Business Source License 1.1
+    url: https://github.com/hashicorp/vault/blob/main/LICENSE
+servers:
+- url: https://vault.example.com/v1
+  description: Vault Server
+security:
+- vaultToken: []
+tags:
+- name: Entity Alias
+  description: Identity entity alias management
+paths:
+  /identity/entity-alias:
+    post:
+      operationId: createEntityAlias
+      summary: HashiCorp Vault Create entity alias
+      description: Creates an entity alias that maps an authentication method's identity to a Vault entity.
+      tags:
+      - Entity Alias
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityAliasRequest'
+      responses:
+        '200':
+          description: Entity alias created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/EntityAlias'
+        '400':
+          description: Invalid request
+        '403':
+          description: Permission denied
+  /identity/entity-alias/id/{id}:
+    get:
+      operationId: readEntityAlias
+      summary: HashiCorp Vault Read entity alias
+      description: Reads the entity alias with the given ID.
+      tags:
+      - Entity Alias
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Entity alias ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Entity alias returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/EntityAlias'
+        '404':
+          description: Entity alias not found
+    post:
+      operationId: updateEntityAlias
+      summary: HashiCorp Vault Update entity alias
+      description: Updates the entity alias with the given ID.
+      tags:
+      - Entity Alias
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Entity alias ID
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityAliasRequest'
+      responses:
+        '200':
+          description: Entity alias updated
+        '400':
+          description: Invalid request
+    delete:
+      operationId: deleteEntityAlias
+      summary: HashiCorp Vault Delete entity alias
+      description: Deletes the entity alias with the given ID.
+      tags:
+      - Entity Alias
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Entity alias ID
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Entity alias deleted
+components:
+  schemas:
+    EntityAliasRequest:
+      type: object
+      required:
+      - name
+      - mount_accessor
+      - canonical_id
+      properties:
+        name:
+          type: string
+          description: Name of the alias
+        mount_accessor:
+          type: string
+          description: Auth mount accessor
+        canonical_id:
+          type: string
+          description: Entity ID to associate with
+        custom_metadata:
+          type: object
+          additionalProperties:
+            type: string
+          description: Custom metadata
+    EntityAlias:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the alias
+        canonical_id:
+          type: string
+          description: Entity ID this alias belongs to
+        mount_accessor:
+          type: string
+          description: Auth mount accessor
+        mount_path:
+          type: string
+          description: Auth mount path
+        mount_type:
+          type: string
+          description: Auth mount type
+        name:
+          type: string
+          description: Name of the alias (auth-method-specific identifier)
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+          description: Metadata from the auth method
+        creation_time:
+          type: string
+          format: date-time
+        last_update_time:
+          type: string
+          format: date-time
+  securitySchemes:
+    vaultToken:
+      type: apiKey
+      in: header
+      name: X-Vault-Token
+      description: Vault authentication token
+externalDocs:
+  description: Vault Auth Methods API Documentation
+  url: https://developer.hashicorp.com/vault/api-docs/auth

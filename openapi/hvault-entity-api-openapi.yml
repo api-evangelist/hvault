@@ -1,0 +1,396 @@
+openapi: 3.1.0
+info:
+  title: HashiCorp Vault Vault Auth Methods AppRole Entity API
+  description: APIs for authentication methods in HashiCorp Vault including Token, AppRole, Kubernetes, LDAP, JWT/OIDC, GitHub, Userpass, and AWS auth methods. These endpoints handle user and machine authentication to obtain Vault tokens.
+  version: '1.0'
+  contact:
+    name: HashiCorp Support
+    email: support@hashicorp.com
+    url: https://support.hashicorp.com/
+  license:
+    name: Business Source License 1.1
+    url: https://github.com/hashicorp/vault/blob/main/LICENSE
+servers:
+- url: https://vault.example.com/v1
+  description: Vault Server
+security:
+- vaultToken: []
+tags:
+- name: Entity
+  description: Identity entity management
+paths:
+  /identity/entity:
+    post:
+      operationId: createEntity
+      summary: HashiCorp Vault Create entity
+      description: Creates or updates an identity entity.
+      tags:
+      - Entity
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityRequest'
+      responses:
+        '200':
+          description: Entity created or updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Entity'
+        '400':
+          description: Invalid request
+        '403':
+          description: Permission denied
+    get:
+      operationId: listEntities
+      summary: HashiCorp Vault List entities
+      description: Lists all identity entities by ID.
+      tags:
+      - Entity
+      responses:
+        '200':
+          description: Entities listed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      keys:
+                        type: array
+                        items:
+                          type: string
+                        description: List of entity IDs
+                      key_info:
+                        type: object
+                        additionalProperties:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                            aliases:
+                              type: array
+                              items:
+                                type: object
+        '403':
+          description: Permission denied
+  /identity/entity/id/{id}:
+    get:
+      operationId: readEntityById
+      summary: HashiCorp Vault Read entity by ID
+      description: Reads the identity entity with the given ID.
+      tags:
+      - Entity
+      parameters:
+      - $ref: '#/components/parameters/entityId'
+      responses:
+        '200':
+          description: Entity returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Entity'
+        '403':
+          description: Permission denied
+        '404':
+          description: Entity not found
+    post:
+      operationId: updateEntityById
+      summary: HashiCorp Vault Update entity by ID
+      description: Updates the identity entity with the given ID.
+      tags:
+      - Entity
+      parameters:
+      - $ref: '#/components/parameters/entityId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityRequest'
+      responses:
+        '200':
+          description: Entity updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Entity'
+        '400':
+          description: Invalid request
+        '403':
+          description: Permission denied
+    delete:
+      operationId: deleteEntityById
+      summary: HashiCorp Vault Delete entity by ID
+      description: Deletes the identity entity with the given ID.
+      tags:
+      - Entity
+      parameters:
+      - $ref: '#/components/parameters/entityId'
+      responses:
+        '204':
+          description: Entity deleted
+        '403':
+          description: Permission denied
+  /identity/entity/name/{name}:
+    get:
+      operationId: readEntityByName
+      summary: HashiCorp Vault Read entity by name
+      description: Reads the identity entity with the given name.
+      tags:
+      - Entity
+      parameters:
+      - name: name
+        in: path
+        required: true
+        description: Name of the entity
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Entity returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Entity'
+        '404':
+          description: Entity not found
+    post:
+      operationId: updateEntityByName
+      summary: HashiCorp Vault Update entity by name
+      description: Updates the identity entity with the given name.
+      tags:
+      - Entity
+      parameters:
+      - name: name
+        in: path
+        required: true
+        description: Name of the entity
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityRequest'
+      responses:
+        '200':
+          description: Entity updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Entity'
+        '400':
+          description: Invalid request
+    delete:
+      operationId: deleteEntityByName
+      summary: HashiCorp Vault Delete entity by name
+      description: Deletes the identity entity with the given name.
+      tags:
+      - Entity
+      parameters:
+      - name: name
+        in: path
+        required: true
+        description: Name of the entity
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Entity deleted
+  /identity/entity/batch-delete:
+    post:
+      operationId: batchDeleteEntities
+      summary: HashiCorp Vault Batch delete entities
+      description: Deletes multiple identity entities by their IDs.
+      tags:
+      - Entity
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - entity_ids
+              properties:
+                entity_ids:
+                  type: array
+                  items:
+                    type: string
+                  description: List of entity IDs to delete
+      responses:
+        '204':
+          description: Entities deleted
+        '403':
+          description: Permission denied
+  /identity/entity/merge:
+    post:
+      operationId: mergeEntities
+      summary: HashiCorp Vault Merge entities
+      description: Merges two or more entities into a single entity. Aliases from the source entities are transferred to the destination entity.
+      tags:
+      - Entity
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - from_entity_ids
+              - to_entity_id
+              properties:
+                from_entity_ids:
+                  type: array
+                  items:
+                    type: string
+                  description: Entity IDs to merge from
+                to_entity_id:
+                  type: string
+                  description: Entity ID to merge into
+                force:
+                  type: boolean
+                  description: Force merge even if there are conflicting aliases
+      responses:
+        '204':
+          description: Entities merged
+        '400':
+          description: Invalid request
+        '403':
+          description: Permission denied
+components:
+  schemas:
+    EntityRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the entity
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+          description: Metadata key-value pairs
+        policies:
+          type: array
+          items:
+            type: string
+          description: Policies to assign to the entity
+        disabled:
+          type: boolean
+          description: Whether the entity is disabled
+    EntityAlias:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the alias
+        canonical_id:
+          type: string
+          description: Entity ID this alias belongs to
+        mount_accessor:
+          type: string
+          description: Auth mount accessor
+        mount_path:
+          type: string
+          description: Auth mount path
+        mount_type:
+          type: string
+          description: Auth mount type
+        name:
+          type: string
+          description: Name of the alias (auth-method-specific identifier)
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+          description: Metadata from the auth method
+        creation_time:
+          type: string
+          format: date-time
+        last_update_time:
+          type: string
+          format: date-time
+    Entity:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the entity
+        name:
+          type: string
+          description: Name of the entity
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+          description: Metadata key-value pairs
+        disabled:
+          type: boolean
+          description: Whether the entity is disabled
+        aliases:
+          type: array
+          items:
+            $ref: '#/components/schemas/EntityAlias'
+          description: Entity aliases
+        direct_group_ids:
+          type: array
+          items:
+            type: string
+          description: IDs of groups the entity directly belongs to
+        inherited_group_ids:
+          type: array
+          items:
+            type: string
+          description: IDs of groups inherited through group hierarchy
+        policies:
+          type: array
+          items:
+            type: string
+          description: Policies directly assigned to the entity
+        creation_time:
+          type: string
+          format: date-time
+          description: Entity creation time
+        last_update_time:
+          type: string
+          format: date-time
+          description: Last update time
+  parameters:
+    entityId:
+      name: id
+      in: path
+      required: true
+      description: Entity unique identifier
+      schema:
+        type: string
+  securitySchemes:
+    vaultToken:
+      type: apiKey
+      in: header
+      name: X-Vault-Token
+      description: Vault authentication token
+externalDocs:
+  description: Vault Auth Methods API Documentation
+  url: https://developer.hashicorp.com/vault/api-docs/auth

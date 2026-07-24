@@ -1,0 +1,118 @@
+openapi: 3.1.0
+info:
+  title: HashiCorp Vault Vault Auth Methods AppRole Health API
+  description: APIs for authentication methods in HashiCorp Vault including Token, AppRole, Kubernetes, LDAP, JWT/OIDC, GitHub, Userpass, and AWS auth methods. These endpoints handle user and machine authentication to obtain Vault tokens.
+  version: '1.0'
+  contact:
+    name: HashiCorp Support
+    email: support@hashicorp.com
+    url: https://support.hashicorp.com/
+  license:
+    name: Business Source License 1.1
+    url: https://github.com/hashicorp/vault/blob/main/LICENSE
+servers:
+- url: https://vault.example.com/v1
+  description: Vault Server
+security:
+- vaultToken: []
+tags:
+- name: Health
+  description: Health and status endpoints
+paths:
+  /sys/health:
+    get:
+      operationId: getSystemHealth
+      summary: HashiCorp Vault Read health status
+      description: Returns the health status of the Vault server. This is an unauthenticated endpoint used for health checks by load balancers and monitoring systems.
+      tags:
+      - Health
+      parameters:
+      - name: standbyok
+        in: query
+        description: Whether to return 200 for standby nodes
+        schema:
+          type: boolean
+      - name: activecode
+        in: query
+        description: HTTP status code for active nodes
+        schema:
+          type: integer
+          default: 200
+      - name: standbycode
+        in: query
+        description: HTTP status code for standby nodes
+        schema:
+          type: integer
+          default: 429
+      - name: sealedcode
+        in: query
+        description: HTTP status code for sealed vaults
+        schema:
+          type: integer
+          default: 503
+      - name: uninitcode
+        in: query
+        description: HTTP status code for uninitialized vaults
+        schema:
+          type: integer
+          default: 501
+      responses:
+        '200':
+          description: Vault is initialized, unsealed, and active
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+        '429':
+          description: Vault is unsealed and in standby mode
+        '472':
+          description: Vault is in data recovery mode replication secondary
+        '501':
+          description: Vault is not initialized
+        '503':
+          description: Vault is sealed
+      security: []
+components:
+  schemas:
+    HealthResponse:
+      type: object
+      properties:
+        initialized:
+          type: boolean
+          description: Whether the Vault is initialized
+        sealed:
+          type: boolean
+          description: Whether the Vault is sealed
+        standby:
+          type: boolean
+          description: Whether the node is in standby mode
+        performance_standby:
+          type: boolean
+          description: Whether the node is a performance standby
+        replication_performance_mode:
+          type: string
+          description: Replication performance mode
+        replication_dr_mode:
+          type: string
+          description: Replication disaster recovery mode
+        server_time_utc:
+          type: integer
+          description: Server time in UTC epoch seconds
+        version:
+          type: string
+          description: Vault server version
+        cluster_name:
+          type: string
+          description: Name of the Vault cluster
+        cluster_id:
+          type: string
+          description: Unique identifier for the cluster
+  securitySchemes:
+    vaultToken:
+      type: apiKey
+      in: header
+      name: X-Vault-Token
+      description: Vault authentication token
+externalDocs:
+  description: Vault Auth Methods API Documentation
+  url: https://developer.hashicorp.com/vault/api-docs/auth

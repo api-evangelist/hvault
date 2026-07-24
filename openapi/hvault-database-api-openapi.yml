@@ -1,0 +1,161 @@
+openapi: 3.1.0
+info:
+  title: HashiCorp Vault Vault Auth Methods AppRole Database API
+  description: APIs for authentication methods in HashiCorp Vault including Token, AppRole, Kubernetes, LDAP, JWT/OIDC, GitHub, Userpass, and AWS auth methods. These endpoints handle user and machine authentication to obtain Vault tokens.
+  version: '1.0'
+  contact:
+    name: HashiCorp Support
+    email: support@hashicorp.com
+    url: https://support.hashicorp.com/
+  license:
+    name: Business Source License 1.1
+    url: https://github.com/hashicorp/vault/blob/main/LICENSE
+servers:
+- url: https://vault.example.com/v1
+  description: Vault Server
+security:
+- vaultToken: []
+tags:
+- name: Database
+  description: Database dynamic credentials secrets engine
+paths:
+  /database/creds/{name}:
+    get:
+      operationId: generateDatabaseCredentials
+      summary: HashiCorp Vault Generate database credentials
+      description: Generates dynamic database credentials based on the named role.
+      tags:
+      - Database
+      parameters:
+      - name: name
+        in: path
+        required: true
+        description: Name of the database role
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Database credentials generated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseCredentialsResponse'
+        '403':
+          description: Permission denied
+  /database/roles/{name}:
+    get:
+      operationId: readDatabaseRole
+      summary: HashiCorp Vault Read database role
+      description: Reads the configuration for the named database role.
+      tags:
+      - Database
+      parameters:
+      - name: name
+        in: path
+        required: true
+        description: Name of the role
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Database role configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseRole'
+        '404':
+          description: Role not found
+    post:
+      operationId: createOrUpdateDatabaseRole
+      summary: HashiCorp Vault Create or update database role
+      description: Creates or updates the named database role.
+      tags:
+      - Database
+      parameters:
+      - name: name
+        in: path
+        required: true
+        description: Name of the role
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DatabaseRole'
+      responses:
+        '204':
+          description: Role created or updated
+        '400':
+          description: Invalid request
+    delete:
+      operationId: deleteDatabaseRole
+      summary: HashiCorp Vault Delete database role
+      description: Deletes the named database role.
+      tags:
+      - Database
+      parameters:
+      - name: name
+        in: path
+        required: true
+        description: Name of the role
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Role deleted
+components:
+  schemas:
+    DatabaseCredentialsResponse:
+      type: object
+      properties:
+        lease_id:
+          type: string
+          description: Unique lease identifier
+        lease_duration:
+          type: integer
+          description: Lease duration in seconds
+        renewable:
+          type: boolean
+          description: Whether the lease is renewable
+        data:
+          type: object
+          properties:
+            username:
+              type: string
+              description: Generated database username
+            password:
+              type: string
+              description: Generated database password
+    DatabaseRole:
+      type: object
+      properties:
+        db_name:
+          type: string
+          description: Name of the database connection
+        creation_statements:
+          type: array
+          items:
+            type: string
+          description: SQL statements to create the user
+        revocation_statements:
+          type: array
+          items:
+            type: string
+          description: SQL statements to revoke the user
+        default_ttl:
+          type: string
+          description: Default TTL for credentials
+        max_ttl:
+          type: string
+          description: Maximum TTL for credentials
+  securitySchemes:
+    vaultToken:
+      type: apiKey
+      in: header
+      name: X-Vault-Token
+      description: Vault authentication token
+externalDocs:
+  description: Vault Auth Methods API Documentation
+  url: https://developer.hashicorp.com/vault/api-docs/auth

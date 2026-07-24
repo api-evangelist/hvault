@@ -1,0 +1,274 @@
+openapi: 3.1.0
+info:
+  title: HashiCorp Vault Vault Auth Methods AppRole Transit API
+  description: APIs for authentication methods in HashiCorp Vault including Token, AppRole, Kubernetes, LDAP, JWT/OIDC, GitHub, Userpass, and AWS auth methods. These endpoints handle user and machine authentication to obtain Vault tokens.
+  version: '1.0'
+  contact:
+    name: HashiCorp Support
+    email: support@hashicorp.com
+    url: https://support.hashicorp.com/
+  license:
+    name: Business Source License 1.1
+    url: https://github.com/hashicorp/vault/blob/main/LICENSE
+servers:
+- url: https://vault.example.com/v1
+  description: Vault Server
+security:
+- vaultToken: []
+tags:
+- name: Transit
+  description: Transit encryption-as-a-service secrets engine
+paths:
+  /transit/encrypt/{name}:
+    post:
+      operationId: encryptData
+      summary: HashiCorp Vault Encrypt data
+      description: Encrypts the provided plaintext using the named encryption key.
+      tags:
+      - Transit
+      parameters:
+      - name: name
+        in: path
+        required: true
+        description: Name of the encryption key
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - plaintext
+              properties:
+                plaintext:
+                  type: string
+                  description: Base64-encoded plaintext to encrypt
+                context:
+                  type: string
+                  description: Base64-encoded context for convergent encryption
+                key_version:
+                  type: integer
+                  description: Version of the key to use
+      responses:
+        '200':
+          description: Data encrypted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      ciphertext:
+                        type: string
+                        description: Vault-prefixed ciphertext
+                      key_version:
+                        type: integer
+        '400':
+          description: Invalid request
+        '403':
+          description: Permission denied
+  /transit/decrypt/{name}:
+    post:
+      operationId: decryptData
+      summary: HashiCorp Vault Decrypt data
+      description: Decrypts the provided ciphertext using the named encryption key.
+      tags:
+      - Transit
+      parameters:
+      - name: name
+        in: path
+        required: true
+        description: Name of the encryption key
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - ciphertext
+              properties:
+                ciphertext:
+                  type: string
+                  description: Vault-prefixed ciphertext to decrypt
+                context:
+                  type: string
+                  description: Base64-encoded context for convergent encryption
+      responses:
+        '200':
+          description: Data decrypted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      plaintext:
+                        type: string
+                        description: Base64-encoded plaintext
+        '400':
+          description: Invalid request
+        '403':
+          description: Permission denied
+  /transit/keys/{name}:
+    get:
+      operationId: readTransitKey
+      summary: HashiCorp Vault Read transit encryption key
+      description: Returns information about the named encryption key.
+      tags:
+      - Transit
+      parameters:
+      - name: name
+        in: path
+        required: true
+        description: Name of the encryption key
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Key information returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransitKey'
+        '404':
+          description: Key not found
+    post:
+      operationId: createTransitKey
+      summary: HashiCorp Vault Create transit encryption key
+      description: Creates a new named encryption key.
+      tags:
+      - Transit
+      parameters:
+      - name: name
+        in: path
+        required: true
+        description: Name of the encryption key
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - aes128-gcm96
+                  - aes256-gcm96
+                  - chacha20-poly1305
+                  - ed25519
+                  - ecdsa-p256
+                  - ecdsa-p384
+                  - ecdsa-p521
+                  - rsa-2048
+                  - rsa-3072
+                  - rsa-4096
+                  description: Type of encryption key
+                convergent_encryption:
+                  type: boolean
+                  description: Whether to enable convergent encryption
+                derived:
+                  type: boolean
+                  description: Whether the key is derived from a context
+                exportable:
+                  type: boolean
+                  description: Whether the key is exportable
+                allow_plaintext_backup:
+                  type: boolean
+                  description: Whether plaintext backup is allowed
+                auto_rotate_period:
+                  type: string
+                  description: Auto-rotation period (e.g., 24h)
+      responses:
+        '204':
+          description: Key created
+        '400':
+          description: Invalid request
+    delete:
+      operationId: deleteTransitKey
+      summary: HashiCorp Vault Delete transit encryption key
+      description: Deletes the named encryption key. The key must have deletion allowed set to true.
+      tags:
+      - Transit
+      parameters:
+      - name: name
+        in: path
+        required: true
+        description: Name of the encryption key
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Key deleted
+        '403':
+          description: Permission denied
+components:
+  schemas:
+    TransitKey:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            name:
+              type: string
+              description: Name of the key
+            type:
+              type: string
+              description: Key type
+            deletion_allowed:
+              type: boolean
+              description: Whether the key can be deleted
+            derived:
+              type: boolean
+              description: Whether the key is derived
+            exportable:
+              type: boolean
+              description: Whether the key is exportable
+            allow_plaintext_backup:
+              type: boolean
+              description: Whether plaintext backup is allowed
+            keys:
+              type: object
+              additionalProperties:
+                type: integer
+              description: Map of key version to creation time
+            min_decryption_version:
+              type: integer
+              description: Minimum version for decryption
+            min_encryption_version:
+              type: integer
+              description: Minimum version for encryption
+            supports_encryption:
+              type: boolean
+            supports_decryption:
+              type: boolean
+            supports_derivation:
+              type: boolean
+            supports_signing:
+              type: boolean
+            auto_rotate_period:
+              type: string
+              description: Auto-rotation period
+            latest_version:
+              type: integer
+              description: Latest key version
+  securitySchemes:
+    vaultToken:
+      type: apiKey
+      in: header
+      name: X-Vault-Token
+      description: Vault authentication token
+externalDocs:
+  description: Vault Auth Methods API Documentation
+  url: https://developer.hashicorp.com/vault/api-docs/auth

@@ -1,0 +1,130 @@
+openapi: 3.1.0
+info:
+  title: HashiCorp Vault Vault Auth Methods AppRole Audit API
+  description: APIs for authentication methods in HashiCorp Vault including Token, AppRole, Kubernetes, LDAP, JWT/OIDC, GitHub, Userpass, and AWS auth methods. These endpoints handle user and machine authentication to obtain Vault tokens.
+  version: '1.0'
+  contact:
+    name: HashiCorp Support
+    email: support@hashicorp.com
+    url: https://support.hashicorp.com/
+  license:
+    name: Business Source License 1.1
+    url: https://github.com/hashicorp/vault/blob/main/LICENSE
+servers:
+- url: https://vault.example.com/v1
+  description: Vault Server
+security:
+- vaultToken: []
+tags:
+- name: Audit
+  description: Audit device management
+paths:
+  /sys/audit:
+    get:
+      operationId: listAuditDevices
+      summary: HashiCorp Vault List audit devices
+      description: Lists all enabled audit devices.
+      tags:
+      - Audit
+      responses:
+        '200':
+          description: Audit devices listed
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/AuditDevice'
+        '403':
+          description: Permission denied
+  /sys/audit/{path}:
+    put:
+      operationId: enableAuditDevice
+      summary: HashiCorp Vault Enable audit device
+      description: Enables a new audit device at the given path.
+      tags:
+      - Audit
+      parameters:
+      - $ref: '#/components/parameters/mountPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              properties:
+                type:
+                  type: string
+                  description: Audit device type (file, syslog, socket)
+                description:
+                  type: string
+                  description: Human-friendly description
+                options:
+                  type: object
+                  description: Configuration options for the audit device
+                  properties:
+                    file_path:
+                      type: string
+                      description: Path to the audit log file (for file type)
+                    log_raw:
+                      type: boolean
+                      description: Whether to log raw requests/responses
+      responses:
+        '204':
+          description: Audit device enabled
+        '400':
+          description: Invalid request
+        '403':
+          description: Permission denied
+    delete:
+      operationId: disableAuditDevice
+      summary: HashiCorp Vault Disable audit device
+      description: Disables an audit device at the given path.
+      tags:
+      - Audit
+      parameters:
+      - $ref: '#/components/parameters/mountPath'
+      responses:
+        '204':
+          description: Audit device disabled
+        '403':
+          description: Permission denied
+components:
+  parameters:
+    mountPath:
+      name: path
+      in: path
+      required: true
+      description: The path to mount or access the resource
+      schema:
+        type: string
+  schemas:
+    AuditDevice:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Type of audit device (file, syslog, socket)
+        description:
+          type: string
+          description: Human-friendly description
+        options:
+          type: object
+          description: Configuration options for the audit device
+        path:
+          type: string
+          description: Path at which the audit device is enabled
+        local:
+          type: boolean
+          description: Whether the audit device is local only
+  securitySchemes:
+    vaultToken:
+      type: apiKey
+      in: header
+      name: X-Vault-Token
+      description: Vault authentication token
+externalDocs:
+  description: Vault Auth Methods API Documentation
+  url: https://developer.hashicorp.com/vault/api-docs/auth

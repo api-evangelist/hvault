@@ -1,0 +1,131 @@
+openapi: 3.1.0
+info:
+  title: HashiCorp Vault Vault Auth Methods AppRole Policy API
+  description: APIs for authentication methods in HashiCorp Vault including Token, AppRole, Kubernetes, LDAP, JWT/OIDC, GitHub, Userpass, and AWS auth methods. These endpoints handle user and machine authentication to obtain Vault tokens.
+  version: '1.0'
+  contact:
+    name: HashiCorp Support
+    email: support@hashicorp.com
+    url: https://support.hashicorp.com/
+  license:
+    name: Business Source License 1.1
+    url: https://github.com/hashicorp/vault/blob/main/LICENSE
+servers:
+- url: https://vault.example.com/v1
+  description: Vault Server
+security:
+- vaultToken: []
+tags:
+- name: Policy
+  description: Policy management
+paths:
+  /sys/policies/acl:
+    get:
+      operationId: listPolicies
+      summary: HashiCorp Vault List ACL policies
+      description: Lists all configured ACL policies.
+      tags:
+      - Policy
+      responses:
+        '200':
+          description: Policies listed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  keys:
+                    type: array
+                    items:
+                      type: string
+                    description: List of policy names
+        '403':
+          description: Permission denied
+  /sys/policies/acl/{name}:
+    get:
+      operationId: readPolicy
+      summary: HashiCorp Vault Read ACL policy
+      description: Reads an existing ACL policy by name.
+      tags:
+      - Policy
+      parameters:
+      - $ref: '#/components/parameters/policyName'
+      responses:
+        '200':
+          description: Policy returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Policy'
+        '403':
+          description: Permission denied
+        '404':
+          description: Policy not found
+    put:
+      operationId: createOrUpdatePolicy
+      summary: HashiCorp Vault Create or update ACL policy
+      description: Creates a new or updates an existing ACL policy.
+      tags:
+      - Policy
+      parameters:
+      - $ref: '#/components/parameters/policyName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - policy
+              properties:
+                policy:
+                  type: string
+                  description: The policy document in HCL or JSON format
+      responses:
+        '204':
+          description: Policy created or updated
+        '400':
+          description: Invalid policy
+        '403':
+          description: Permission denied
+    delete:
+      operationId: deletePolicy
+      summary: HashiCorp Vault Delete ACL policy
+      description: Deletes an ACL policy by name.
+      tags:
+      - Policy
+      parameters:
+      - $ref: '#/components/parameters/policyName'
+      responses:
+        '204':
+          description: Policy deleted
+        '403':
+          description: Permission denied
+components:
+  schemas:
+    Policy:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the policy
+        policy:
+          type: string
+          description: Policy document in HCL or JSON format
+  parameters:
+    policyName:
+      name: name
+      in: path
+      required: true
+      description: Name of the policy
+      schema:
+        type: string
+  securitySchemes:
+    vaultToken:
+      type: apiKey
+      in: header
+      name: X-Vault-Token
+      description: Vault authentication token
+externalDocs:
+  description: Vault Auth Methods API Documentation
+  url: https://developer.hashicorp.com/vault/api-docs/auth

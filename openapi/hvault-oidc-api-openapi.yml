@@ -1,0 +1,142 @@
+openapi: 3.1.0
+info:
+  title: HashiCorp Vault Vault Auth Methods AppRole OIDC API
+  description: APIs for authentication methods in HashiCorp Vault including Token, AppRole, Kubernetes, LDAP, JWT/OIDC, GitHub, Userpass, and AWS auth methods. These endpoints handle user and machine authentication to obtain Vault tokens.
+  version: '1.0'
+  contact:
+    name: HashiCorp Support
+    email: support@hashicorp.com
+    url: https://support.hashicorp.com/
+  license:
+    name: Business Source License 1.1
+    url: https://github.com/hashicorp/vault/blob/main/LICENSE
+servers:
+- url: https://vault.example.com/v1
+  description: Vault Server
+security:
+- vaultToken: []
+tags:
+- name: OIDC
+  description: OIDC identity provider operations
+paths:
+  /identity/oidc/token/{name}:
+    get:
+      operationId: readOidcToken
+      summary: HashiCorp Vault Read OIDC token
+      description: Generates an OIDC identity token for the requesting entity based on the named role.
+      tags:
+      - OIDC
+      parameters:
+      - name: name
+        in: path
+        required: true
+        description: Name of the OIDC role
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OIDC token generated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      token:
+                        type: string
+                        description: Signed OIDC identity token
+                      client_id:
+                        type: string
+                        description: Client ID for the OIDC role
+                      ttl:
+                        type: integer
+                        description: Token TTL in seconds
+        '403':
+          description: Permission denied
+  /identity/oidc/.well-known/openid-configuration:
+    get:
+      operationId: readOidcWellKnownConfig
+      summary: HashiCorp Vault Read OIDC discovery configuration
+      description: Returns the OIDC discovery document for Vault's identity OIDC provider.
+      tags:
+      - OIDC
+      responses:
+        '200':
+          description: OIDC discovery configuration
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  issuer:
+                    type: string
+                    description: OIDC issuer URL
+                  jwks_uri:
+                    type: string
+                    description: URL for the JWKS endpoint
+                  authorization_endpoint:
+                    type: string
+                  token_endpoint:
+                    type: string
+                  id_token_signing_alg_values_supported:
+                    type: array
+                    items:
+                      type: string
+                  subject_types_supported:
+                    type: array
+                    items:
+                      type: string
+                  response_types_supported:
+                    type: array
+                    items:
+                      type: string
+                  scopes_supported:
+                    type: array
+                    items:
+                      type: string
+      security: []
+  /identity/oidc/.well-known/keys:
+    get:
+      operationId: readOidcJwks
+      summary: HashiCorp Vault Read OIDC JWKS
+      description: Returns the public keys used to verify OIDC identity tokens.
+      tags:
+      - OIDC
+      responses:
+        '200':
+          description: JWKS returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  keys:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        kty:
+                          type: string
+                        kid:
+                          type: string
+                        use:
+                          type: string
+                        n:
+                          type: string
+                        e:
+                          type: string
+                        alg:
+                          type: string
+      security: []
+components:
+  securitySchemes:
+    vaultToken:
+      type: apiKey
+      in: header
+      name: X-Vault-Token
+      description: Vault authentication token
+externalDocs:
+  description: Vault Auth Methods API Documentation
+  url: https://developer.hashicorp.com/vault/api-docs/auth

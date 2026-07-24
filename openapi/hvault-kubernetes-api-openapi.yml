@@ -1,0 +1,304 @@
+openapi: 3.1.0
+info:
+  title: HashiCorp Vault Vault Auth Methods AppRole Kubernetes API
+  description: APIs for authentication methods in HashiCorp Vault including Token, AppRole, Kubernetes, LDAP, JWT/OIDC, GitHub, Userpass, and AWS auth methods. These endpoints handle user and machine authentication to obtain Vault tokens.
+  version: '1.0'
+  contact:
+    name: HashiCorp Support
+    email: support@hashicorp.com
+    url: https://support.hashicorp.com/
+  license:
+    name: Business Source License 1.1
+    url: https://github.com/hashicorp/vault/blob/main/LICENSE
+servers:
+- url: https://vault.example.com/v1
+  description: Vault Server
+security:
+- vaultToken: []
+tags:
+- name: Kubernetes
+  description: Kubernetes auth method for pod authentication
+paths:
+  /auth/kubernetes/login:
+    post:
+      operationId: loginWithKubernetes
+      summary: HashiCorp Vault Login with Kubernetes
+      description: Authenticates with Vault using a Kubernetes service account JWT token.
+      tags:
+      - Kubernetes
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - role
+              - jwt
+              properties:
+                role:
+                  type: string
+                  description: Name of the Vault role
+                jwt:
+                  type: string
+                  description: Kubernetes service account JWT token
+      responses:
+        '200':
+          description: Authentication successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '400':
+          description: Invalid credentials
+      security: []
+  /auth/kubernetes/config:
+    get:
+      operationId: readKubernetesConfig
+      summary: HashiCorp Vault Read Kubernetes auth configuration
+      description: Returns the Kubernetes auth method configuration.
+      tags:
+      - Kubernetes
+      responses:
+        '200':
+          description: Configuration returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      kubernetes_host:
+                        type: string
+                        description: Kubernetes API server URL
+                      kubernetes_ca_cert:
+                        type: string
+                        description: PEM-encoded CA certificate
+                      pem_keys:
+                        type: array
+                        items:
+                          type: string
+                        description: PEM-encoded public keys
+                      issuer:
+                        type: string
+                        description: JWT issuer
+    post:
+      operationId: configureKubernetesAuth
+      summary: HashiCorp Vault Configure Kubernetes auth
+      description: Configures the Kubernetes auth method.
+      tags:
+      - Kubernetes
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - kubernetes_host
+              properties:
+                kubernetes_host:
+                  type: string
+                  description: Kubernetes API server URL
+                kubernetes_ca_cert:
+                  type: string
+                  description: PEM-encoded CA certificate
+                token_reviewer_jwt:
+                  type: string
+                  description: Service account JWT for token review
+                pem_keys:
+                  type: array
+                  items:
+                    type: string
+                  description: PEM-encoded public keys for JWT verification
+                issuer:
+                  type: string
+                  description: JWT issuer to validate
+      responses:
+        '204':
+          description: Configuration updated
+        '400':
+          description: Invalid request
+  /auth/kubernetes/role/{name}:
+    get:
+      operationId: readKubernetesRole
+      summary: HashiCorp Vault Read Kubernetes role
+      description: Reads the named Kubernetes auth role configuration.
+      tags:
+      - Kubernetes
+      parameters:
+      - name: name
+        in: path
+        required: true
+        description: Name of the role
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Role configuration returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KubernetesRole'
+        '404':
+          description: Role not found
+    post:
+      operationId: createOrUpdateKubernetesRole
+      summary: HashiCorp Vault Create or update Kubernetes role
+      description: Creates or updates the named Kubernetes auth role.
+      tags:
+      - Kubernetes
+      parameters:
+      - name: name
+        in: path
+        required: true
+        description: Name of the role
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KubernetesRole'
+      responses:
+        '204':
+          description: Role created or updated
+        '400':
+          description: Invalid request
+    delete:
+      operationId: deleteKubernetesRole
+      summary: HashiCorp Vault Delete Kubernetes role
+      description: Deletes the named Kubernetes auth role.
+      tags:
+      - Kubernetes
+      parameters:
+      - name: name
+        in: path
+        required: true
+        description: Name of the role
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Role deleted
+components:
+  schemas:
+    AuthResponse:
+      type: object
+      properties:
+        request_id:
+          type: string
+          description: Unique request identifier
+        lease_id:
+          type: string
+          description: Lease identifier (empty for auth responses)
+        renewable:
+          type: boolean
+          description: Whether the token is renewable
+        lease_duration:
+          type: integer
+          description: Token TTL in seconds
+        auth:
+          type: object
+          properties:
+            client_token:
+              type: string
+              description: The Vault authentication token
+            accessor:
+              type: string
+              description: Token accessor
+            policies:
+              type: array
+              items:
+                type: string
+              description: Policies attached to the token
+            token_policies:
+              type: array
+              items:
+                type: string
+              description: Token-specific policies
+            identity_policies:
+              type: array
+              items:
+                type: string
+              description: Identity-derived policies
+            metadata:
+              type: object
+              additionalProperties:
+                type: string
+              description: Metadata associated with the token
+            lease_duration:
+              type: integer
+              description: Token TTL in seconds
+            renewable:
+              type: boolean
+              description: Whether the token is renewable
+            entity_id:
+              type: string
+              description: Identity entity ID
+            token_type:
+              type: string
+              description: Type of token (service, batch)
+            orphan:
+              type: boolean
+              description: Whether the token is an orphan
+    KubernetesRole:
+      type: object
+      properties:
+        bound_service_account_names:
+          type: array
+          items:
+            type: string
+          description: Allowed service account names
+        bound_service_account_namespaces:
+          type: array
+          items:
+            type: string
+          description: Allowed Kubernetes namespaces
+        audience:
+          type: string
+          description: Expected audience claim
+        alias_name_source:
+          type: string
+          enum:
+          - serviceaccount_uid
+          - serviceaccount_name
+          description: Source for the identity alias name
+        token_ttl:
+          type: string
+          description: Default token TTL
+        token_max_ttl:
+          type: string
+          description: Maximum token TTL
+        token_policies:
+          type: array
+          items:
+            type: string
+          description: Policies to attach to tokens
+        token_bound_cidrs:
+          type: array
+          items:
+            type: string
+          description: CIDR blocks restricting token usage
+        token_num_uses:
+          type: integer
+          description: Maximum number of token uses
+        token_type:
+          type: string
+          enum:
+          - default
+          - service
+          - batch
+          description: Token type
+  securitySchemes:
+    vaultToken:
+      type: apiKey
+      in: header
+      name: X-Vault-Token
+      description: Vault authentication token
+externalDocs:
+  description: Vault Auth Methods API Documentation
+  url: https://developer.hashicorp.com/vault/api-docs/auth

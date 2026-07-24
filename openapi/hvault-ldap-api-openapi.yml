@@ -1,0 +1,127 @@
+openapi: 3.1.0
+info:
+  title: HashiCorp Vault Vault Auth Methods AppRole LDAP API
+  description: APIs for authentication methods in HashiCorp Vault including Token, AppRole, Kubernetes, LDAP, JWT/OIDC, GitHub, Userpass, and AWS auth methods. These endpoints handle user and machine authentication to obtain Vault tokens.
+  version: '1.0'
+  contact:
+    name: HashiCorp Support
+    email: support@hashicorp.com
+    url: https://support.hashicorp.com/
+  license:
+    name: Business Source License 1.1
+    url: https://github.com/hashicorp/vault/blob/main/LICENSE
+servers:
+- url: https://vault.example.com/v1
+  description: Vault Server
+security:
+- vaultToken: []
+tags:
+- name: LDAP
+  description: LDAP auth method for directory-based authentication
+paths:
+  /auth/ldap/login/{username}:
+    post:
+      operationId: loginWithLdap
+      summary: HashiCorp Vault Login with LDAP
+      description: Authenticates with Vault using LDAP credentials.
+      tags:
+      - LDAP
+      parameters:
+      - name: username
+        in: path
+        required: true
+        description: LDAP username
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - password
+              properties:
+                password:
+                  type: string
+                  description: LDAP password
+      responses:
+        '200':
+          description: Authentication successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '400':
+          description: Invalid credentials
+      security: []
+components:
+  schemas:
+    AuthResponse:
+      type: object
+      properties:
+        request_id:
+          type: string
+          description: Unique request identifier
+        lease_id:
+          type: string
+          description: Lease identifier (empty for auth responses)
+        renewable:
+          type: boolean
+          description: Whether the token is renewable
+        lease_duration:
+          type: integer
+          description: Token TTL in seconds
+        auth:
+          type: object
+          properties:
+            client_token:
+              type: string
+              description: The Vault authentication token
+            accessor:
+              type: string
+              description: Token accessor
+            policies:
+              type: array
+              items:
+                type: string
+              description: Policies attached to the token
+            token_policies:
+              type: array
+              items:
+                type: string
+              description: Token-specific policies
+            identity_policies:
+              type: array
+              items:
+                type: string
+              description: Identity-derived policies
+            metadata:
+              type: object
+              additionalProperties:
+                type: string
+              description: Metadata associated with the token
+            lease_duration:
+              type: integer
+              description: Token TTL in seconds
+            renewable:
+              type: boolean
+              description: Whether the token is renewable
+            entity_id:
+              type: string
+              description: Identity entity ID
+            token_type:
+              type: string
+              description: Type of token (service, batch)
+            orphan:
+              type: boolean
+              description: Whether the token is an orphan
+  securitySchemes:
+    vaultToken:
+      type: apiKey
+      in: header
+      name: X-Vault-Token
+      description: Vault authentication token
+externalDocs:
+  description: Vault Auth Methods API Documentation
+  url: https://developer.hashicorp.com/vault/api-docs/auth

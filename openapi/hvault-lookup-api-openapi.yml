@@ -1,0 +1,270 @@
+openapi: 3.1.0
+info:
+  title: HashiCorp Vault Vault Auth Methods AppRole Lookup API
+  description: APIs for authentication methods in HashiCorp Vault including Token, AppRole, Kubernetes, LDAP, JWT/OIDC, GitHub, Userpass, and AWS auth methods. These endpoints handle user and machine authentication to obtain Vault tokens.
+  version: '1.0'
+  contact:
+    name: HashiCorp Support
+    email: support@hashicorp.com
+    url: https://support.hashicorp.com/
+  license:
+    name: Business Source License 1.1
+    url: https://github.com/hashicorp/vault/blob/main/LICENSE
+servers:
+- url: https://vault.example.com/v1
+  description: Vault Server
+security:
+- vaultToken: []
+tags:
+- name: Lookup
+  description: Identity lookup operations
+paths:
+  /identity/lookup/entity:
+    post:
+      operationId: lookupEntity
+      summary: HashiCorp Vault Lookup entity
+      description: Looks up an entity by any of its identifying attributes such as name, ID, or alias details.
+      tags:
+      - Lookup
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Entity name to look up
+                id:
+                  type: string
+                  description: Entity ID to look up
+                alias_id:
+                  type: string
+                  description: Alias ID to look up
+                alias_name:
+                  type: string
+                  description: Alias name to look up
+                alias_mount_accessor:
+                  type: string
+                  description: Auth mount accessor for alias lookup
+      responses:
+        '200':
+          description: Entity found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Entity'
+        '204':
+          description: Entity not found
+        '400':
+          description: Invalid request
+  /identity/lookup/group:
+    post:
+      operationId: lookupGroup
+      summary: HashiCorp Vault Lookup group
+      description: Looks up a group by any of its identifying attributes such as name, ID, or alias details.
+      tags:
+      - Lookup
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Group name to look up
+                id:
+                  type: string
+                  description: Group ID to look up
+                alias_id:
+                  type: string
+                  description: Alias ID to look up
+                alias_name:
+                  type: string
+                  description: Alias name to look up
+                alias_mount_accessor:
+                  type: string
+                  description: Auth mount accessor for alias lookup
+      responses:
+        '200':
+          description: Group found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Group'
+        '204':
+          description: Group not found
+        '400':
+          description: Invalid request
+components:
+  schemas:
+    Group:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the group
+        name:
+          type: string
+          description: Name of the group
+        type:
+          type: string
+          enum:
+          - internal
+          - external
+          description: Group type
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+          description: Metadata key-value pairs
+        policies:
+          type: array
+          items:
+            type: string
+          description: Policies assigned to the group
+        member_entity_ids:
+          type: array
+          items:
+            type: string
+          description: Entity IDs that are members of this group
+        member_group_ids:
+          type: array
+          items:
+            type: string
+          description: Group IDs that are members of this group
+        parent_group_ids:
+          type: array
+          items:
+            type: string
+          description: Parent group IDs
+        alias:
+          $ref: '#/components/schemas/GroupAlias'
+        creation_time:
+          type: string
+          format: date-time
+        last_update_time:
+          type: string
+          format: date-time
+    GroupAlias:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the alias
+        canonical_id:
+          type: string
+          description: Group ID this alias belongs to
+        mount_accessor:
+          type: string
+          description: Auth mount accessor
+        mount_path:
+          type: string
+          description: Auth mount path
+        mount_type:
+          type: string
+          description: Auth mount type
+        name:
+          type: string
+          description: Name of the alias (external group name)
+        creation_time:
+          type: string
+          format: date-time
+        last_update_time:
+          type: string
+          format: date-time
+    EntityAlias:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the alias
+        canonical_id:
+          type: string
+          description: Entity ID this alias belongs to
+        mount_accessor:
+          type: string
+          description: Auth mount accessor
+        mount_path:
+          type: string
+          description: Auth mount path
+        mount_type:
+          type: string
+          description: Auth mount type
+        name:
+          type: string
+          description: Name of the alias (auth-method-specific identifier)
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+          description: Metadata from the auth method
+        creation_time:
+          type: string
+          format: date-time
+        last_update_time:
+          type: string
+          format: date-time
+    Entity:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the entity
+        name:
+          type: string
+          description: Name of the entity
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+          description: Metadata key-value pairs
+        disabled:
+          type: boolean
+          description: Whether the entity is disabled
+        aliases:
+          type: array
+          items:
+            $ref: '#/components/schemas/EntityAlias'
+          description: Entity aliases
+        direct_group_ids:
+          type: array
+          items:
+            type: string
+          description: IDs of groups the entity directly belongs to
+        inherited_group_ids:
+          type: array
+          items:
+            type: string
+          description: IDs of groups inherited through group hierarchy
+        policies:
+          type: array
+          items:
+            type: string
+          description: Policies directly assigned to the entity
+        creation_time:
+          type: string
+          format: date-time
+          description: Entity creation time
+        last_update_time:
+          type: string
+          format: date-time
+          description: Last update time
+  securitySchemes:
+    vaultToken:
+      type: apiKey
+      in: header
+      name: X-Vault-Token
+      description: Vault authentication token
+externalDocs:
+  description: Vault Auth Methods API Documentation
+  url: https://developer.hashicorp.com/vault/api-docs/auth

@@ -1,0 +1,90 @@
+openapi: 3.1.0
+info:
+  title: HashiCorp Vault Vault Auth Methods AppRole SSH API
+  description: APIs for authentication methods in HashiCorp Vault including Token, AppRole, Kubernetes, LDAP, JWT/OIDC, GitHub, Userpass, and AWS auth methods. These endpoints handle user and machine authentication to obtain Vault tokens.
+  version: '1.0'
+  contact:
+    name: HashiCorp Support
+    email: support@hashicorp.com
+    url: https://support.hashicorp.com/
+  license:
+    name: Business Source License 1.1
+    url: https://github.com/hashicorp/vault/blob/main/LICENSE
+servers:
+- url: https://vault.example.com/v1
+  description: Vault Server
+security:
+- vaultToken: []
+tags:
+- name: SSH
+  description: SSH certificate signing secrets engine
+paths:
+  /ssh/sign/{name}:
+    post:
+      operationId: signSshKey
+      summary: HashiCorp Vault Sign SSH key
+      description: Signs the provided public key using the named SSH role.
+      tags:
+      - SSH
+      parameters:
+      - name: name
+        in: path
+        required: true
+        description: Name of the SSH role
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - public_key
+              properties:
+                public_key:
+                  type: string
+                  description: SSH public key to sign
+                valid_principals:
+                  type: string
+                  description: Comma-separated list of valid principals
+                ttl:
+                  type: string
+                  description: Requested TTL
+                cert_type:
+                  type: string
+                  enum:
+                  - user
+                  - host
+                  description: Certificate type
+      responses:
+        '200':
+          description: SSH key signed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      signed_key:
+                        type: string
+                        description: Signed SSH certificate
+                      serial_number:
+                        type: string
+                        description: Certificate serial number
+        '400':
+          description: Invalid request
+        '403':
+          description: Permission denied
+components:
+  securitySchemes:
+    vaultToken:
+      type: apiKey
+      in: header
+      name: X-Vault-Token
+      description: Vault authentication token
+externalDocs:
+  description: Vault Auth Methods API Documentation
+  url: https://developer.hashicorp.com/vault/api-docs/auth

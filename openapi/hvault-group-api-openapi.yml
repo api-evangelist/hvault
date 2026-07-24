@@ -1,0 +1,322 @@
+openapi: 3.1.0
+info:
+  title: HashiCorp Vault Vault Auth Methods AppRole Group API
+  description: APIs for authentication methods in HashiCorp Vault including Token, AppRole, Kubernetes, LDAP, JWT/OIDC, GitHub, Userpass, and AWS auth methods. These endpoints handle user and machine authentication to obtain Vault tokens.
+  version: '1.0'
+  contact:
+    name: HashiCorp Support
+    email: support@hashicorp.com
+    url: https://support.hashicorp.com/
+  license:
+    name: Business Source License 1.1
+    url: https://github.com/hashicorp/vault/blob/main/LICENSE
+servers:
+- url: https://vault.example.com/v1
+  description: Vault Server
+security:
+- vaultToken: []
+tags:
+- name: Group
+  description: Identity group management
+paths:
+  /identity/group:
+    post:
+      operationId: createGroup
+      summary: HashiCorp Vault Create group
+      description: Creates or updates an identity group.
+      tags:
+      - Group
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupRequest'
+      responses:
+        '200':
+          description: Group created or updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Group'
+        '400':
+          description: Invalid request
+        '403':
+          description: Permission denied
+    get:
+      operationId: listGroups
+      summary: HashiCorp Vault List groups
+      description: Lists all identity groups by ID.
+      tags:
+      - Group
+      responses:
+        '200':
+          description: Groups listed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      keys:
+                        type: array
+                        items:
+                          type: string
+                        description: List of group IDs
+        '403':
+          description: Permission denied
+  /identity/group/id/{id}:
+    get:
+      operationId: readGroupById
+      summary: HashiCorp Vault Read group by ID
+      description: Reads the identity group with the given ID.
+      tags:
+      - Group
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Group ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Group returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Group'
+        '404':
+          description: Group not found
+    post:
+      operationId: updateGroupById
+      summary: HashiCorp Vault Update group by ID
+      description: Updates the identity group with the given ID.
+      tags:
+      - Group
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Group ID
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupRequest'
+      responses:
+        '200':
+          description: Group updated
+        '400':
+          description: Invalid request
+    delete:
+      operationId: deleteGroupById
+      summary: HashiCorp Vault Delete group by ID
+      description: Deletes the identity group with the given ID.
+      tags:
+      - Group
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Group ID
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Group deleted
+  /identity/group/name/{name}:
+    get:
+      operationId: readGroupByName
+      summary: HashiCorp Vault Read group by name
+      description: Reads the identity group with the given name.
+      tags:
+      - Group
+      parameters:
+      - name: name
+        in: path
+        required: true
+        description: Name of the group
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Group returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Group'
+        '404':
+          description: Group not found
+    post:
+      operationId: updateGroupByName
+      summary: HashiCorp Vault Update group by name
+      description: Updates the identity group with the given name.
+      tags:
+      - Group
+      parameters:
+      - name: name
+        in: path
+        required: true
+        description: Name of the group
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupRequest'
+      responses:
+        '200':
+          description: Group updated
+        '400':
+          description: Invalid request
+    delete:
+      operationId: deleteGroupByName
+      summary: HashiCorp Vault Delete group by name
+      description: Deletes the identity group with the given name.
+      tags:
+      - Group
+      parameters:
+      - name: name
+        in: path
+        required: true
+        description: Name of the group
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Group deleted
+components:
+  schemas:
+    GroupRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the group
+        type:
+          type: string
+          enum:
+          - internal
+          - external
+          description: Group type (cannot be changed after creation)
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+          description: Metadata key-value pairs
+        policies:
+          type: array
+          items:
+            type: string
+          description: Policies to assign to the group
+        member_entity_ids:
+          type: array
+          items:
+            type: string
+          description: Entity IDs to add as members
+        member_group_ids:
+          type: array
+          items:
+            type: string
+          description: Group IDs to add as members
+    GroupAlias:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the alias
+        canonical_id:
+          type: string
+          description: Group ID this alias belongs to
+        mount_accessor:
+          type: string
+          description: Auth mount accessor
+        mount_path:
+          type: string
+          description: Auth mount path
+        mount_type:
+          type: string
+          description: Auth mount type
+        name:
+          type: string
+          description: Name of the alias (external group name)
+        creation_time:
+          type: string
+          format: date-time
+        last_update_time:
+          type: string
+          format: date-time
+    Group:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the group
+        name:
+          type: string
+          description: Name of the group
+        type:
+          type: string
+          enum:
+          - internal
+          - external
+          description: Group type
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+          description: Metadata key-value pairs
+        policies:
+          type: array
+          items:
+            type: string
+          description: Policies assigned to the group
+        member_entity_ids:
+          type: array
+          items:
+            type: string
+          description: Entity IDs that are members of this group
+        member_group_ids:
+          type: array
+          items:
+            type: string
+          description: Group IDs that are members of this group
+        parent_group_ids:
+          type: array
+          items:
+            type: string
+          description: Parent group IDs
+        alias:
+          $ref: '#/components/schemas/GroupAlias'
+        creation_time:
+          type: string
+          format: date-time
+        last_update_time:
+          type: string
+          format: date-time
+  securitySchemes:
+    vaultToken:
+      type: apiKey
+      in: header
+      name: X-Vault-Token
+      description: Vault authentication token
+externalDocs:
+  description: Vault Auth Methods API Documentation
+  url: https://developer.hashicorp.com/vault/api-docs/auth

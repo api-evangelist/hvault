@@ -1,0 +1,71 @@
+openapi: 3.1.0
+info:
+  title: HashiCorp Vault Vault Auth Methods AppRole Leader API
+  description: APIs for authentication methods in HashiCorp Vault including Token, AppRole, Kubernetes, LDAP, JWT/OIDC, GitHub, Userpass, and AWS auth methods. These endpoints handle user and machine authentication to obtain Vault tokens.
+  version: '1.0'
+  contact:
+    name: HashiCorp Support
+    email: support@hashicorp.com
+    url: https://support.hashicorp.com/
+  license:
+    name: Business Source License 1.1
+    url: https://github.com/hashicorp/vault/blob/main/LICENSE
+servers:
+- url: https://vault.example.com/v1
+  description: Vault Server
+security:
+- vaultToken: []
+tags:
+- name: Leader
+  description: HA leader status
+paths:
+  /sys/leader:
+    get:
+      operationId: readLeaderStatus
+      summary: HashiCorp Vault Read leader status
+      description: Returns the high availability status and current leader instance of the Vault cluster.
+      tags:
+      - Leader
+      responses:
+        '200':
+          description: Leader status returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeaderResponse'
+components:
+  schemas:
+    LeaderResponse:
+      type: object
+      properties:
+        ha_enabled:
+          type: boolean
+          description: Whether high availability is enabled
+        is_self:
+          type: boolean
+          description: Whether the responding node is the leader
+        active_time:
+          type: string
+          format: date-time
+          description: Time the leader became active
+        leader_address:
+          type: string
+          description: Address of the leader node
+        leader_cluster_address:
+          type: string
+          description: Cluster address of the leader node
+        performance_standby:
+          type: boolean
+          description: Whether the node is a performance standby
+        performance_standby_last_remote_wal:
+          type: integer
+          description: Last remote WAL on performance standby
+  securitySchemes:
+    vaultToken:
+      type: apiKey
+      in: header
+      name: X-Vault-Token
+      description: Vault authentication token
+externalDocs:
+  description: Vault Auth Methods API Documentation
+  url: https://developer.hashicorp.com/vault/api-docs/auth

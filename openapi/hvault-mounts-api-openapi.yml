@@ -1,0 +1,147 @@
+openapi: 3.1.0
+info:
+  title: HashiCorp Vault Vault Auth Methods AppRole Mounts API
+  description: APIs for authentication methods in HashiCorp Vault including Token, AppRole, Kubernetes, LDAP, JWT/OIDC, GitHub, Userpass, and AWS auth methods. These endpoints handle user and machine authentication to obtain Vault tokens.
+  version: '1.0'
+  contact:
+    name: HashiCorp Support
+    email: support@hashicorp.com
+    url: https://support.hashicorp.com/
+  license:
+    name: Business Source License 1.1
+    url: https://github.com/hashicorp/vault/blob/main/LICENSE
+servers:
+- url: https://vault.example.com/v1
+  description: Vault Server
+security:
+- vaultToken: []
+tags:
+- name: Mounts
+  description: Secrets engine mount management
+paths:
+  /sys/mounts:
+    get:
+      operationId: listSecretsMounts
+      summary: HashiCorp Vault List secrets engines
+      description: Lists all mounted secrets engines.
+      tags:
+      - Mounts
+      responses:
+        '200':
+          description: Secrets engines listed
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/SecretsMount'
+        '403':
+          description: Permission denied
+  /sys/mounts/{path}:
+    post:
+      operationId: enableSecretsEngine
+      summary: HashiCorp Vault Enable secrets engine
+      description: Enables a new secrets engine at the given path.
+      tags:
+      - Mounts
+      parameters:
+      - $ref: '#/components/parameters/mountPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              properties:
+                type:
+                  type: string
+                  description: Secrets engine type (e.g., kv, aws, pki, database)
+                description:
+                  type: string
+                  description: Human-friendly description
+                config:
+                  type: object
+                  description: Configuration options
+                  properties:
+                    default_lease_ttl:
+                      type: string
+                    max_lease_ttl:
+                      type: string
+                options:
+                  type: object
+                  description: Engine-specific options
+                  properties:
+                    version:
+                      type: string
+                      description: KV engine version (1 or 2)
+      responses:
+        '204':
+          description: Secrets engine enabled
+        '400':
+          description: Invalid request
+        '403':
+          description: Permission denied
+    delete:
+      operationId: disableSecretsEngine
+      summary: HashiCorp Vault Disable secrets engine
+      description: Disables the secrets engine at the given path.
+      tags:
+      - Mounts
+      parameters:
+      - $ref: '#/components/parameters/mountPath'
+      responses:
+        '204':
+          description: Secrets engine disabled
+        '403':
+          description: Permission denied
+components:
+  parameters:
+    mountPath:
+      name: path
+      in: path
+      required: true
+      description: The path to mount or access the resource
+      schema:
+        type: string
+  schemas:
+    SecretsMount:
+      type: object
+      properties:
+        accessor:
+          type: string
+          description: Unique accessor for this secrets mount
+        config:
+          type: object
+          properties:
+            default_lease_ttl:
+              type: integer
+            max_lease_ttl:
+              type: integer
+        description:
+          type: string
+          description: Human-friendly description
+        external_entropy_access:
+          type: boolean
+        local:
+          type: boolean
+        seal_wrap:
+          type: boolean
+        type:
+          type: string
+          description: Type of secrets engine
+        uuid:
+          type: string
+        options:
+          type: object
+          description: Engine-specific options
+  securitySchemes:
+    vaultToken:
+      type: apiKey
+      in: header
+      name: X-Vault-Token
+      description: Vault authentication token
+externalDocs:
+  description: Vault Auth Methods API Documentation
+  url: https://developer.hashicorp.com/vault/api-docs/auth

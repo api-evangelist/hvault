@@ -1,0 +1,427 @@
+openapi: 3.1.0
+info:
+  title: HashiCorp Vault Vault Auth Methods AppRole KV V2 API
+  description: APIs for authentication methods in HashiCorp Vault including Token, AppRole, Kubernetes, LDAP, JWT/OIDC, GitHub, Userpass, and AWS auth methods. These endpoints handle user and machine authentication to obtain Vault tokens.
+  version: '1.0'
+  contact:
+    name: HashiCorp Support
+    email: support@hashicorp.com
+    url: https://support.hashicorp.com/
+  license:
+    name: Business Source License 1.1
+    url: https://github.com/hashicorp/vault/blob/main/LICENSE
+servers:
+- url: https://vault.example.com/v1
+  description: Vault Server
+security:
+- vaultToken: []
+tags:
+- name: KV V2
+  description: Key/Value version 2 secrets engine
+paths:
+  /{mount}/config:
+    get:
+      operationId: readKvV2Config
+      summary: HashiCorp Vault Read KV v2 engine configuration
+      description: Retrieves the configuration for the KV v2 secrets engine at the given mount path.
+      tags:
+      - KV V2
+      parameters:
+      - $ref: '#/components/parameters/kvMountPath'
+      responses:
+        '200':
+          description: Configuration returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/KvV2Config'
+        '403':
+          description: Permission denied
+    post:
+      operationId: updateKvV2Config
+      summary: HashiCorp Vault Configure KV v2 engine
+      description: Configures backend-level settings for the KV v2 secrets engine.
+      tags:
+      - KV V2
+      parameters:
+      - $ref: '#/components/parameters/kvMountPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KvV2Config'
+      responses:
+        '204':
+          description: Configuration updated
+        '403':
+          description: Permission denied
+  /{mount}/data/{path}:
+    get:
+      operationId: readKvV2Secret
+      summary: HashiCorp Vault Read KV v2 secret
+      description: Reads the value of the secret at the specified path. Returns the current version by default, or a specific version if the version parameter is provided.
+      tags:
+      - KV V2
+      parameters:
+      - $ref: '#/components/parameters/kvMountPath'
+      - $ref: '#/components/parameters/secretPath'
+      - name: version
+        in: query
+        description: Version number to read
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Secret data returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KvV2ReadResponse'
+        '403':
+          description: Permission denied
+        '404':
+          description: Secret not found
+    post:
+      operationId: createOrUpdateKvV2Secret
+      summary: HashiCorp Vault Create or update KV v2 secret
+      description: Creates a new version of a secret at the specified path. If the secret does not exist, it will be created.
+      tags:
+      - KV V2
+      parameters:
+      - $ref: '#/components/parameters/kvMountPath'
+      - $ref: '#/components/parameters/secretPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - data
+              properties:
+                options:
+                  type: object
+                  properties:
+                    cas:
+                      type: integer
+                      description: Check-and-set value for optimistic concurrency
+                data:
+                  type: object
+                  additionalProperties: true
+                  description: The secret data to store
+      responses:
+        '200':
+          description: Secret created or updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/KvV2VersionMetadata'
+        '403':
+          description: Permission denied
+    delete:
+      operationId: deleteLatestKvV2Secret
+      summary: HashiCorp Vault Delete latest version of KV v2 secret
+      description: Performs a soft delete of the latest version of the secret at the specified path. The data can be recovered using the undelete endpoint.
+      tags:
+      - KV V2
+      parameters:
+      - $ref: '#/components/parameters/kvMountPath'
+      - $ref: '#/components/parameters/secretPath'
+      responses:
+        '204':
+          description: Secret version soft-deleted
+        '403':
+          description: Permission denied
+  /{mount}/delete/{path}:
+    post:
+      operationId: deleteKvV2SecretVersions
+      summary: HashiCorp Vault Delete specific versions of KV v2 secret
+      description: Performs a soft delete of the specified versions of a secret. The data can be recovered using the undelete endpoint.
+      tags:
+      - KV V2
+      parameters:
+      - $ref: '#/components/parameters/kvMountPath'
+      - $ref: '#/components/parameters/secretPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - versions
+              properties:
+                versions:
+                  type: array
+                  items:
+                    type: integer
+                  description: Versions to soft-delete
+      responses:
+        '204':
+          description: Secret versions soft-deleted
+        '403':
+          description: Permission denied
+  /{mount}/undelete/{path}:
+    post:
+      operationId: undeleteKvV2SecretVersions
+      summary: HashiCorp Vault Undelete versions of KV v2 secret
+      description: Restores soft-deleted versions of a secret.
+      tags:
+      - KV V2
+      parameters:
+      - $ref: '#/components/parameters/kvMountPath'
+      - $ref: '#/components/parameters/secretPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - versions
+              properties:
+                versions:
+                  type: array
+                  items:
+                    type: integer
+                  description: Versions to undelete
+      responses:
+        '204':
+          description: Secret versions restored
+        '403':
+          description: Permission denied
+  /{mount}/destroy/{path}:
+    post:
+      operationId: destroyKvV2SecretVersions
+      summary: HashiCorp Vault Destroy versions of KV v2 secret
+      description: Permanently destroys the specified versions of a secret. This action is irreversible.
+      tags:
+      - KV V2
+      parameters:
+      - $ref: '#/components/parameters/kvMountPath'
+      - $ref: '#/components/parameters/secretPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - versions
+              properties:
+                versions:
+                  type: array
+                  items:
+                    type: integer
+                  description: Versions to permanently destroy
+      responses:
+        '204':
+          description: Secret versions permanently destroyed
+        '403':
+          description: Permission denied
+  /{mount}/metadata/{path}:
+    get:
+      operationId: readKvV2Metadata
+      summary: HashiCorp Vault Read KV v2 secret metadata
+      description: Returns metadata and version history for the secret at the specified path.
+      tags:
+      - KV V2
+      parameters:
+      - $ref: '#/components/parameters/kvMountPath'
+      - $ref: '#/components/parameters/secretPath'
+      responses:
+        '200':
+          description: Metadata returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KvV2MetadataResponse'
+        '403':
+          description: Permission denied
+        '404':
+          description: Secret not found
+    post:
+      operationId: updateKvV2Metadata
+      summary: HashiCorp Vault Update KV v2 secret metadata
+      description: Updates metadata settings for the secret at the specified path.
+      tags:
+      - KV V2
+      parameters:
+      - $ref: '#/components/parameters/kvMountPath'
+      - $ref: '#/components/parameters/secretPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                max_versions:
+                  type: integer
+                  description: Maximum number of versions to keep
+                cas_required:
+                  type: boolean
+                  description: Whether check-and-set is required
+                delete_version_after:
+                  type: string
+                  description: Duration after which versions are deleted (e.g., 30d)
+                custom_metadata:
+                  type: object
+                  additionalProperties:
+                    type: string
+                  description: Custom key-value metadata pairs
+      responses:
+        '204':
+          description: Metadata updated
+        '403':
+          description: Permission denied
+    delete:
+      operationId: deleteKvV2Metadata
+      summary: HashiCorp Vault Delete KV v2 secret metadata and all versions
+      description: Permanently deletes the secret metadata and all version data for the specified path. This is irreversible.
+      tags:
+      - KV V2
+      parameters:
+      - $ref: '#/components/parameters/kvMountPath'
+      - $ref: '#/components/parameters/secretPath'
+      responses:
+        '204':
+          description: Metadata and all versions permanently deleted
+        '403':
+          description: Permission denied
+  /{mount}/metadata/:
+    get:
+      operationId: listKvV2Secrets
+      summary: HashiCorp Vault List KV v2 secrets
+      description: Returns a list of secret keys at the specified path.
+      tags:
+      - KV V2
+      parameters:
+      - $ref: '#/components/parameters/kvMountPath'
+      responses:
+        '200':
+          description: Secret keys listed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      keys:
+                        type: array
+                        items:
+                          type: string
+                        description: List of secret keys
+        '403':
+          description: Permission denied
+components:
+  schemas:
+    KvV2ReadResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            data:
+              type: object
+              additionalProperties: true
+              description: The secret key-value data
+            metadata:
+              $ref: '#/components/schemas/KvV2VersionMetadata'
+    KvV2Config:
+      type: object
+      properties:
+        cas_required:
+          type: boolean
+          description: Whether check-and-set is required for all writes
+        max_versions:
+          type: integer
+          description: Maximum number of versions to keep per key
+        delete_version_after:
+          type: string
+          description: Duration after which versions are automatically deleted
+    KvV2VersionMetadata:
+      type: object
+      properties:
+        created_time:
+          type: string
+          format: date-time
+          description: When this version was created
+        custom_metadata:
+          type: object
+          additionalProperties:
+            type: string
+          description: Custom metadata key-value pairs
+        deletion_time:
+          type: string
+          description: When this version was deleted (empty if not deleted)
+        destroyed:
+          type: boolean
+          description: Whether this version has been permanently destroyed
+        version:
+          type: integer
+          description: Version number
+    KvV2MetadataResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            cas_required:
+              type: boolean
+            created_time:
+              type: string
+              format: date-time
+            current_version:
+              type: integer
+            custom_metadata:
+              type: object
+              additionalProperties:
+                type: string
+            delete_version_after:
+              type: string
+            max_versions:
+              type: integer
+            oldest_version:
+              type: integer
+            updated_time:
+              type: string
+              format: date-time
+            versions:
+              type: object
+              additionalProperties:
+                $ref: '#/components/schemas/KvV2VersionMetadata'
+  parameters:
+    secretPath:
+      name: path
+      in: path
+      required: true
+      description: Path to the secret within the secrets engine
+      schema:
+        type: string
+    kvMountPath:
+      name: mount
+      in: path
+      required: true
+      description: Mount path for the secrets engine (e.g., secret, kv)
+      schema:
+        type: string
+        default: secret
+  securitySchemes:
+    vaultToken:
+      type: apiKey
+      in: header
+      name: X-Vault-Token
+      description: Vault authentication token
+externalDocs:
+  description: Vault Auth Methods API Documentation
+  url: https://developer.hashicorp.com/vault/api-docs/auth

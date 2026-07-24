@@ -1,0 +1,105 @@
+openapi: 3.1.0
+info:
+  title: HashiCorp Vault Vault Auth Methods AppRole Init API
+  description: APIs for authentication methods in HashiCorp Vault including Token, AppRole, Kubernetes, LDAP, JWT/OIDC, GitHub, Userpass, and AWS auth methods. These endpoints handle user and machine authentication to obtain Vault tokens.
+  version: '1.0'
+  contact:
+    name: HashiCorp Support
+    email: support@hashicorp.com
+    url: https://support.hashicorp.com/
+  license:
+    name: Business Source License 1.1
+    url: https://github.com/hashicorp/vault/blob/main/LICENSE
+servers:
+- url: https://vault.example.com/v1
+  description: Vault Server
+security:
+- vaultToken: []
+tags:
+- name: Init
+  description: Vault initialization
+paths:
+  /sys/init:
+    get:
+      operationId: getInitStatus
+      summary: HashiCorp Vault Read initialization status
+      description: Returns the initialization status of the Vault server.
+      tags:
+      - Init
+      responses:
+        '200':
+          description: Initialization status returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  initialized:
+                    type: boolean
+                    description: Whether the Vault is initialized
+      security: []
+    put:
+      operationId: initializeVault
+      summary: HashiCorp Vault Initialize Vault
+      description: Initializes a new Vault by generating the master key shares and the initial root token.
+      tags:
+      - Init
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - secret_shares
+              - secret_threshold
+              properties:
+                secret_shares:
+                  type: integer
+                  description: Number of key shares to split the master key into
+                secret_threshold:
+                  type: integer
+                  description: Number of key shares required to reconstruct the master key
+                pgp_keys:
+                  type: array
+                  items:
+                    type: string
+                  description: PGP keys to encrypt the key shares
+                root_token_pgp_key:
+                  type: string
+                  description: PGP key to encrypt the root token
+      responses:
+        '200':
+          description: Vault initialized successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InitResponse'
+      security: []
+components:
+  schemas:
+    InitResponse:
+      type: object
+      properties:
+        keys:
+          type: array
+          items:
+            type: string
+          description: Master key shares (base64 or PGP-encrypted)
+        keys_base64:
+          type: array
+          items:
+            type: string
+          description: Master key shares in base64 format
+        root_token:
+          type: string
+          description: Initial root token
+  securitySchemes:
+    vaultToken:
+      type: apiKey
+      in: header
+      name: X-Vault-Token
+      description: Vault authentication token
+externalDocs:
+  description: Vault Auth Methods API Documentation
+  url: https://developer.hashicorp.com/vault/api-docs/auth

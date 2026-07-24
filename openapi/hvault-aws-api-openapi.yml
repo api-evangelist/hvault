@@ -1,0 +1,171 @@
+openapi: 3.1.0
+info:
+  title: HashiCorp Vault Vault Auth Methods AppRole AWS API
+  description: APIs for authentication methods in HashiCorp Vault including Token, AppRole, Kubernetes, LDAP, JWT/OIDC, GitHub, Userpass, and AWS auth methods. These endpoints handle user and machine authentication to obtain Vault tokens.
+  version: '1.0'
+  contact:
+    name: HashiCorp Support
+    email: support@hashicorp.com
+    url: https://support.hashicorp.com/
+  license:
+    name: Business Source License 1.1
+    url: https://github.com/hashicorp/vault/blob/main/LICENSE
+servers:
+- url: https://vault.example.com/v1
+  description: Vault Server
+security:
+- vaultToken: []
+tags:
+- name: AWS
+  description: AWS dynamic credentials secrets engine
+paths:
+  /aws/creds/{name}:
+    get:
+      operationId: generateAwsCredentials
+      summary: HashiCorp Vault Generate AWS credentials
+      description: Generates dynamic AWS access credentials based on the named role.
+      tags:
+      - AWS
+      parameters:
+      - name: name
+        in: path
+        required: true
+        description: Name of the role
+        schema:
+          type: string
+      responses:
+        '200':
+          description: AWS credentials generated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AwsCredentialsResponse'
+        '403':
+          description: Permission denied
+  /aws/roles/{name}:
+    get:
+      operationId: readAwsRole
+      summary: HashiCorp Vault Read AWS role
+      description: Reads the configuration for the named AWS role.
+      tags:
+      - AWS
+      parameters:
+      - name: name
+        in: path
+        required: true
+        description: Name of the role
+        schema:
+          type: string
+      responses:
+        '200':
+          description: AWS role configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AwsRole'
+        '404':
+          description: Role not found
+    post:
+      operationId: createOrUpdateAwsRole
+      summary: HashiCorp Vault Create or update AWS role
+      description: Creates or updates the named AWS role.
+      tags:
+      - AWS
+      parameters:
+      - name: name
+        in: path
+        required: true
+        description: Name of the role
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AwsRole'
+      responses:
+        '204':
+          description: Role created or updated
+        '400':
+          description: Invalid request
+    delete:
+      operationId: deleteAwsRole
+      summary: HashiCorp Vault Delete AWS role
+      description: Deletes the named AWS role.
+      tags:
+      - AWS
+      parameters:
+      - name: name
+        in: path
+        required: true
+        description: Name of the role
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Role deleted
+components:
+  schemas:
+    AwsRole:
+      type: object
+      properties:
+        credential_type:
+          type: string
+          enum:
+          - iam_user
+          - assumed_role
+          - federation_token
+          description: Type of AWS credential to generate
+        role_arns:
+          type: array
+          items:
+            type: string
+          description: ARNs of IAM roles to assume
+        policy_arns:
+          type: array
+          items:
+            type: string
+          description: ARNs of IAM policies to attach
+        policy_document:
+          type: string
+          description: Inline IAM policy document in JSON
+        default_sts_ttl:
+          type: string
+          description: Default TTL for STS credentials
+        max_sts_ttl:
+          type: string
+          description: Maximum TTL for STS credentials
+    AwsCredentialsResponse:
+      type: object
+      properties:
+        lease_id:
+          type: string
+          description: Unique lease identifier
+        lease_duration:
+          type: integer
+          description: Lease duration in seconds
+        renewable:
+          type: boolean
+          description: Whether the lease is renewable
+        data:
+          type: object
+          properties:
+            access_key:
+              type: string
+              description: AWS access key ID
+            secret_key:
+              type: string
+              description: AWS secret access key
+            security_token:
+              type: string
+              description: AWS STS session token (for assumed_role type)
+  securitySchemes:
+    vaultToken:
+      type: apiKey
+      in: header
+      name: X-Vault-Token
+      description: Vault authentication token
+externalDocs:
+  description: Vault Auth Methods API Documentation
+  url: https://developer.hashicorp.com/vault/api-docs/auth

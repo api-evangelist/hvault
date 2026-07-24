@@ -1,0 +1,151 @@
+openapi: 3.1.0
+info:
+  title: HashiCorp Vault Vault Methods AppRole Auth API
+  description: APIs for authentication methods in HashiCorp Vault including Token, AppRole, Kubernetes, LDAP, JWT/OIDC, GitHub, Userpass, and AWS auth methods. These endpoints handle user and machine authentication to obtain Vault tokens.
+  version: '1.0'
+  contact:
+    name: HashiCorp Support
+    email: support@hashicorp.com
+    url: https://support.hashicorp.com/
+  license:
+    name: Business Source License 1.1
+    url: https://github.com/hashicorp/vault/blob/main/LICENSE
+servers:
+- url: https://vault.example.com/v1
+  description: Vault Server
+security:
+- vaultToken: []
+tags:
+- name: Auth
+  description: Auth method management
+paths:
+  /sys/auth:
+    get:
+      operationId: listAuthMethods
+      summary: HashiCorp Vault List auth methods
+      description: Lists all enabled auth methods in the Vault.
+      tags:
+      - Auth
+      responses:
+        '200':
+          description: Auth methods listed
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/AuthMount'
+        '403':
+          description: Permission denied
+  /sys/auth/{path}:
+    post:
+      operationId: enableAuthMethod
+      summary: HashiCorp Vault Enable auth method
+      description: Enables a new auth method at the given path.
+      tags:
+      - Auth
+      parameters:
+      - $ref: '#/components/parameters/mountPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              properties:
+                type:
+                  type: string
+                  description: Auth method type (e.g., token, approle, ldap, kubernetes)
+                description:
+                  type: string
+                  description: Human-friendly description
+                config:
+                  type: object
+                  description: Configuration options
+                  properties:
+                    default_lease_ttl:
+                      type: string
+                      description: Default lease TTL
+                    max_lease_ttl:
+                      type: string
+                      description: Maximum lease TTL
+                    listing_visibility:
+                      type: string
+                      description: Listing visibility
+      responses:
+        '204':
+          description: Auth method enabled
+        '400':
+          description: Invalid request
+        '403':
+          description: Permission denied
+    delete:
+      operationId: disableAuthMethod
+      summary: HashiCorp Vault Disable auth method
+      description: Disables the auth method at the given path.
+      tags:
+      - Auth
+      parameters:
+      - $ref: '#/components/parameters/mountPath'
+      responses:
+        '204':
+          description: Auth method disabled
+        '403':
+          description: Permission denied
+components:
+  parameters:
+    mountPath:
+      name: path
+      in: path
+      required: true
+      description: The path to mount or access the resource
+      schema:
+        type: string
+  schemas:
+    AuthMount:
+      type: object
+      properties:
+        accessor:
+          type: string
+          description: Unique accessor for this auth mount
+        config:
+          type: object
+          properties:
+            default_lease_ttl:
+              type: integer
+              description: Default lease TTL in seconds
+            max_lease_ttl:
+              type: integer
+              description: Maximum lease TTL in seconds
+            token_type:
+              type: string
+              description: Token type produced by this auth method
+        description:
+          type: string
+          description: Human-friendly description
+        external_entropy_access:
+          type: boolean
+          description: Whether external entropy is used
+        local:
+          type: boolean
+          description: Whether the mount is local only
+        seal_wrap:
+          type: boolean
+          description: Whether seal wrapping is enabled
+        type:
+          type: string
+          description: Type of auth method
+        uuid:
+          type: string
+          description: Unique identifier for this mount
+  securitySchemes:
+    vaultToken:
+      type: apiKey
+      in: header
+      name: X-Vault-Token
+      description: Vault authentication token
+externalDocs:
+  description: Vault Auth Methods API Documentation
+  url: https://developer.hashicorp.com/vault/api-docs/auth
