@@ -4,6 +4,19 @@ description: >-
   secrets in modern computing. Vault handles leasing, key revocation, key rolling, and auditing. Through a unified API,
   users can access an encrypted Key/Value store and network encryption-as-a-service, or generate AWS IAM/STS
   credentials, SQL/NoSQL databases, X.509 certificates, SSH credentials, and more.
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 image: https://www.vaultproject.io/img/logo-hashicorp.svg
 created: '2024-01-15'
 modified: '2026-05-19'
@@ -16,94 +29,958 @@ tags:
   - Security
 url: https://www.vaultproject.io/api-docs
 apis:
-  - name: Vault System Backend API
-    description: >-
-      API for system-level operations including authentication, secrets engines, audit devices, and general Vault
-      configuration.
-    image: https://www.vaultproject.io/img/logo-hashicorp.svg
-    humanURL: https://www.vaultproject.io/
-    baseURL: https://vault.example.com/v1/sys
-    tags:
-      - Administration
-      - Configuration
-      - System
-    properties:
-      - type: Documentation
-        url: https://developer.hashicorp.com/vault/api-docs/system
-      - type: X-openapi
-        url: https://github.com/hashicorp/vault/blob/main/openapi.json
-      - type: Authentication
-        url: https://developer.hashicorp.com/vault/docs/auth
-      - type: OpenAPI
-        url: openapi/hvault-system-backend-openapi.yml
-    contact:
-      - FN: HashiCorp Support
-        email: support@hashicorp.com
-        X-twitter: HashiCorp
-  - name: Vault Secrets Engines API
-    description: APIs for various secrets engines including Key/Value, AWS, Azure, databases, PKI, SSH, and more.
-    image: https://www.vaultproject.io/img/logo-hashicorp.svg
-    humanURL: https://developer.hashicorp.com/vault/docs/secrets
-    baseURL: https://vault.example.com/v1
-    tags:
-      - Cloud
-      - Databases
-      - Kv
-      - Secrets
-    properties:
-      - type: Documentation
-        url: https://developer.hashicorp.com/vault/api-docs/secret
-      - type: X-kv-docs
-        url: https://developer.hashicorp.com/vault/api-docs/secret/kv/kv-v2
-      - type: X-aws-docs
-        url: https://developer.hashicorp.com/vault/api-docs/secret/aws
-      - type: X-database-docs
-        url: https://developer.hashicorp.com/vault/api-docs/secret/databases
-      - type: OpenAPI
-        url: openapi/hvault-secrets-engines-openapi.yml
-    contact:
-      - FN: HashiCorp Support
-        email: support@hashicorp.com
-  - name: Vault Auth Methods API
-    description: APIs for authentication methods including Token, AppRole, Kubernetes, LDAP, JWT/OIDC, GitHub, and more.
-    image: https://www.vaultproject.io/img/logo-hashicorp.svg
-    humanURL: https://developer.hashicorp.com/vault/docs/auth
-    baseURL: https://vault.example.com/v1/auth
-    tags:
-      - Access Control
-      - Authentication
-      - Identity
-    properties:
-      - type: Documentation
-        url: https://developer.hashicorp.com/vault/api-docs/auth
-      - type: X-token-docs
-        url: https://developer.hashicorp.com/vault/api-docs/auth/token
-      - type: X-approle-docs
-        url: https://developer.hashicorp.com/vault/api-docs/auth/approle
-      - type: X-kubernetes-docs
-        url: https://developer.hashicorp.com/vault/api-docs/auth/kubernetes
-      - type: OpenAPI
-        url: openapi/hvault-auth-methods-openapi.yml
-    contact:
-      - FN: HashiCorp Support
-        email: support@hashicorp.com
-  - name: Vault Identity API
-    description: APIs for managing entities, entity aliases, and groups for identity management across authentication methods.
-    image: https://www.vaultproject.io/img/logo-hashicorp.svg
-    humanURL: https://developer.hashicorp.com/vault/docs/secrets/identity
-    baseURL: https://vault.example.com/v1/identity
-    tags:
-      - Entities
-      - Groups
-      - Identity
-    properties:
-      - type: Documentation
-        url: https://developer.hashicorp.com/vault/api-docs/secret/identity
-      - type: OpenAPI
-        url: openapi/hvault-identity-openapi.yml
-    contact:
-      - FN: HashiCorp Support
-        email: support@hashicorp.com
+- aid: hvault:hvault-approle-api
+  name: HashiCorp Vault AppRole API
+  description: AppRole auth method for machine-to-machine authentication
+  humanURL: https://www.vaultproject.io/
+  baseURL: https://vault.example.com/v1/sys
+  tags:
+  - AppRole
+  properties:
+  - type: OpenAPI
+    url: openapi/hvault-approle-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/system
+  - type: X-openapi
+    url: https://github.com/hashicorp/vault/blob/main/openapi.json
+  - type: Authentication
+    url: https://developer.hashicorp.com/vault/docs/auth
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret
+  - type: X-kv-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/kv/kv-v2
+  - type: X-aws-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/aws
+  - type: X-database-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/databases
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/auth
+  - type: X-token-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/token
+  - type: X-approle-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/approle
+  - type: X-kubernetes-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/kubernetes
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret/identity
+- aid: hvault:hvault-audit-api
+  name: HashiCorp Vault Audit API
+  description: Audit device management
+  humanURL: https://www.vaultproject.io/
+  baseURL: https://vault.example.com/v1/sys
+  tags:
+  - Audit
+  properties:
+  - type: OpenAPI
+    url: openapi/hvault-audit-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/system
+  - type: X-openapi
+    url: https://github.com/hashicorp/vault/blob/main/openapi.json
+  - type: Authentication
+    url: https://developer.hashicorp.com/vault/docs/auth
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret
+  - type: X-kv-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/kv/kv-v2
+  - type: X-aws-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/aws
+  - type: X-database-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/databases
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/auth
+  - type: X-token-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/token
+  - type: X-approle-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/approle
+  - type: X-kubernetes-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/kubernetes
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret/identity
+- aid: hvault:hvault-auth-api
+  name: HashiCorp Vault Auth API
+  description: Auth method management
+  humanURL: https://www.vaultproject.io/
+  baseURL: https://vault.example.com/v1/sys
+  tags:
+  - Auth
+  properties:
+  - type: OpenAPI
+    url: openapi/hvault-auth-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/system
+  - type: X-openapi
+    url: https://github.com/hashicorp/vault/blob/main/openapi.json
+  - type: Authentication
+    url: https://developer.hashicorp.com/vault/docs/auth
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret
+  - type: X-kv-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/kv/kv-v2
+  - type: X-aws-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/aws
+  - type: X-database-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/databases
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/auth
+  - type: X-token-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/token
+  - type: X-approle-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/approle
+  - type: X-kubernetes-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/kubernetes
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret/identity
+- aid: hvault:hvault-aws-api
+  name: HashiCorp Vault AWS API
+  description: AWS dynamic credentials secrets engine
+  humanURL: https://www.vaultproject.io/
+  baseURL: https://vault.example.com/v1/sys
+  tags:
+  - AWS
+  properties:
+  - type: OpenAPI
+    url: openapi/hvault-aws-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/system
+  - type: X-openapi
+    url: https://github.com/hashicorp/vault/blob/main/openapi.json
+  - type: Authentication
+    url: https://developer.hashicorp.com/vault/docs/auth
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret
+  - type: X-kv-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/kv/kv-v2
+  - type: X-aws-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/aws
+  - type: X-database-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/databases
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/auth
+  - type: X-token-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/token
+  - type: X-approle-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/approle
+  - type: X-kubernetes-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/kubernetes
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret/identity
+- aid: hvault:hvault-configuration-api
+  name: HashiCorp Vault Configuration API
+  description: General Vault configuration
+  humanURL: https://www.vaultproject.io/
+  baseURL: https://vault.example.com/v1/sys
+  tags:
+  - Configuration
+  properties:
+  - type: OpenAPI
+    url: openapi/hvault-configuration-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/system
+  - type: X-openapi
+    url: https://github.com/hashicorp/vault/blob/main/openapi.json
+  - type: Authentication
+    url: https://developer.hashicorp.com/vault/docs/auth
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret
+  - type: X-kv-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/kv/kv-v2
+  - type: X-aws-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/aws
+  - type: X-database-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/databases
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/auth
+  - type: X-token-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/token
+  - type: X-approle-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/approle
+  - type: X-kubernetes-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/kubernetes
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret/identity
+- aid: hvault:hvault-database-api
+  name: HashiCorp Vault Database API
+  description: Database dynamic credentials secrets engine
+  humanURL: https://www.vaultproject.io/
+  baseURL: https://vault.example.com/v1/sys
+  tags:
+  - Database
+  properties:
+  - type: OpenAPI
+    url: openapi/hvault-database-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/system
+  - type: X-openapi
+    url: https://github.com/hashicorp/vault/blob/main/openapi.json
+  - type: Authentication
+    url: https://developer.hashicorp.com/vault/docs/auth
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret
+  - type: X-kv-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/kv/kv-v2
+  - type: X-aws-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/aws
+  - type: X-database-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/databases
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/auth
+  - type: X-token-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/token
+  - type: X-approle-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/approle
+  - type: X-kubernetes-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/kubernetes
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret/identity
+- aid: hvault:hvault-entity-alias-api
+  name: HashiCorp Vault Entity Alias API
+  description: Identity entity alias management
+  humanURL: https://www.vaultproject.io/
+  baseURL: https://vault.example.com/v1/sys
+  tags:
+  - Entity Alias
+  properties:
+  - type: OpenAPI
+    url: openapi/hvault-entity-alias-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/system
+  - type: X-openapi
+    url: https://github.com/hashicorp/vault/blob/main/openapi.json
+  - type: Authentication
+    url: https://developer.hashicorp.com/vault/docs/auth
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret
+  - type: X-kv-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/kv/kv-v2
+  - type: X-aws-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/aws
+  - type: X-database-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/databases
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/auth
+  - type: X-token-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/token
+  - type: X-approle-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/approle
+  - type: X-kubernetes-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/kubernetes
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret/identity
+- aid: hvault:hvault-entity-api
+  name: HashiCorp Vault Entity API
+  description: Identity entity management
+  humanURL: https://www.vaultproject.io/
+  baseURL: https://vault.example.com/v1/sys
+  tags:
+  - Entity
+  properties:
+  - type: OpenAPI
+    url: openapi/hvault-entity-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/system
+  - type: X-openapi
+    url: https://github.com/hashicorp/vault/blob/main/openapi.json
+  - type: Authentication
+    url: https://developer.hashicorp.com/vault/docs/auth
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret
+  - type: X-kv-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/kv/kv-v2
+  - type: X-aws-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/aws
+  - type: X-database-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/databases
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/auth
+  - type: X-token-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/token
+  - type: X-approle-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/approle
+  - type: X-kubernetes-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/kubernetes
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret/identity
+- aid: hvault:hvault-github-api
+  name: HashiCorp Vault GitHub API
+  description: GitHub auth method for organization-based authentication
+  humanURL: https://www.vaultproject.io/
+  baseURL: https://vault.example.com/v1/sys
+  tags:
+  - GitHub
+  properties:
+  - type: OpenAPI
+    url: openapi/hvault-github-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/system
+  - type: X-openapi
+    url: https://github.com/hashicorp/vault/blob/main/openapi.json
+  - type: Authentication
+    url: https://developer.hashicorp.com/vault/docs/auth
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret
+  - type: X-kv-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/kv/kv-v2
+  - type: X-aws-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/aws
+  - type: X-database-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/databases
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/auth
+  - type: X-token-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/token
+  - type: X-approle-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/approle
+  - type: X-kubernetes-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/kubernetes
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret/identity
+- aid: hvault:hvault-group-alias-api
+  name: HashiCorp Vault Group Alias API
+  description: Identity group alias management
+  humanURL: https://www.vaultproject.io/
+  baseURL: https://vault.example.com/v1/sys
+  tags:
+  - Group Alias
+  properties:
+  - type: OpenAPI
+    url: openapi/hvault-group-alias-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/system
+  - type: X-openapi
+    url: https://github.com/hashicorp/vault/blob/main/openapi.json
+  - type: Authentication
+    url: https://developer.hashicorp.com/vault/docs/auth
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret
+  - type: X-kv-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/kv/kv-v2
+  - type: X-aws-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/aws
+  - type: X-database-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/databases
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/auth
+  - type: X-token-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/token
+  - type: X-approle-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/approle
+  - type: X-kubernetes-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/kubernetes
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret/identity
+- aid: hvault:hvault-group-api
+  name: HashiCorp Vault Group API
+  description: Identity group management
+  humanURL: https://www.vaultproject.io/
+  baseURL: https://vault.example.com/v1/sys
+  tags:
+  - Group
+  properties:
+  - type: OpenAPI
+    url: openapi/hvault-group-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/system
+  - type: X-openapi
+    url: https://github.com/hashicorp/vault/blob/main/openapi.json
+  - type: Authentication
+    url: https://developer.hashicorp.com/vault/docs/auth
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret
+  - type: X-kv-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/kv/kv-v2
+  - type: X-aws-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/aws
+  - type: X-database-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/databases
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/auth
+  - type: X-token-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/token
+  - type: X-approle-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/approle
+  - type: X-kubernetes-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/kubernetes
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret/identity
+- aid: hvault:hvault-health-api
+  name: HashiCorp Vault Health API
+  description: Health and status endpoints
+  humanURL: https://www.vaultproject.io/
+  baseURL: https://vault.example.com/v1/sys
+  tags:
+  - Health
+  properties:
+  - type: OpenAPI
+    url: openapi/hvault-health-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/system
+  - type: X-openapi
+    url: https://github.com/hashicorp/vault/blob/main/openapi.json
+  - type: Authentication
+    url: https://developer.hashicorp.com/vault/docs/auth
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret
+  - type: X-kv-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/kv/kv-v2
+  - type: X-aws-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/aws
+  - type: X-database-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/databases
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/auth
+  - type: X-token-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/token
+  - type: X-approle-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/approle
+  - type: X-kubernetes-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/kubernetes
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret/identity
+- aid: hvault:hvault-init-api
+  name: HashiCorp Vault Init API
+  description: Vault initialization
+  humanURL: https://www.vaultproject.io/
+  baseURL: https://vault.example.com/v1/sys
+  tags:
+  - Init
+  properties:
+  - type: OpenAPI
+    url: openapi/hvault-init-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/system
+  - type: X-openapi
+    url: https://github.com/hashicorp/vault/blob/main/openapi.json
+  - type: Authentication
+    url: https://developer.hashicorp.com/vault/docs/auth
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret
+  - type: X-kv-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/kv/kv-v2
+  - type: X-aws-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/aws
+  - type: X-database-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/databases
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/auth
+  - type: X-token-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/token
+  - type: X-approle-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/approle
+  - type: X-kubernetes-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/kubernetes
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret/identity
+- aid: hvault:hvault-jwt-oidc-api
+  name: HashiCorp Vault JWT/OIDC API
+  description: JWT/OIDC auth method for identity provider authentication
+  humanURL: https://www.vaultproject.io/
+  baseURL: https://vault.example.com/v1/sys
+  tags:
+  - JWT/OIDC
+  properties:
+  - type: OpenAPI
+    url: openapi/hvault-jwt-oidc-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/system
+  - type: X-openapi
+    url: https://github.com/hashicorp/vault/blob/main/openapi.json
+  - type: Authentication
+    url: https://developer.hashicorp.com/vault/docs/auth
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret
+  - type: X-kv-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/kv/kv-v2
+  - type: X-aws-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/aws
+  - type: X-database-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/databases
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/auth
+  - type: X-token-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/token
+  - type: X-approle-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/approle
+  - type: X-kubernetes-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/kubernetes
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret/identity
+- aid: hvault:hvault-kubernetes-api
+  name: HashiCorp Vault Kubernetes API
+  description: Kubernetes auth method for pod authentication
+  humanURL: https://www.vaultproject.io/
+  baseURL: https://vault.example.com/v1/sys
+  tags:
+  - Kubernetes
+  properties:
+  - type: OpenAPI
+    url: openapi/hvault-kubernetes-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/system
+  - type: X-openapi
+    url: https://github.com/hashicorp/vault/blob/main/openapi.json
+  - type: Authentication
+    url: https://developer.hashicorp.com/vault/docs/auth
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret
+  - type: X-kv-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/kv/kv-v2
+  - type: X-aws-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/aws
+  - type: X-database-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/databases
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/auth
+  - type: X-token-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/token
+  - type: X-approle-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/approle
+  - type: X-kubernetes-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/kubernetes
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret/identity
+- aid: hvault:hvault-kv-v2-api
+  name: HashiCorp Vault KV V2 API
+  description: Key/Value version 2 secrets engine
+  humanURL: https://www.vaultproject.io/
+  baseURL: https://vault.example.com/v1/sys
+  tags:
+  - KV V2
+  properties:
+  - type: OpenAPI
+    url: openapi/hvault-kv-v2-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/system
+  - type: X-openapi
+    url: https://github.com/hashicorp/vault/blob/main/openapi.json
+  - type: Authentication
+    url: https://developer.hashicorp.com/vault/docs/auth
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret
+  - type: X-kv-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/kv/kv-v2
+  - type: X-aws-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/aws
+  - type: X-database-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/databases
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/auth
+  - type: X-token-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/token
+  - type: X-approle-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/approle
+  - type: X-kubernetes-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/kubernetes
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret/identity
+- aid: hvault:hvault-ldap-api
+  name: HashiCorp Vault LDAP API
+  description: LDAP auth method for directory-based authentication
+  humanURL: https://www.vaultproject.io/
+  baseURL: https://vault.example.com/v1/sys
+  tags:
+  - LDAP
+  properties:
+  - type: OpenAPI
+    url: openapi/hvault-ldap-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/system
+  - type: X-openapi
+    url: https://github.com/hashicorp/vault/blob/main/openapi.json
+  - type: Authentication
+    url: https://developer.hashicorp.com/vault/docs/auth
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret
+  - type: X-kv-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/kv/kv-v2
+  - type: X-aws-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/aws
+  - type: X-database-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/databases
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/auth
+  - type: X-token-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/token
+  - type: X-approle-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/approle
+  - type: X-kubernetes-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/kubernetes
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret/identity
+- aid: hvault:hvault-leader-api
+  name: HashiCorp Vault Leader API
+  description: HA leader status
+  humanURL: https://www.vaultproject.io/
+  baseURL: https://vault.example.com/v1/sys
+  tags:
+  - Leader
+  properties:
+  - type: OpenAPI
+    url: openapi/hvault-leader-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/system
+  - type: X-openapi
+    url: https://github.com/hashicorp/vault/blob/main/openapi.json
+  - type: Authentication
+    url: https://developer.hashicorp.com/vault/docs/auth
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret
+  - type: X-kv-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/kv/kv-v2
+  - type: X-aws-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/aws
+  - type: X-database-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/databases
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/auth
+  - type: X-token-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/token
+  - type: X-approle-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/approle
+  - type: X-kubernetes-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/kubernetes
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret/identity
+- aid: hvault:hvault-lookup-api
+  name: HashiCorp Vault Lookup API
+  description: Identity lookup operations
+  humanURL: https://www.vaultproject.io/
+  baseURL: https://vault.example.com/v1/sys
+  tags:
+  - Lookup
+  properties:
+  - type: OpenAPI
+    url: openapi/hvault-lookup-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/system
+  - type: X-openapi
+    url: https://github.com/hashicorp/vault/blob/main/openapi.json
+  - type: Authentication
+    url: https://developer.hashicorp.com/vault/docs/auth
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret
+  - type: X-kv-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/kv/kv-v2
+  - type: X-aws-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/aws
+  - type: X-database-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/databases
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/auth
+  - type: X-token-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/token
+  - type: X-approle-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/approle
+  - type: X-kubernetes-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/kubernetes
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret/identity
+- aid: hvault:hvault-mounts-api
+  name: HashiCorp Vault Mounts API
+  description: Secrets engine mount management
+  humanURL: https://www.vaultproject.io/
+  baseURL: https://vault.example.com/v1/sys
+  tags:
+  - Mounts
+  properties:
+  - type: OpenAPI
+    url: openapi/hvault-mounts-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/system
+  - type: X-openapi
+    url: https://github.com/hashicorp/vault/blob/main/openapi.json
+  - type: Authentication
+    url: https://developer.hashicorp.com/vault/docs/auth
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret
+  - type: X-kv-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/kv/kv-v2
+  - type: X-aws-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/aws
+  - type: X-database-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/databases
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/auth
+  - type: X-token-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/token
+  - type: X-approle-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/approle
+  - type: X-kubernetes-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/kubernetes
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret/identity
+- aid: hvault:hvault-oidc-api
+  name: HashiCorp Vault OIDC API
+  description: OIDC identity provider operations
+  humanURL: https://www.vaultproject.io/
+  baseURL: https://vault.example.com/v1/sys
+  tags:
+  - OIDC
+  properties:
+  - type: OpenAPI
+    url: openapi/hvault-oidc-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/system
+  - type: X-openapi
+    url: https://github.com/hashicorp/vault/blob/main/openapi.json
+  - type: Authentication
+    url: https://developer.hashicorp.com/vault/docs/auth
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret
+  - type: X-kv-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/kv/kv-v2
+  - type: X-aws-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/aws
+  - type: X-database-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/databases
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/auth
+  - type: X-token-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/token
+  - type: X-approle-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/approle
+  - type: X-kubernetes-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/kubernetes
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret/identity
+- aid: hvault:hvault-pki-api
+  name: HashiCorp Vault PKI API
+  description: PKI certificate management secrets engine
+  humanURL: https://www.vaultproject.io/
+  baseURL: https://vault.example.com/v1/sys
+  tags:
+  - PKI
+  properties:
+  - type: OpenAPI
+    url: openapi/hvault-pki-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/system
+  - type: X-openapi
+    url: https://github.com/hashicorp/vault/blob/main/openapi.json
+  - type: Authentication
+    url: https://developer.hashicorp.com/vault/docs/auth
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret
+  - type: X-kv-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/kv/kv-v2
+  - type: X-aws-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/aws
+  - type: X-database-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/databases
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/auth
+  - type: X-token-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/token
+  - type: X-approle-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/approle
+  - type: X-kubernetes-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/kubernetes
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret/identity
+- aid: hvault:hvault-policy-api
+  name: HashiCorp Vault Policy API
+  description: Policy management
+  humanURL: https://www.vaultproject.io/
+  baseURL: https://vault.example.com/v1/sys
+  tags:
+  - Policy
+  properties:
+  - type: OpenAPI
+    url: openapi/hvault-policy-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/system
+  - type: X-openapi
+    url: https://github.com/hashicorp/vault/blob/main/openapi.json
+  - type: Authentication
+    url: https://developer.hashicorp.com/vault/docs/auth
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret
+  - type: X-kv-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/kv/kv-v2
+  - type: X-aws-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/aws
+  - type: X-database-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/databases
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/auth
+  - type: X-token-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/token
+  - type: X-approle-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/approle
+  - type: X-kubernetes-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/kubernetes
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret/identity
+- aid: hvault:hvault-seal-api
+  name: HashiCorp Vault Seal API
+  description: Seal and unseal operations
+  humanURL: https://www.vaultproject.io/
+  baseURL: https://vault.example.com/v1/sys
+  tags:
+  - Seal
+  properties:
+  - type: OpenAPI
+    url: openapi/hvault-seal-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/system
+  - type: X-openapi
+    url: https://github.com/hashicorp/vault/blob/main/openapi.json
+  - type: Authentication
+    url: https://developer.hashicorp.com/vault/docs/auth
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret
+  - type: X-kv-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/kv/kv-v2
+  - type: X-aws-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/aws
+  - type: X-database-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/databases
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/auth
+  - type: X-token-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/token
+  - type: X-approle-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/approle
+  - type: X-kubernetes-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/kubernetes
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret/identity
+- aid: hvault:hvault-ssh-api
+  name: HashiCorp Vault SSH API
+  description: SSH certificate signing secrets engine
+  humanURL: https://www.vaultproject.io/
+  baseURL: https://vault.example.com/v1/sys
+  tags:
+  - SSH
+  properties:
+  - type: OpenAPI
+    url: openapi/hvault-ssh-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/system
+  - type: X-openapi
+    url: https://github.com/hashicorp/vault/blob/main/openapi.json
+  - type: Authentication
+    url: https://developer.hashicorp.com/vault/docs/auth
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret
+  - type: X-kv-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/kv/kv-v2
+  - type: X-aws-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/aws
+  - type: X-database-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/databases
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/auth
+  - type: X-token-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/token
+  - type: X-approle-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/approle
+  - type: X-kubernetes-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/kubernetes
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret/identity
+- aid: hvault:hvault-token-api
+  name: HashiCorp Vault Token API
+  description: Token auth method for token lifecycle management
+  humanURL: https://www.vaultproject.io/
+  baseURL: https://vault.example.com/v1/sys
+  tags:
+  - Token
+  properties:
+  - type: OpenAPI
+    url: openapi/hvault-token-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/system
+  - type: X-openapi
+    url: https://github.com/hashicorp/vault/blob/main/openapi.json
+  - type: Authentication
+    url: https://developer.hashicorp.com/vault/docs/auth
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret
+  - type: X-kv-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/kv/kv-v2
+  - type: X-aws-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/aws
+  - type: X-database-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/databases
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/auth
+  - type: X-token-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/token
+  - type: X-approle-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/approle
+  - type: X-kubernetes-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/kubernetes
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret/identity
+- aid: hvault:hvault-transit-api
+  name: HashiCorp Vault Transit API
+  description: Transit encryption-as-a-service secrets engine
+  humanURL: https://www.vaultproject.io/
+  baseURL: https://vault.example.com/v1/sys
+  tags:
+  - Transit
+  properties:
+  - type: OpenAPI
+    url: openapi/hvault-transit-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/system
+  - type: X-openapi
+    url: https://github.com/hashicorp/vault/blob/main/openapi.json
+  - type: Authentication
+    url: https://developer.hashicorp.com/vault/docs/auth
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret
+  - type: X-kv-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/kv/kv-v2
+  - type: X-aws-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/aws
+  - type: X-database-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/databases
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/auth
+  - type: X-token-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/token
+  - type: X-approle-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/approle
+  - type: X-kubernetes-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/kubernetes
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret/identity
+- aid: hvault:hvault-userpass-api
+  name: HashiCorp Vault Userpass API
+  description: Username and password auth method
+  humanURL: https://www.vaultproject.io/
+  baseURL: https://vault.example.com/v1/sys
+  tags:
+  - Userpass
+  properties:
+  - type: OpenAPI
+    url: openapi/hvault-userpass-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/system
+  - type: X-openapi
+    url: https://github.com/hashicorp/vault/blob/main/openapi.json
+  - type: Authentication
+    url: https://developer.hashicorp.com/vault/docs/auth
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret
+  - type: X-kv-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/kv/kv-v2
+  - type: X-aws-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/aws
+  - type: X-database-docs
+    url: https://developer.hashicorp.com/vault/api-docs/secret/databases
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/auth
+  - type: X-token-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/token
+  - type: X-approle-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/approle
+  - type: X-kubernetes-docs
+    url: https://developer.hashicorp.com/vault/api-docs/auth/kubernetes
+  - type: Documentation
+    url: https://developer.hashicorp.com/vault/api-docs/secret/identity
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
