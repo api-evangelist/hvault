@@ -4,10 +4,10 @@
     {
       "source": "https://www.hashicorp.com/blog",
       "feed_url": "https://www.hashicorp.com/blog/feed.xml",
-      "saved": 1,
+      "saved": 2,
       "title": "HashiCorp Blog"
     }
   ],
-  "post_count": 59,
-  "fetched": "2026-08-01T15:38:58Z"
+  "post_count": 61,
+  "fetched": "2026-08-06T13:56:59Z"
 }
