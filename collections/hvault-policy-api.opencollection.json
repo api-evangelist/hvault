@@ -1,0 +1,98 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "HashiCorp Vault Vault Auth Methods AppRole Policy API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Vault-Token",
+      "value": "{{X-Vault-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Policy",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "HashiCorp Vault List ACL policies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vault.example.com/v1/sys/policies/acl"
+          },
+          "docs": "Lists all configured ACL policies."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Read ACL policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vault.example.com/v1/sys/policies/acl/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the policy"
+              }
+            ]
+          },
+          "docs": "Reads an existing ACL policy by name."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Create or update ACL policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://vault.example.com/v1/sys/policies/acl/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the policy"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new or updates an existing ACL policy."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Delete ACL policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://vault.example.com/v1/sys/policies/acl/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the policy"
+              }
+            ]
+          },
+          "docs": "Deletes an ACL policy by name."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

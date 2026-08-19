@@ -1,0 +1,128 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "HashiCorp Vault Vault Auth Methods AppRole Kubernetes API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Vault-Token",
+      "value": "{{X-Vault-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Kubernetes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "HashiCorp Vault Login with Kubernetes",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vault.example.com/v1/auth/kubernetes/login",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Authenticates with Vault using a Kubernetes service account JWT token."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Read Kubernetes auth configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vault.example.com/v1/auth/kubernetes/config"
+          },
+          "docs": "Returns the Kubernetes auth method configuration."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Configure Kubernetes auth",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vault.example.com/v1/auth/kubernetes/config",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Configures the Kubernetes auth method."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Read Kubernetes role",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vault.example.com/v1/auth/kubernetes/role/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the role"
+              }
+            ]
+          },
+          "docs": "Reads the named Kubernetes auth role configuration."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Create or update Kubernetes role",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vault.example.com/v1/auth/kubernetes/role/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the role"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates the named Kubernetes auth role."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Delete Kubernetes role",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://vault.example.com/v1/auth/kubernetes/role/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the role"
+              }
+            ]
+          },
+          "docs": "Deletes the named Kubernetes auth role."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

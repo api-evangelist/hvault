@@ -1,0 +1,63 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "HashiCorp Vault Vault Auth Methods AppRole Seal API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Vault-Token",
+      "value": "{{X-Vault-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Seal",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "HashiCorp Vault Read seal status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vault.example.com/v1/sys/seal-status"
+          },
+          "docs": "Returns the seal status of the Vault server. This is an unauthenticated endpoint."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Seal the Vault",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://vault.example.com/v1/sys/seal"
+          },
+          "docs": "Seals the Vault. In HA mode, only an active node can be sealed. Standby nodes should be restarted to seal them."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Submit unseal key",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://vault.example.com/v1/sys/unseal",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit a portion of a master key to unseal the Vault. Multiple keys must be submitted until the threshold is reached."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

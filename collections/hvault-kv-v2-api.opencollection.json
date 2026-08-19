@@ -1,0 +1,338 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "HashiCorp Vault Vault Auth Methods AppRole KV V2 API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Vault-Token",
+      "value": "{{X-Vault-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "KV V2",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "HashiCorp Vault Read KV v2 engine configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vault.example.com/v1/:mount/config",
+            "params": [
+              {
+                "name": "mount",
+                "value": "",
+                "type": "path",
+                "description": "Mount path for the secrets engine (e.g., secret, kv)"
+              }
+            ]
+          },
+          "docs": "Retrieves the configuration for the KV v2 secrets engine at the given mount path."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Configure KV v2 engine",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vault.example.com/v1/:mount/config",
+            "params": [
+              {
+                "name": "mount",
+                "value": "",
+                "type": "path",
+                "description": "Mount path for the secrets engine (e.g., secret, kv)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Configures backend-level settings for the KV v2 secrets engine."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Read KV v2 secret",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vault.example.com/v1/:mount/data/:path",
+            "params": [
+              {
+                "name": "mount",
+                "value": "",
+                "type": "path",
+                "description": "Mount path for the secrets engine (e.g., secret, kv)"
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "path",
+                "description": "Path to the secret within the secrets engine"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "query",
+                "description": "Version number to read"
+              }
+            ]
+          },
+          "docs": "Reads the value of the secret at the specified path. Returns the current version by default, or a specific version if the version parameter is provided."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Create or update KV v2 secret",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vault.example.com/v1/:mount/data/:path",
+            "params": [
+              {
+                "name": "mount",
+                "value": "",
+                "type": "path",
+                "description": "Mount path for the secrets engine (e.g., secret, kv)"
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "path",
+                "description": "Path to the secret within the secrets engine"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new version of a secret at the specified path. If the secret does not exist, it will be created."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Delete latest version of KV v2 secret",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://vault.example.com/v1/:mount/data/:path",
+            "params": [
+              {
+                "name": "mount",
+                "value": "",
+                "type": "path",
+                "description": "Mount path for the secrets engine (e.g., secret, kv)"
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "path",
+                "description": "Path to the secret within the secrets engine"
+              }
+            ]
+          },
+          "docs": "Performs a soft delete of the latest version of the secret at the specified path. The data can be recovered using the undelete endpoint."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Delete specific versions of KV v2 secret",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vault.example.com/v1/:mount/delete/:path",
+            "params": [
+              {
+                "name": "mount",
+                "value": "",
+                "type": "path",
+                "description": "Mount path for the secrets engine (e.g., secret, kv)"
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "path",
+                "description": "Path to the secret within the secrets engine"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Performs a soft delete of the specified versions of a secret. The data can be recovered using the undelete endpoint."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Undelete versions of KV v2 secret",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vault.example.com/v1/:mount/undelete/:path",
+            "params": [
+              {
+                "name": "mount",
+                "value": "",
+                "type": "path",
+                "description": "Mount path for the secrets engine (e.g., secret, kv)"
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "path",
+                "description": "Path to the secret within the secrets engine"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Restores soft-deleted versions of a secret."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Destroy versions of KV v2 secret",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vault.example.com/v1/:mount/destroy/:path",
+            "params": [
+              {
+                "name": "mount",
+                "value": "",
+                "type": "path",
+                "description": "Mount path for the secrets engine (e.g., secret, kv)"
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "path",
+                "description": "Path to the secret within the secrets engine"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Permanently destroys the specified versions of a secret. This action is irreversible."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Read KV v2 secret metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vault.example.com/v1/:mount/metadata/:path",
+            "params": [
+              {
+                "name": "mount",
+                "value": "",
+                "type": "path",
+                "description": "Mount path for the secrets engine (e.g., secret, kv)"
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "path",
+                "description": "Path to the secret within the secrets engine"
+              }
+            ]
+          },
+          "docs": "Returns metadata and version history for the secret at the specified path."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Update KV v2 secret metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vault.example.com/v1/:mount/metadata/:path",
+            "params": [
+              {
+                "name": "mount",
+                "value": "",
+                "type": "path",
+                "description": "Mount path for the secrets engine (e.g., secret, kv)"
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "path",
+                "description": "Path to the secret within the secrets engine"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates metadata settings for the secret at the specified path."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Delete KV v2 secret metadata and all versions",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://vault.example.com/v1/:mount/metadata/:path",
+            "params": [
+              {
+                "name": "mount",
+                "value": "",
+                "type": "path",
+                "description": "Mount path for the secrets engine (e.g., secret, kv)"
+              },
+              {
+                "name": "path",
+                "value": "",
+                "type": "path",
+                "description": "Path to the secret within the secrets engine"
+              }
+            ]
+          },
+          "docs": "Permanently deletes the secret metadata and all version data for the specified path. This is irreversible."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault List KV v2 secrets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vault.example.com/v1/:mount/metadata/",
+            "params": [
+              {
+                "name": "mount",
+                "value": "",
+                "type": "path",
+                "description": "Mount path for the secrets engine (e.g., secret, kv)"
+              }
+            ]
+          },
+          "docs": "Returns a list of secret keys at the specified path."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

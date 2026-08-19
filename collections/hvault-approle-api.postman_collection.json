@@ -1,0 +1,837 @@
+{
+  "item": [
+    {
+      "id": "da1ad1b7-0220-4486-852c-e63adfbf7e36",
+      "name": "AppRole",
+      "description": {
+        "content": "AppRole auth method for machine-to-machine authentication",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6a47a5f1-683e-4a60-b896-b52540ceea27",
+          "name": "HashiCorp Vault Login with AppRole",
+          "request": {
+            "name": "HashiCorp Vault Login with AppRole",
+            "description": {
+              "content": "Authenticates with Vault using a role ID and secret ID to obtain a Vault token.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "auth",
+                "approle",
+                "login"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"role_id\": \"<string>\",\n  \"secret_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7ec80caa-43b8-4319-9ed9-86c044e01ffe",
+              "name": "Authentication successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "auth",
+                    "approle",
+                    "login"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"role_id\": \"<string>\",\n  \"secret_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request_id\": \"string\",\n  \"lease_id\": \"string\",\n  \"renewable\": false,\n  \"lease_duration\": 2282,\n  \"auth\": {\n    \"client_token\": \"string\",\n    \"accessor\": \"string\",\n    \"policies\": [\n      \"string\",\n      \"string\"\n    ],\n    \"token_policies\": [\n      \"string\",\n      \"string\"\n    ],\n    \"identity_policies\": [\n      \"string\",\n      \"string\"\n    ],\n    \"metadata\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\"\n    },\n    \"lease_duration\": 9909,\n    \"renewable\": false,\n    \"entity_id\": \"string\",\n    \"token_type\": \"string\",\n    \"orphan\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e0be292e-114d-41c8-813d-1e0972515b0b",
+              "name": "Invalid credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "auth",
+                    "approle",
+                    "login"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"role_id\": \"<string>\",\n  \"secret_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "636ce08c-61a2-4eab-97eb-a58ca07b07a3",
+          "name": "HashiCorp Vault Read AppRole",
+          "request": {
+            "name": "HashiCorp Vault Read AppRole",
+            "description": {
+              "content": "Reads the properties of the named AppRole.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "auth",
+                "approle",
+                "role",
+                ":role_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "role_name",
+                  "description": "(Required) Name of the role"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b516157f-b9c2-40f7-914f-4e3f0d0b1285",
+              "name": "AppRole configuration",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "auth",
+                    "approle",
+                    "role",
+                    ":role_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "role_name",
+                      "description": "(Required) Name of the role"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"bind_secret_id\": true,\n  \"secret_id_bound_cidrs\": [\n    \"string\",\n    \"string\"\n  ],\n  \"secret_id_num_uses\": 9830,\n  \"secret_id_ttl\": \"string\",\n  \"local_secret_ids\": true,\n  \"token_ttl\": \"string\",\n  \"token_max_ttl\": \"string\",\n  \"token_policies\": [\n    \"string\",\n    \"string\"\n  ],\n  \"token_bound_cidrs\": [\n    \"string\",\n    \"string\"\n  ],\n  \"token_explicit_max_ttl\": \"string\",\n  \"token_no_default_policy\": true,\n  \"token_num_uses\": 6740,\n  \"token_period\": \"string\",\n  \"token_type\": \"service\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "39dbbfd7-d614-4a96-b982-318c7d2c29c7",
+              "name": "Role not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "auth",
+                    "approle",
+                    "role",
+                    ":role_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "role_name",
+                      "description": "(Required) Name of the role"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d3d33343-f883-46cf-be39-c794bca1e489",
+          "name": "HashiCorp Vault Create or update AppRole",
+          "request": {
+            "name": "HashiCorp Vault Create or update AppRole",
+            "description": {
+              "content": "Creates or updates the named AppRole.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "auth",
+                "approle",
+                "role",
+                ":role_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "role_name",
+                  "description": "(Required) Name of the role"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"bind_secret_id\": \"<boolean>\",\n  \"secret_id_bound_cidrs\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"secret_id_num_uses\": \"<integer>\",\n  \"secret_id_ttl\": \"<string>\",\n  \"local_secret_ids\": \"<boolean>\",\n  \"token_ttl\": \"<string>\",\n  \"token_max_ttl\": \"<string>\",\n  \"token_policies\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"token_bound_cidrs\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"token_explicit_max_ttl\": \"<string>\",\n  \"token_no_default_policy\": \"<boolean>\",\n  \"token_num_uses\": \"<integer>\",\n  \"token_period\": \"<string>\",\n  \"token_type\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "60b9dea8-d02b-4b08-8dfe-18eba5133e50",
+              "name": "AppRole created or updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "auth",
+                    "approle",
+                    "role",
+                    ":role_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "role_name",
+                      "description": "(Required) Name of the role"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bind_secret_id\": \"<boolean>\",\n  \"secret_id_bound_cidrs\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"secret_id_num_uses\": \"<integer>\",\n  \"secret_id_ttl\": \"<string>\",\n  \"local_secret_ids\": \"<boolean>\",\n  \"token_ttl\": \"<string>\",\n  \"token_max_ttl\": \"<string>\",\n  \"token_policies\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"token_bound_cidrs\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"token_explicit_max_ttl\": \"<string>\",\n  \"token_no_default_policy\": \"<boolean>\",\n  \"token_num_uses\": \"<integer>\",\n  \"token_period\": \"<string>\",\n  \"token_type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d527deda-a21f-4adb-89bc-1d059f93e634",
+              "name": "Invalid request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "auth",
+                    "approle",
+                    "role",
+                    ":role_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "role_name",
+                      "description": "(Required) Name of the role"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bind_secret_id\": \"<boolean>\",\n  \"secret_id_bound_cidrs\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"secret_id_num_uses\": \"<integer>\",\n  \"secret_id_ttl\": \"<string>\",\n  \"local_secret_ids\": \"<boolean>\",\n  \"token_ttl\": \"<string>\",\n  \"token_max_ttl\": \"<string>\",\n  \"token_policies\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"token_bound_cidrs\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"token_explicit_max_ttl\": \"<string>\",\n  \"token_no_default_policy\": \"<boolean>\",\n  \"token_num_uses\": \"<integer>\",\n  \"token_period\": \"<string>\",\n  \"token_type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c855ff1e-59a9-4821-8a91-db790ec79d81",
+          "name": "HashiCorp Vault Delete AppRole",
+          "request": {
+            "name": "HashiCorp Vault Delete AppRole",
+            "description": {
+              "content": "Deletes the named AppRole.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "auth",
+                "approle",
+                "role",
+                ":role_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "role_name",
+                  "description": "(Required) Name of the role"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "597c12ac-555d-4ef7-89ee-a05c431b8468",
+              "name": "AppRole deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "auth",
+                    "approle",
+                    "role",
+                    ":role_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "role_name",
+                      "description": "(Required) Name of the role"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "aa11d75b-c2b1-4d79-8e15-a9725e9753b3",
+          "name": "HashiCorp Vault Read AppRole role ID",
+          "request": {
+            "name": "HashiCorp Vault Read AppRole role ID",
+            "description": {
+              "content": "Returns the role ID of the named AppRole.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "auth",
+                "approle",
+                "role",
+                ":role_name",
+                "role-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "role_name",
+                  "description": "(Required) Name of the role"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "be092dac-10ff-462a-8536-964b926c5e23",
+              "name": "Role ID returned",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "auth",
+                    "approle",
+                    "role",
+                    ":role_name",
+                    "role-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "role_name",
+                      "description": "(Required) Name of the role"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"role_id\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e5f9b67c-7807-4fc8-ac2c-384973391bc9",
+          "name": "HashiCorp Vault Generate AppRole secret ID",
+          "request": {
+            "name": "HashiCorp Vault Generate AppRole secret ID",
+            "description": {
+              "content": "Generates a new secret ID for the named AppRole.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "auth",
+                "approle",
+                "role",
+                ":role_name",
+                "secret-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "role_name",
+                  "description": "(Required) Name of the role"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"metadata\": \"<string>\",\n  \"cidr_list\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"token_bound_cidrs\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "739fb85b-44a3-4744-a5c5-a9c327a8c7e5",
+              "name": "Secret ID generated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "auth",
+                    "approle",
+                    "role",
+                    ":role_name",
+                    "secret-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "role_name",
+                      "description": "(Required) Name of the role"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata\": \"<string>\",\n  \"cidr_list\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"token_bound_cidrs\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"secret_id\": \"string\",\n    \"secret_id_accessor\": \"string\",\n    \"secret_id_num_uses\": 98,\n    \"secret_id_ttl\": 3066\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://vault.example.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Vault-Token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "510f5d93-0921-4913-b561-590534be657e",
+    "name": "HashiCorp Vault Vault Auth Methods AppRole API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "APIs for authentication methods in HashiCorp Vault including Token, AppRole, Kubernetes, LDAP, JWT/OIDC, GitHub, Userpass, and AWS auth methods. These endpoints handle user and machine authentication to obtain Vault tokens.\n\nContact Support:\n Name: HashiCorp Support\n Email: support@hashicorp.com",
+      "type": "text/plain"
+    }
+  }
+}

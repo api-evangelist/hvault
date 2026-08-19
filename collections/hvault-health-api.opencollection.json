@@ -1,0 +1,69 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "HashiCorp Vault Vault Auth Methods AppRole Health API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Vault-Token",
+      "value": "{{X-Vault-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Health",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "HashiCorp Vault Read health status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vault.example.com/v1/sys/health",
+            "params": [
+              {
+                "name": "standbyok",
+                "value": "",
+                "type": "query",
+                "description": "Whether to return 200 for standby nodes"
+              },
+              {
+                "name": "activecode",
+                "value": "",
+                "type": "query",
+                "description": "HTTP status code for active nodes"
+              },
+              {
+                "name": "standbycode",
+                "value": "",
+                "type": "query",
+                "description": "HTTP status code for standby nodes"
+              },
+              {
+                "name": "sealedcode",
+                "value": "",
+                "type": "query",
+                "description": "HTTP status code for sealed vaults"
+              },
+              {
+                "name": "uninitcode",
+                "value": "",
+                "type": "query",
+                "description": "HTTP status code for uninitialized vaults"
+              }
+            ]
+          },
+          "docs": "Returns the health status of the Vault server. This is an unauthenticated endpoint used for health checks by load balancers and monitoring systems."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

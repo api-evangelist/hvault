@@ -1,0 +1,424 @@
+{
+  "item": [
+    {
+      "id": "a5bdcfb7-aa8f-4758-8552-5118eaf7a5ad",
+      "name": "Health",
+      "description": {
+        "content": "Health and status endpoints",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c0866e5d-6bfc-4a13-a288-9a7436176f7e",
+          "name": "HashiCorp Vault Read health status",
+          "request": {
+            "name": "HashiCorp Vault Read health status",
+            "description": {
+              "content": "Returns the health status of the Vault server. This is an unauthenticated endpoint used for health checks by load balancers and monitoring systems.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sys",
+                "health"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "standbyok",
+                  "value": "<boolean>",
+                  "description": "Whether to return 200 for standby nodes"
+                },
+                {
+                  "disabled": false,
+                  "key": "activecode",
+                  "value": "200",
+                  "description": "HTTP status code for active nodes"
+                },
+                {
+                  "disabled": false,
+                  "key": "standbycode",
+                  "value": "429",
+                  "description": "HTTP status code for standby nodes"
+                },
+                {
+                  "disabled": false,
+                  "key": "sealedcode",
+                  "value": "503",
+                  "description": "HTTP status code for sealed vaults"
+                },
+                {
+                  "disabled": false,
+                  "key": "uninitcode",
+                  "value": "501",
+                  "description": "HTTP status code for uninitialized vaults"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ae93aaaf-e4a8-4d98-8bb7-9e0e140a152e",
+              "name": "Vault is initialized, unsealed, and active",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "health"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "standbyok",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "activecode",
+                      "value": "200"
+                    },
+                    {
+                      "key": "standbycode",
+                      "value": "429"
+                    },
+                    {
+                      "key": "sealedcode",
+                      "value": "503"
+                    },
+                    {
+                      "key": "uninitcode",
+                      "value": "501"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"initialized\": false,\n  \"sealed\": false,\n  \"standby\": true,\n  \"performance_standby\": false,\n  \"replication_performance_mode\": \"string\",\n  \"replication_dr_mode\": \"string\",\n  \"server_time_utc\": 7604,\n  \"version\": \"string\",\n  \"cluster_name\": \"string\",\n  \"cluster_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4b4dc939-de59-4e05-a74c-914b3c68565f",
+              "name": "Vault is unsealed and in standby mode",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "health"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "standbyok",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "activecode",
+                      "value": "200"
+                    },
+                    {
+                      "key": "standbycode",
+                      "value": "429"
+                    },
+                    {
+                      "key": "sealedcode",
+                      "value": "503"
+                    },
+                    {
+                      "key": "uninitcode",
+                      "value": "501"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b7fa182b-42f1-42d2-af8e-778f8d987a24",
+              "name": "Vault is in data recovery mode replication secondary",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "health"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "standbyok",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "activecode",
+                      "value": "200"
+                    },
+                    {
+                      "key": "standbycode",
+                      "value": "429"
+                    },
+                    {
+                      "key": "sealedcode",
+                      "value": "503"
+                    },
+                    {
+                      "key": "uninitcode",
+                      "value": "501"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "code": 472,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "af715478-28c2-4e6b-8671-e98c9c460870",
+              "name": "Vault is not initialized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "health"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "standbyok",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "activecode",
+                      "value": "200"
+                    },
+                    {
+                      "key": "standbycode",
+                      "value": "429"
+                    },
+                    {
+                      "key": "sealedcode",
+                      "value": "503"
+                    },
+                    {
+                      "key": "uninitcode",
+                      "value": "501"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Implemented",
+              "code": 501,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7d52e875-cd10-48d9-831a-4d0bcd327574",
+              "name": "Vault is sealed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "health"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "standbyok",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "activecode",
+                      "value": "200"
+                    },
+                    {
+                      "key": "standbycode",
+                      "value": "429"
+                    },
+                    {
+                      "key": "sealedcode",
+                      "value": "503"
+                    },
+                    {
+                      "key": "uninitcode",
+                      "value": "501"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://vault.example.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Vault-Token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "628509f1-1257-4820-8a08-d747a2b18e7a",
+    "name": "HashiCorp Vault Vault Auth Methods AppRole Health API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "APIs for authentication methods in HashiCorp Vault including Token, AppRole, Kubernetes, LDAP, JWT/OIDC, GitHub, Userpass, and AWS auth methods. These endpoints handle user and machine authentication to obtain Vault tokens.\n\nContact Support:\n Name: HashiCorp Support\n Email: support@hashicorp.com",
+      "type": "text/plain"
+    }
+  }
+}

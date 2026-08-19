@@ -1,0 +1,451 @@
+{
+  "item": [
+    {
+      "id": "b2bc624f-e53f-4944-b93d-30670e97a857",
+      "name": "Lookup",
+      "description": {
+        "content": "Identity lookup operations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "49db5efc-cb15-4830-ad7a-38a6eabbb242",
+          "name": "HashiCorp Vault Lookup entity",
+          "request": {
+            "name": "HashiCorp Vault Lookup entity",
+            "description": {
+              "content": "Looks up an entity by any of its identifying attributes such as name, ID, or alias details.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "identity",
+                "lookup",
+                "entity"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"id\": \"<string>\",\n  \"alias_id\": \"<string>\",\n  \"alias_name\": \"<string>\",\n  \"alias_mount_accessor\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ad189b1d-49ca-4962-b74d-78beb85099eb",
+              "name": "Entity found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "identity",
+                    "lookup",
+                    "entity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"id\": \"<string>\",\n  \"alias_id\": \"<string>\",\n  \"alias_name\": \"<string>\",\n  \"alias_mount_accessor\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"metadata\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\"\n    },\n    \"disabled\": true,\n    \"aliases\": [\n      {\n        \"id\": \"string\",\n        \"canonical_id\": \"string\",\n        \"mount_accessor\": \"string\",\n        \"mount_path\": \"string\",\n        \"mount_type\": \"string\",\n        \"name\": \"string\",\n        \"metadata\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"creation_time\": \"1998-03-18T10:34:56.281Z\",\n        \"last_update_time\": \"2022-04-18T20:26:50.271Z\"\n      },\n      {\n        \"id\": \"string\",\n        \"canonical_id\": \"string\",\n        \"mount_accessor\": \"string\",\n        \"mount_path\": \"string\",\n        \"mount_type\": \"string\",\n        \"name\": \"string\",\n        \"metadata\": {\n          \"key_0\": \"string\"\n        },\n        \"creation_time\": \"1954-11-06T22:38:43.746Z\",\n        \"last_update_time\": \"2002-10-25T13:06:37.899Z\"\n      }\n    ],\n    \"direct_group_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"inherited_group_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"policies\": [\n      \"string\",\n      \"string\"\n    ],\n    \"creation_time\": \"2024-08-26T21:50:10.792Z\",\n    \"last_update_time\": \"1971-02-25T20:33:56.294Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e1a1a711-58a9-4547-bf9a-bf46b31fe0ea",
+              "name": "Entity not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "identity",
+                    "lookup",
+                    "entity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"id\": \"<string>\",\n  \"alias_id\": \"<string>\",\n  \"alias_name\": \"<string>\",\n  \"alias_mount_accessor\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "aafd2dd5-934f-4f51-8228-ffae76c02dba",
+              "name": "Invalid request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "identity",
+                    "lookup",
+                    "entity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"id\": \"<string>\",\n  \"alias_id\": \"<string>\",\n  \"alias_name\": \"<string>\",\n  \"alias_mount_accessor\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "101c5edb-7cbe-40be-b54e-f333cc185cbd",
+          "name": "HashiCorp Vault Lookup group",
+          "request": {
+            "name": "HashiCorp Vault Lookup group",
+            "description": {
+              "content": "Looks up a group by any of its identifying attributes such as name, ID, or alias details.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "identity",
+                "lookup",
+                "group"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"id\": \"<string>\",\n  \"alias_id\": \"<string>\",\n  \"alias_name\": \"<string>\",\n  \"alias_mount_accessor\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cc116c18-cbc8-4ab8-9161-06f44f9fa456",
+              "name": "Group found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "identity",
+                    "lookup",
+                    "group"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"id\": \"<string>\",\n  \"alias_id\": \"<string>\",\n  \"alias_name\": \"<string>\",\n  \"alias_mount_accessor\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"type\": \"internal\",\n    \"metadata\": {\n      \"key_0\": \"string\"\n    },\n    \"policies\": [\n      \"string\",\n      \"string\"\n    ],\n    \"member_entity_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"member_group_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"parent_group_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"alias\": {\n      \"id\": \"string\",\n      \"canonical_id\": \"string\",\n      \"mount_accessor\": \"string\",\n      \"mount_path\": \"string\",\n      \"mount_type\": \"string\",\n      \"name\": \"string\",\n      \"creation_time\": \"1983-04-14T21:32:05.495Z\",\n      \"last_update_time\": \"1981-03-04T08:53:57.754Z\"\n    },\n    \"creation_time\": \"1978-05-18T03:43:55.529Z\",\n    \"last_update_time\": \"2021-12-28T07:37:15.664Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9e0d5d79-78b8-4d42-8405-4a1d936ed468",
+              "name": "Group not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "identity",
+                    "lookup",
+                    "group"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"id\": \"<string>\",\n  \"alias_id\": \"<string>\",\n  \"alias_name\": \"<string>\",\n  \"alias_mount_accessor\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "db592781-9857-42b7-92c2-73dfb058f05b",
+              "name": "Invalid request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "identity",
+                    "lookup",
+                    "group"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"id\": \"<string>\",\n  \"alias_id\": \"<string>\",\n  \"alias_name\": \"<string>\",\n  \"alias_mount_accessor\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://vault.example.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Vault-Token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "92129479-e18d-426e-b849-ec9e55b25ecf",
+    "name": "HashiCorp Vault Vault Auth Methods AppRole Lookup API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "APIs for authentication methods in HashiCorp Vault including Token, AppRole, Kubernetes, LDAP, JWT/OIDC, GitHub, Userpass, and AWS auth methods. These endpoints handle user and machine authentication to obtain Vault tokens.\n\nContact Support:\n Name: HashiCorp Support\n Email: support@hashicorp.com",
+      "type": "text/plain"
+    }
+  }
+}

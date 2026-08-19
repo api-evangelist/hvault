@@ -1,0 +1,677 @@
+{
+  "item": [
+    {
+      "id": "e77c1595-4a18-4d10-a3d4-3f171eb9704a",
+      "name": "PKI",
+      "description": {
+        "content": "PKI certificate management secrets engine",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "933298dd-241d-4115-86eb-5eac2b51568c",
+          "name": "HashiCorp Vault Issue certificate",
+          "request": {
+            "name": "HashiCorp Vault Issue certificate",
+            "description": {
+              "content": "Generates a new certificate based on the named role. The private key is returned in the response.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pki",
+                "issue",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the PKI role"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"common_name\": \"<string>\",\n  \"alt_names\": \"<string>\",\n  \"ip_sans\": \"<string>\",\n  \"ttl\": \"<string>\",\n  \"format\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "299767d4-6962-4e4d-9b2a-8c8cf4d42a81",
+              "name": "Certificate issued",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pki",
+                    "issue",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the PKI role"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"common_name\": \"<string>\",\n  \"alt_names\": \"<string>\",\n  \"ip_sans\": \"<string>\",\n  \"ttl\": \"<string>\",\n  \"format\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"certificate\": \"string\",\n    \"issuing_ca\": \"string\",\n    \"ca_chain\": [\n      \"string\",\n      \"string\"\n    ],\n    \"private_key\": \"string\",\n    \"private_key_type\": \"string\",\n    \"serial_number\": \"string\",\n    \"expiration\": 6221\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "91712a46-d8b3-4a80-a7dc-0aa93e2b60df",
+              "name": "Invalid request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pki",
+                    "issue",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the PKI role"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"common_name\": \"<string>\",\n  \"alt_names\": \"<string>\",\n  \"ip_sans\": \"<string>\",\n  \"ttl\": \"<string>\",\n  \"format\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3f5c6d90-f8fd-403f-8280-0089648e4350",
+              "name": "Permission denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pki",
+                    "issue",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the PKI role"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"common_name\": \"<string>\",\n  \"alt_names\": \"<string>\",\n  \"ip_sans\": \"<string>\",\n  \"ttl\": \"<string>\",\n  \"format\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4f0b02ea-3d39-42b0-87a5-0b5f7bff367a",
+          "name": "HashiCorp Vault Read CA certificate",
+          "request": {
+            "name": "HashiCorp Vault Read CA certificate",
+            "description": {
+              "content": "Returns the CA certificate in PEM format.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pki",
+                "ca"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/pem-certificate-chain"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7c95e7a8-7d56-4cc1-8076-0bf51740af29",
+              "name": "CA certificate returned",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pki",
+                    "ca"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/pem-certificate-chain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/pem-certificate-chain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b75ab60c-d1ac-4a47-acc6-b5a6039fea06",
+          "name": "HashiCorp Vault Read PKI role",
+          "request": {
+            "name": "HashiCorp Vault Read PKI role",
+            "description": {
+              "content": "Reads the configuration for the named PKI role.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pki",
+                "roles",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the PKI role"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "75f3291f-ba69-46f8-8c47-fe86a589378f",
+              "name": "PKI role configuration",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pki",
+                    "roles",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the PKI role"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"allowed_domains\": [\n    \"string\",\n    \"string\"\n  ],\n  \"allow_subdomains\": false,\n  \"allow_bare_domains\": true,\n  \"allow_glob_domains\": false,\n  \"allow_ip_sans\": false,\n  \"max_ttl\": \"string\",\n  \"ttl\": \"string\",\n  \"key_type\": \"ec\",\n  \"key_bits\": 7686\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7876fc2d-9975-41d3-a994-aba5815f9117",
+              "name": "Role not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pki",
+                    "roles",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the PKI role"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cfa85a93-1d0b-4c59-acc0-4334718a1252",
+          "name": "HashiCorp Vault Create or update PKI role",
+          "request": {
+            "name": "HashiCorp Vault Create or update PKI role",
+            "description": {
+              "content": "Creates or updates the named PKI role.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pki",
+                "roles",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the PKI role"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"allowed_domains\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"allow_subdomains\": \"<boolean>\",\n  \"allow_bare_domains\": \"<boolean>\",\n  \"allow_glob_domains\": \"<boolean>\",\n  \"allow_ip_sans\": \"<boolean>\",\n  \"max_ttl\": \"<string>\",\n  \"ttl\": \"<string>\",\n  \"key_type\": \"<string>\",\n  \"key_bits\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "537ae4d1-86c9-44ce-868f-f97278b06326",
+              "name": "Role created or updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pki",
+                    "roles",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the PKI role"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"allowed_domains\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"allow_subdomains\": \"<boolean>\",\n  \"allow_bare_domains\": \"<boolean>\",\n  \"allow_glob_domains\": \"<boolean>\",\n  \"allow_ip_sans\": \"<boolean>\",\n  \"max_ttl\": \"<string>\",\n  \"ttl\": \"<string>\",\n  \"key_type\": \"<string>\",\n  \"key_bits\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "25c9ec8b-6779-4a3e-9191-43502a0e7050",
+              "name": "Invalid request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pki",
+                    "roles",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the PKI role"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"allowed_domains\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"allow_subdomains\": \"<boolean>\",\n  \"allow_bare_domains\": \"<boolean>\",\n  \"allow_glob_domains\": \"<boolean>\",\n  \"allow_ip_sans\": \"<boolean>\",\n  \"max_ttl\": \"<string>\",\n  \"ttl\": \"<string>\",\n  \"key_type\": \"<string>\",\n  \"key_bits\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://vault.example.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Vault-Token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "43a0e2d9-3d71-48e5-8d44-a60fce9cad51",
+    "name": "HashiCorp Vault Vault Auth Methods AppRole PKI API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "APIs for authentication methods in HashiCorp Vault including Token, AppRole, Kubernetes, LDAP, JWT/OIDC, GitHub, Userpass, and AWS auth methods. These endpoints handle user and machine authentication to obtain Vault tokens.\n\nContact Support:\n Name: HashiCorp Support\n Email: support@hashicorp.com",
+      "type": "text/plain"
+    }
+  }
+}

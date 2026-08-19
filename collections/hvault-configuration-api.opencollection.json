@@ -1,0 +1,74 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "HashiCorp Vault Vault Auth Methods AppRole Configuration API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Vault-Token",
+      "value": "{{X-Vault-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Configuration",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "HashiCorp Vault List audited request headers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vault.example.com/v1/sys/config/auditing/request-headers"
+          },
+          "docs": "Lists the request headers configured for auditing."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Read root generation progress",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vault.example.com/v1/sys/generate-root/attempt"
+          },
+          "docs": "Reads the status of the current root generation attempt."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Start root token generation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://vault.example.com/v1/sys/generate-root/attempt",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initializes a new root generation attempt."
+        },
+        {
+          "info": {
+            "name": "HashiCorp Vault Cancel root token generation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://vault.example.com/v1/sys/generate-root/attempt"
+          },
+          "docs": "Cancels the current root generation attempt."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,129 @@
+{
+  "item": [
+    {
+      "id": "276558af-2424-4a9a-9317-02ae851516ba",
+      "name": "Leader",
+      "description": {
+        "content": "HA leader status",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "095f8b2e-1c1a-483d-9682-003ec2edffee",
+          "name": "HashiCorp Vault Read leader status",
+          "request": {
+            "name": "HashiCorp Vault Read leader status",
+            "description": {
+              "content": "Returns the high availability status and current leader instance of the Vault cluster.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sys",
+                "leader"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "aadc21a3-539f-4e53-a35c-e24eb93a516a",
+              "name": "Leader status returned",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "leader"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ha_enabled\": false,\n  \"is_self\": true,\n  \"active_time\": \"1968-04-23T01:19:54.209Z\",\n  \"leader_address\": \"string\",\n  \"leader_cluster_address\": \"string\",\n  \"performance_standby\": true,\n  \"performance_standby_last_remote_wal\": 8685\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://vault.example.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Vault-Token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2aab3ed2-1e30-4c61-a716-55f2f70eca37",
+    "name": "HashiCorp Vault Vault Auth Methods AppRole Leader API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "APIs for authentication methods in HashiCorp Vault including Token, AppRole, Kubernetes, LDAP, JWT/OIDC, GitHub, Userpass, and AWS auth methods. These endpoints handle user and machine authentication to obtain Vault tokens.\n\nContact Support:\n Name: HashiCorp Support\n Email: support@hashicorp.com",
+      "type": "text/plain"
+    }
+  }
+}

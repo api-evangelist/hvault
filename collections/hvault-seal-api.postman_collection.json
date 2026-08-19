@@ -1,0 +1,340 @@
+{
+  "item": [
+    {
+      "id": "eaa5d9fb-43fa-4261-b2b7-3e74bb55e001",
+      "name": "Seal",
+      "description": {
+        "content": "Seal and unseal operations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "974e650f-67a3-4dab-a5a1-298dfb91b000",
+          "name": "HashiCorp Vault Read seal status",
+          "request": {
+            "name": "HashiCorp Vault Read seal status",
+            "description": {
+              "content": "Returns the seal status of the Vault server. This is an unauthenticated endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sys",
+                "seal-status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cd05b7f4-abd1-48b7-87f0-b19894b7bfff",
+              "name": "Seal status returned",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "seal-status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"initialized\": false,\n  \"sealed\": true,\n  \"t\": 8765,\n  \"n\": 610,\n  \"progress\": 8556,\n  \"nonce\": \"string\",\n  \"version\": \"string\",\n  \"build_date\": \"string\",\n  \"migration\": true,\n  \"cluster_name\": \"string\",\n  \"cluster_id\": \"string\",\n  \"recovery_seal\": true,\n  \"storage_type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "28769490-2280-409a-9c05-341aa68ce0e8",
+          "name": "HashiCorp Vault Seal the Vault",
+          "request": {
+            "name": "HashiCorp Vault Seal the Vault",
+            "description": {
+              "content": "Seals the Vault. In HA mode, only an active node can be sealed. Standby nodes should be restarted to seal them.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sys",
+                "seal"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "PUT",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b0d569ff-11a7-464f-8b71-f674dc9f047b",
+              "name": "Vault sealed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "seal"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e91a5d4a-3f62-42b6-b280-c90af4445b76",
+              "name": "Server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "seal"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "26e8715c-8022-42cb-8932-9dcee0987880",
+          "name": "HashiCorp Vault Submit unseal key",
+          "request": {
+            "name": "HashiCorp Vault Submit unseal key",
+            "description": {
+              "content": "Submit a portion of a master key to unseal the Vault. Multiple keys must be submitted until the threshold is reached.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sys",
+                "unseal"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key\": \"<string>\",\n  \"reset\": \"<boolean>\",\n  \"migrate\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "caaf14eb-66cd-4022-a713-ab5daab38fd6",
+              "name": "Unseal progress updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "unseal"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key\": \"<string>\",\n  \"reset\": \"<boolean>\",\n  \"migrate\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"initialized\": false,\n  \"sealed\": true,\n  \"t\": 8765,\n  \"n\": 610,\n  \"progress\": 8556,\n  \"nonce\": \"string\",\n  \"version\": \"string\",\n  \"build_date\": \"string\",\n  \"migration\": true,\n  \"cluster_name\": \"string\",\n  \"cluster_id\": \"string\",\n  \"recovery_seal\": true,\n  \"storage_type\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://vault.example.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Vault-Token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "95104abe-6e3a-4b22-b80b-739a249c0c06",
+    "name": "HashiCorp Vault Vault Auth Methods AppRole Seal API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "APIs for authentication methods in HashiCorp Vault including Token, AppRole, Kubernetes, LDAP, JWT/OIDC, GitHub, Userpass, and AWS auth methods. These endpoints handle user and machine authentication to obtain Vault tokens.\n\nContact Support:\n Name: HashiCorp Support\n Email: support@hashicorp.com",
+      "type": "text/plain"
+    }
+  }
+}

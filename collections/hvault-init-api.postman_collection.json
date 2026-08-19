@@ -1,0 +1,230 @@
+{
+  "item": [
+    {
+      "id": "2aed1bad-68d2-4771-b99d-a0ca4ba766df",
+      "name": "Init",
+      "description": {
+        "content": "Vault initialization",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a71ada56-0235-44d3-be73-23efb40f6e65",
+          "name": "HashiCorp Vault Read initialization status",
+          "request": {
+            "name": "HashiCorp Vault Read initialization status",
+            "description": {
+              "content": "Returns the initialization status of the Vault server.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sys",
+                "init"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c8e3e0af-67fb-4630-8452-ba45fd1935cd",
+              "name": "Initialization status returned",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "init"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"initialized\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6bbd380d-f60a-4f24-904d-e0af6039ae24",
+          "name": "HashiCorp Vault Initialize Vault",
+          "request": {
+            "name": "HashiCorp Vault Initialize Vault",
+            "description": {
+              "content": "Initializes a new Vault by generating the master key shares and the initial root token.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sys",
+                "init"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"secret_shares\": \"<integer>\",\n  \"secret_threshold\": \"<integer>\",\n  \"pgp_keys\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"root_token_pgp_key\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "11664ed4-57f3-40b5-9173-61472b82f8c1",
+              "name": "Vault initialized successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sys",
+                    "init"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"secret_shares\": \"<integer>\",\n  \"secret_threshold\": \"<integer>\",\n  \"pgp_keys\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"root_token_pgp_key\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"keys\": [\n    \"string\",\n    \"string\"\n  ],\n  \"keys_base64\": [\n    \"string\",\n    \"string\"\n  ],\n  \"root_token\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://vault.example.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Vault-Token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "9481fda0-1b53-47ef-9c78-088a37a90afb",
+    "name": "HashiCorp Vault Vault Auth Methods AppRole Init API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "APIs for authentication methods in HashiCorp Vault including Token, AppRole, Kubernetes, LDAP, JWT/OIDC, GitHub, Userpass, and AWS auth methods. These endpoints handle user and machine authentication to obtain Vault tokens.\n\nContact Support:\n Name: HashiCorp Support\n Email: support@hashicorp.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,838 @@
+{
+  "item": [
+    {
+      "id": "04e7ac96-2bfd-4b6c-92e4-13a04d740067",
+      "name": "Kubernetes",
+      "description": {
+        "content": "Kubernetes auth method for pod authentication",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8cc36554-fe52-4916-bf34-294f9255efcf",
+          "name": "HashiCorp Vault Login with Kubernetes",
+          "request": {
+            "name": "HashiCorp Vault Login with Kubernetes",
+            "description": {
+              "content": "Authenticates with Vault using a Kubernetes service account JWT token.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "auth",
+                "kubernetes",
+                "login"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"role\": \"<string>\",\n  \"jwt\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "31544a68-136f-4ae7-8a47-385ec6290192",
+              "name": "Authentication successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "auth",
+                    "kubernetes",
+                    "login"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"role\": \"<string>\",\n  \"jwt\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request_id\": \"string\",\n  \"lease_id\": \"string\",\n  \"renewable\": false,\n  \"lease_duration\": 859,\n  \"auth\": {\n    \"client_token\": \"string\",\n    \"accessor\": \"string\",\n    \"policies\": [\n      \"string\",\n      \"string\"\n    ],\n    \"token_policies\": [\n      \"string\",\n      \"string\"\n    ],\n    \"identity_policies\": [\n      \"string\",\n      \"string\"\n    ],\n    \"metadata\": {\n      \"key_0\": \"string\"\n    },\n    \"lease_duration\": 9461,\n    \"renewable\": true,\n    \"entity_id\": \"string\",\n    \"token_type\": \"string\",\n    \"orphan\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9655b987-dd7d-421b-85b2-d451afdb36d9",
+              "name": "Invalid credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "auth",
+                    "kubernetes",
+                    "login"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"role\": \"<string>\",\n  \"jwt\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e9a261d4-97e0-48b4-9dad-ced0a41f442e",
+          "name": "HashiCorp Vault Read Kubernetes auth configuration",
+          "request": {
+            "name": "HashiCorp Vault Read Kubernetes auth configuration",
+            "description": {
+              "content": "Returns the Kubernetes auth method configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "auth",
+                "kubernetes",
+                "config"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "25536cf3-2afa-4d83-a3fc-e4eb0aedf227",
+              "name": "Configuration returned",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "auth",
+                    "kubernetes",
+                    "config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"kubernetes_host\": \"string\",\n    \"kubernetes_ca_cert\": \"string\",\n    \"pem_keys\": [\n      \"string\",\n      \"string\"\n    ],\n    \"issuer\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "36edcbd3-47ed-4828-8f87-18d96a4cd192",
+          "name": "HashiCorp Vault Configure Kubernetes auth",
+          "request": {
+            "name": "HashiCorp Vault Configure Kubernetes auth",
+            "description": {
+              "content": "Configures the Kubernetes auth method.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "auth",
+                "kubernetes",
+                "config"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"kubernetes_host\": \"<string>\",\n  \"kubernetes_ca_cert\": \"<string>\",\n  \"token_reviewer_jwt\": \"<string>\",\n  \"pem_keys\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"issuer\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "298fa70f-6e7d-4695-93e4-83efe632f7d4",
+              "name": "Configuration updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "auth",
+                    "kubernetes",
+                    "config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"kubernetes_host\": \"<string>\",\n  \"kubernetes_ca_cert\": \"<string>\",\n  \"token_reviewer_jwt\": \"<string>\",\n  \"pem_keys\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"issuer\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8119185c-e51d-4416-9ad2-994bd7e1f5a5",
+              "name": "Invalid request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "auth",
+                    "kubernetes",
+                    "config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"kubernetes_host\": \"<string>\",\n  \"kubernetes_ca_cert\": \"<string>\",\n  \"token_reviewer_jwt\": \"<string>\",\n  \"pem_keys\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"issuer\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "211b4469-24ff-4328-8a92-b89025674946",
+          "name": "HashiCorp Vault Read Kubernetes role",
+          "request": {
+            "name": "HashiCorp Vault Read Kubernetes role",
+            "description": {
+              "content": "Reads the named Kubernetes auth role configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "auth",
+                "kubernetes",
+                "role",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the role"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4cecfa4d-04d2-426c-a2cc-347bf8fd8113",
+              "name": "Role configuration returned",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "auth",
+                    "kubernetes",
+                    "role",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the role"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"bound_service_account_names\": [\n    \"string\",\n    \"string\"\n  ],\n  \"bound_service_account_namespaces\": [\n    \"string\",\n    \"string\"\n  ],\n  \"audience\": \"string\",\n  \"alias_name_source\": \"serviceaccount_name\",\n  \"token_ttl\": \"string\",\n  \"token_max_ttl\": \"string\",\n  \"token_policies\": [\n    \"string\",\n    \"string\"\n  ],\n  \"token_bound_cidrs\": [\n    \"string\",\n    \"string\"\n  ],\n  \"token_num_uses\": 2172,\n  \"token_type\": \"batch\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b9ad8707-bff2-4432-957b-64a62686654f",
+              "name": "Role not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "auth",
+                    "kubernetes",
+                    "role",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the role"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1b764f6e-5029-43f7-9bbd-c03a3f4cb084",
+          "name": "HashiCorp Vault Create or update Kubernetes role",
+          "request": {
+            "name": "HashiCorp Vault Create or update Kubernetes role",
+            "description": {
+              "content": "Creates or updates the named Kubernetes auth role.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "auth",
+                "kubernetes",
+                "role",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the role"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"bound_service_account_names\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"bound_service_account_namespaces\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"audience\": \"<string>\",\n  \"alias_name_source\": \"<string>\",\n  \"token_ttl\": \"<string>\",\n  \"token_max_ttl\": \"<string>\",\n  \"token_policies\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"token_bound_cidrs\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"token_num_uses\": \"<integer>\",\n  \"token_type\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "56170821-8654-4172-955e-db056d9e7027",
+              "name": "Role created or updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "auth",
+                    "kubernetes",
+                    "role",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the role"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bound_service_account_names\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"bound_service_account_namespaces\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"audience\": \"<string>\",\n  \"alias_name_source\": \"<string>\",\n  \"token_ttl\": \"<string>\",\n  \"token_max_ttl\": \"<string>\",\n  \"token_policies\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"token_bound_cidrs\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"token_num_uses\": \"<integer>\",\n  \"token_type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8e30cee5-24ec-408d-b61f-d19e2f42d28d",
+              "name": "Invalid request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "auth",
+                    "kubernetes",
+                    "role",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the role"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bound_service_account_names\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"bound_service_account_namespaces\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"audience\": \"<string>\",\n  \"alias_name_source\": \"<string>\",\n  \"token_ttl\": \"<string>\",\n  \"token_max_ttl\": \"<string>\",\n  \"token_policies\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"token_bound_cidrs\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"token_num_uses\": \"<integer>\",\n  \"token_type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b26861c7-5957-4a6d-953f-2b21542b3a43",
+          "name": "HashiCorp Vault Delete Kubernetes role",
+          "request": {
+            "name": "HashiCorp Vault Delete Kubernetes role",
+            "description": {
+              "content": "Deletes the named Kubernetes auth role.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "auth",
+                "kubernetes",
+                "role",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the role"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "af45acd4-7d0e-4440-8c6a-c915e0fc0ca9",
+              "name": "Role deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "auth",
+                    "kubernetes",
+                    "role",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the role"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Vault-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://vault.example.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Vault-Token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1d2f8c46-a0cc-4855-ac5c-cdcc2a682997",
+    "name": "HashiCorp Vault Vault Auth Methods AppRole Kubernetes API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "APIs for authentication methods in HashiCorp Vault including Token, AppRole, Kubernetes, LDAP, JWT/OIDC, GitHub, Userpass, and AWS auth methods. These endpoints handle user and machine authentication to obtain Vault tokens.\n\nContact Support:\n Name: HashiCorp Support\n Email: support@hashicorp.com",
+      "type": "text/plain"
+    }
+  }
+}
