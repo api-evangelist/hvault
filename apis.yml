@@ -28,7 +28,7 @@ accessModel:
   - plans
   - authentication
   - security
-  generated: '2026-08-26'
+  generated: '2026-09-03'
   method: derived
 image: https://www.vaultproject.io/img/logo-hashicorp.svg
 created: '2024-01-15'
@@ -1000,6 +1000,9 @@ maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
 common:
+  - type: CapabilityMap
+    url: capabilities/hvault-capability-edges.yml
+    name: HashiCorp Vault Business Capability Map
   - type: AgenticAccess
     url: agentic-access/hvault-agentic-access.yml
   - type: DomainSecurity
