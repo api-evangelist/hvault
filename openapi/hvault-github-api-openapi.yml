@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: HashiCorp Vault Vault Auth Methods AppRole GitHub API
+  title: HashiCorp Vault Vault Auth Methods Git Hub API
   description: APIs for authentication methods in HashiCorp Vault including Token, AppRole, Kubernetes, LDAP, JWT/OIDC, GitHub, Userpass, and AWS auth methods. These endpoints handle user and machine authentication to obtain Vault tokens.
   version: '1.0'
   contact:
@@ -16,7 +16,7 @@ servers:
 security:
 - vaultToken: []
 tags:
-- name: GitHub
+- name: Github
   description: GitHub auth method for organization-based authentication
 paths:
   /auth/github/login:
@@ -25,7 +25,7 @@ paths:
       summary: HashiCorp Vault Login with GitHub
       description: Authenticates with Vault using a GitHub personal access token.
       tags:
-      - GitHub
+      - Github
       requestBody:
         required: true
         content:

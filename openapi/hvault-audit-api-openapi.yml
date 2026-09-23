@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: HashiCorp Vault Vault Auth Methods AppRole Audit API
-  description: APIs for authentication methods in HashiCorp Vault including Token, AppRole, Kubernetes, LDAP, JWT/OIDC, GitHub, Userpass, and AWS auth methods. These endpoints handle user and machine authentication to obtain Vault tokens.
+  title: HashiCorp Vault Vault System Backend Audit API
+  description: API for system-level operations in HashiCorp Vault including health checks, seal status, initialization, authentication management, secrets engine configuration, audit devices, policies, and general Vault configuration.
   version: '1.0'
   contact:
     name: HashiCorp Support
@@ -92,14 +92,6 @@ paths:
         '403':
           description: Permission denied
 components:
-  parameters:
-    mountPath:
-      name: path
-      in: path
-      required: true
-      description: The path to mount or access the resource
-      schema:
-        type: string
   schemas:
     AuditDevice:
       type: object
@@ -119,6 +111,14 @@ components:
         local:
           type: boolean
           description: Whether the audit device is local only
+  parameters:
+    mountPath:
+      name: path
+      in: path
+      required: true
+      description: The path to mount or access the resource
+      schema:
+        type: string
   securitySchemes:
     vaultToken:
       type: apiKey
@@ -126,5 +126,5 @@ components:
       name: X-Vault-Token
       description: Vault authentication token
 externalDocs:
-  description: Vault Auth Methods API Documentation
-  url: https://developer.hashicorp.com/vault/api-docs/auth
+  description: Vault System Backend API Documentation
+  url: https://developer.hashicorp.com/vault/api-docs/system

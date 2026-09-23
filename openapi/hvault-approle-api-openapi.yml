@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: HashiCorp Vault Vault Auth Methods AppRole API
+  title: HashiCorp Vault Vault Auth Methods App Role API
   description: APIs for authentication methods in HashiCorp Vault including Token, AppRole, Kubernetes, LDAP, JWT/OIDC, GitHub, Userpass, and AWS auth methods. These endpoints handle user and machine authentication to obtain Vault tokens.
   version: '1.0'
   contact:
@@ -176,61 +176,6 @@ paths:
                         description: TTL for this secret ID in seconds
 components:
   schemas:
-    AppRole:
-      type: object
-      properties:
-        bind_secret_id:
-          type: boolean
-          description: Whether a secret ID is required for login
-        secret_id_bound_cidrs:
-          type: array
-          items:
-            type: string
-          description: CIDR blocks restricting secret ID usage
-        secret_id_num_uses:
-          type: integer
-          description: Number of times a secret ID can be used
-        secret_id_ttl:
-          type: string
-          description: TTL for secret IDs
-        local_secret_ids:
-          type: boolean
-          description: Whether secret IDs are local to the cluster
-        token_ttl:
-          type: string
-          description: Default token TTL
-        token_max_ttl:
-          type: string
-          description: Maximum token TTL
-        token_policies:
-          type: array
-          items:
-            type: string
-          description: Policies to attach to tokens
-        token_bound_cidrs:
-          type: array
-          items:
-            type: string
-          description: CIDR blocks restricting token usage
-        token_explicit_max_ttl:
-          type: string
-          description: Explicit max TTL for tokens
-        token_no_default_policy:
-          type: boolean
-          description: Do not attach the default policy
-        token_num_uses:
-          type: integer
-          description: Maximum number of token uses
-        token_period:
-          type: string
-          description: Token renewal period
-        token_type:
-          type: string
-          enum:
-          - default
-          - service
-          - batch
-          description: Token type
     AuthResponse:
       type: object
       properties:
@@ -290,6 +235,61 @@ components:
             orphan:
               type: boolean
               description: Whether the token is an orphan
+    AppRole:
+      type: object
+      properties:
+        bind_secret_id:
+          type: boolean
+          description: Whether a secret ID is required for login
+        secret_id_bound_cidrs:
+          type: array
+          items:
+            type: string
+          description: CIDR blocks restricting secret ID usage
+        secret_id_num_uses:
+          type: integer
+          description: Number of times a secret ID can be used
+        secret_id_ttl:
+          type: string
+          description: TTL for secret IDs
+        local_secret_ids:
+          type: boolean
+          description: Whether secret IDs are local to the cluster
+        token_ttl:
+          type: string
+          description: Default token TTL
+        token_max_ttl:
+          type: string
+          description: Maximum token TTL
+        token_policies:
+          type: array
+          items:
+            type: string
+          description: Policies to attach to tokens
+        token_bound_cidrs:
+          type: array
+          items:
+            type: string
+          description: CIDR blocks restricting token usage
+        token_explicit_max_ttl:
+          type: string
+          description: Explicit max TTL for tokens
+        token_no_default_policy:
+          type: boolean
+          description: Do not attach the default policy
+        token_num_uses:
+          type: integer
+          description: Maximum number of token uses
+        token_period:
+          type: string
+          description: Token renewal period
+        token_type:
+          type: string
+          enum:
+          - default
+          - service
+          - batch
+          description: Token type
   parameters:
     roleName:
       name: role_name

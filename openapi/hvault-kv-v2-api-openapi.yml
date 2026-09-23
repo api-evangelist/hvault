@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: HashiCorp Vault Vault Auth Methods AppRole KV V2 API
-  description: APIs for authentication methods in HashiCorp Vault including Token, AppRole, Kubernetes, LDAP, JWT/OIDC, GitHub, Userpass, and AWS auth methods. These endpoints handle user and machine authentication to obtain Vault tokens.
+  title: HashiCorp Vault Vault Secrets Engines KV V2 API
+  description: APIs for various Vault secrets engines including the KV (Key/Value) v1 and v2 engines, AWS dynamic credentials, database dynamic credentials, PKI certificate management, SSH certificate signing, and Transit encryption-as-a-service.
   version: '1.0'
   contact:
     name: HashiCorp Support
@@ -325,51 +325,6 @@ paths:
           description: Permission denied
 components:
   schemas:
-    KvV2ReadResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            data:
-              type: object
-              additionalProperties: true
-              description: The secret key-value data
-            metadata:
-              $ref: '#/components/schemas/KvV2VersionMetadata'
-    KvV2Config:
-      type: object
-      properties:
-        cas_required:
-          type: boolean
-          description: Whether check-and-set is required for all writes
-        max_versions:
-          type: integer
-          description: Maximum number of versions to keep per key
-        delete_version_after:
-          type: string
-          description: Duration after which versions are automatically deleted
-    KvV2VersionMetadata:
-      type: object
-      properties:
-        created_time:
-          type: string
-          format: date-time
-          description: When this version was created
-        custom_metadata:
-          type: object
-          additionalProperties:
-            type: string
-          description: Custom metadata key-value pairs
-        deletion_time:
-          type: string
-          description: When this version was deleted (empty if not deleted)
-        destroyed:
-          type: boolean
-          description: Whether this version has been permanently destroyed
-        version:
-          type: integer
-          description: Version number
     KvV2MetadataResponse:
       type: object
       properties:
@@ -400,6 +355,51 @@ components:
               type: object
               additionalProperties:
                 $ref: '#/components/schemas/KvV2VersionMetadata'
+    KvV2ReadResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            data:
+              type: object
+              additionalProperties: true
+              description: The secret key-value data
+            metadata:
+              $ref: '#/components/schemas/KvV2VersionMetadata'
+    KvV2VersionMetadata:
+      type: object
+      properties:
+        created_time:
+          type: string
+          format: date-time
+          description: When this version was created
+        custom_metadata:
+          type: object
+          additionalProperties:
+            type: string
+          description: Custom metadata key-value pairs
+        deletion_time:
+          type: string
+          description: When this version was deleted (empty if not deleted)
+        destroyed:
+          type: boolean
+          description: Whether this version has been permanently destroyed
+        version:
+          type: integer
+          description: Version number
+    KvV2Config:
+      type: object
+      properties:
+        cas_required:
+          type: boolean
+          description: Whether check-and-set is required for all writes
+        max_versions:
+          type: integer
+          description: Maximum number of versions to keep per key
+        delete_version_after:
+          type: string
+          description: Duration after which versions are automatically deleted
   parameters:
     secretPath:
       name: path
@@ -423,5 +423,5 @@ components:
       name: X-Vault-Token
       description: Vault authentication token
 externalDocs:
-  description: Vault Auth Methods API Documentation
-  url: https://developer.hashicorp.com/vault/api-docs/auth
+  description: Vault Secrets Engines API Documentation
+  url: https://developer.hashicorp.com/vault/api-docs/secret

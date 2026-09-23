@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: HashiCorp Vault Vault Auth Methods AppRole JWT/OIDC API
+  title: HashiCorp Vault Vault Auth Methods JWT/OIDC API
   description: APIs for authentication methods in HashiCorp Vault including Token, AppRole, Kubernetes, LDAP, JWT/OIDC, GitHub, Userpass, and AWS auth methods. These endpoints handle user and machine authentication to obtain Vault tokens.
   version: '1.0'
   contact:
