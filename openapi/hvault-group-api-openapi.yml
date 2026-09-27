@@ -204,38 +204,6 @@ paths:
           description: Group deleted
 components:
   schemas:
-    GroupRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the group
-        type:
-          type: string
-          enum:
-          - internal
-          - external
-          description: Group type (cannot be changed after creation)
-        metadata:
-          type: object
-          additionalProperties:
-            type: string
-          description: Metadata key-value pairs
-        policies:
-          type: array
-          items:
-            type: string
-          description: Policies to assign to the group
-        member_entity_ids:
-          type: array
-          items:
-            type: string
-          description: Entity IDs to add as members
-        member_group_ids:
-          type: array
-          items:
-            type: string
-          description: Group IDs to add as members
     GroupAlias:
       type: object
       properties:
@@ -311,6 +279,38 @@ components:
         last_update_time:
           type: string
           format: date-time
+    GroupRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the group
+        type:
+          type: string
+          enum:
+          - internal
+          - external
+          description: Group type (cannot be changed after creation)
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+          description: Metadata key-value pairs
+        policies:
+          type: array
+          items:
+            type: string
+          description: Policies to assign to the group
+        member_entity_ids:
+          type: array
+          items:
+            type: string
+          description: Entity IDs to add as members
+        member_group_ids:
+          type: array
+          items:
+            type: string
+          description: Group IDs to add as members
   securitySchemes:
     vaultToken:
       type: apiKey

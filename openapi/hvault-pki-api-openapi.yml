@@ -136,35 +136,6 @@ paths:
           description: Invalid request
 components:
   schemas:
-    CertificateResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            certificate:
-              type: string
-              description: PEM-encoded certificate
-            issuing_ca:
-              type: string
-              description: PEM-encoded issuing CA certificate
-            ca_chain:
-              type: array
-              items:
-                type: string
-              description: Full CA chain
-            private_key:
-              type: string
-              description: PEM-encoded private key
-            private_key_type:
-              type: string
-              description: Type of private key (rsa, ec, ed25519)
-            serial_number:
-              type: string
-              description: Certificate serial number
-            expiration:
-              type: integer
-              description: Expiration time as Unix epoch
     PkiRole:
       type: object
       properties:
@@ -201,6 +172,35 @@ components:
         key_bits:
           type: integer
           description: Number of bits for the key
+    CertificateResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            certificate:
+              type: string
+              description: PEM-encoded certificate
+            issuing_ca:
+              type: string
+              description: PEM-encoded issuing CA certificate
+            ca_chain:
+              type: array
+              items:
+                type: string
+              description: Full CA chain
+            private_key:
+              type: string
+              description: PEM-encoded private key
+            private_key_type:
+              type: string
+              description: Type of private key (rsa, ec, ed25519)
+            serial_number:
+              type: string
+              description: Certificate serial number
+            expiration:
+              type: integer
+              description: Expiration time as Unix epoch
   securitySchemes:
     vaultToken:
       type: apiKey

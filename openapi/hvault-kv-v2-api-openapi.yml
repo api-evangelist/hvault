@@ -325,36 +325,6 @@ paths:
           description: Permission denied
 components:
   schemas:
-    KvV2MetadataResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            cas_required:
-              type: boolean
-            created_time:
-              type: string
-              format: date-time
-            current_version:
-              type: integer
-            custom_metadata:
-              type: object
-              additionalProperties:
-                type: string
-            delete_version_after:
-              type: string
-            max_versions:
-              type: integer
-            oldest_version:
-              type: integer
-            updated_time:
-              type: string
-              format: date-time
-            versions:
-              type: object
-              additionalProperties:
-                $ref: '#/components/schemas/KvV2VersionMetadata'
     KvV2ReadResponse:
       type: object
       properties:
@@ -388,6 +358,36 @@ components:
         version:
           type: integer
           description: Version number
+    KvV2MetadataResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            cas_required:
+              type: boolean
+            created_time:
+              type: string
+              format: date-time
+            current_version:
+              type: integer
+            custom_metadata:
+              type: object
+              additionalProperties:
+                type: string
+            delete_version_after:
+              type: string
+            max_versions:
+              type: integer
+            oldest_version:
+              type: integer
+            updated_time:
+              type: string
+              format: date-time
+            versions:
+              type: object
+              additionalProperties:
+                $ref: '#/components/schemas/KvV2VersionMetadata'
     KvV2Config:
       type: object
       properties:
@@ -401,13 +401,6 @@ components:
           type: string
           description: Duration after which versions are automatically deleted
   parameters:
-    secretPath:
-      name: path
-      in: path
-      required: true
-      description: Path to the secret within the secrets engine
-      schema:
-        type: string
     kvMountPath:
       name: mount
       in: path
@@ -416,6 +409,13 @@ components:
       schema:
         type: string
         default: secret
+    secretPath:
+      name: path
+      in: path
+      required: true
+      description: Path to the secret within the secrets engine
+      schema:
+        type: string
   securitySchemes:
     vaultToken:
       type: apiKey

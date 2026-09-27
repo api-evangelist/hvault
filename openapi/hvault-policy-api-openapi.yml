@@ -102,6 +102,14 @@ paths:
         '403':
           description: Permission denied
 components:
+  parameters:
+    policyName:
+      name: name
+      in: path
+      required: true
+      description: Name of the policy
+      schema:
+        type: string
   schemas:
     Policy:
       type: object
@@ -112,14 +120,6 @@ components:
         policy:
           type: string
           description: Policy document in HCL or JSON format
-  parameters:
-    policyName:
-      name: name
-      in: path
-      required: true
-      description: Name of the policy
-      schema:
-        type: string
   securitySchemes:
     vaultToken:
       type: apiKey

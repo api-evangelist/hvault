@@ -175,6 +175,14 @@ paths:
                         type: integer
                         description: TTL for this secret ID in seconds
 components:
+  parameters:
+    roleName:
+      name: role_name
+      in: path
+      required: true
+      description: Name of the role
+      schema:
+        type: string
   schemas:
     AuthResponse:
       type: object
@@ -290,14 +298,6 @@ components:
           - service
           - batch
           description: Token type
-  parameters:
-    roleName:
-      name: role_name
-      in: path
-      required: true
-      description: Name of the role
-      schema:
-        type: string
   securitySchemes:
     vaultToken:
       type: apiKey
