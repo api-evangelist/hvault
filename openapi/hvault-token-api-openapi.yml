@@ -287,6 +287,46 @@ components:
       schema:
         type: string
   schemas:
+    TokenRole:
+      type: object
+      properties:
+        allowed_entity_aliases:
+          type: array
+          items:
+            type: string
+          description: Allowed entity aliases
+        allowed_policies:
+          type: array
+          items:
+            type: string
+          description: Policies allowed for tokens created with this role
+        disallowed_policies:
+          type: array
+          items:
+            type: string
+          description: Policies disallowed for tokens
+        orphan:
+          type: boolean
+          description: Whether tokens are created as orphans
+        path_suffix:
+          type: string
+          description: Path suffix for audit logging
+        renewable:
+          type: boolean
+          description: Whether tokens are renewable
+        explicit_max_ttl:
+          type: string
+          description: Explicit max TTL
+        token_period:
+          type: string
+          description: Token period
+        token_type:
+          type: string
+          enum:
+          - default
+          - service
+          - batch
+          description: Token type
     TokenLookupResponse:
       type: object
       properties:
@@ -461,46 +501,6 @@ components:
           - service
           - batch
           description: Type of token to create
-    TokenRole:
-      type: object
-      properties:
-        allowed_entity_aliases:
-          type: array
-          items:
-            type: string
-          description: Allowed entity aliases
-        allowed_policies:
-          type: array
-          items:
-            type: string
-          description: Policies allowed for tokens created with this role
-        disallowed_policies:
-          type: array
-          items:
-            type: string
-          description: Policies disallowed for tokens
-        orphan:
-          type: boolean
-          description: Whether tokens are created as orphans
-        path_suffix:
-          type: string
-          description: Path suffix for audit logging
-        renewable:
-          type: boolean
-          description: Whether tokens are renewable
-        explicit_max_ttl:
-          type: string
-          description: Explicit max TTL
-        token_period:
-          type: string
-          description: Token period
-        token_type:
-          type: string
-          enum:
-          - default
-          - service
-          - batch
-          description: Token type
   securitySchemes:
     vaultToken:
       type: apiKey

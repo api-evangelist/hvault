@@ -107,6 +107,30 @@ paths:
           description: Role deleted
 components:
   schemas:
+    AwsCredentialsResponse:
+      type: object
+      properties:
+        lease_id:
+          type: string
+          description: Unique lease identifier
+        lease_duration:
+          type: integer
+          description: Lease duration in seconds
+        renewable:
+          type: boolean
+          description: Whether the lease is renewable
+        data:
+          type: object
+          properties:
+            access_key:
+              type: string
+              description: AWS access key ID
+            secret_key:
+              type: string
+              description: AWS secret access key
+            security_token:
+              type: string
+              description: AWS STS session token (for assumed_role type)
     AwsRole:
       type: object
       properties:
@@ -136,30 +160,6 @@ components:
         max_sts_ttl:
           type: string
           description: Maximum TTL for STS credentials
-    AwsCredentialsResponse:
-      type: object
-      properties:
-        lease_id:
-          type: string
-          description: Unique lease identifier
-        lease_duration:
-          type: integer
-          description: Lease duration in seconds
-        renewable:
-          type: boolean
-          description: Whether the lease is renewable
-        data:
-          type: object
-          properties:
-            access_key:
-              type: string
-              description: AWS access key ID
-            secret_key:
-              type: string
-              description: AWS secret access key
-            security_token:
-              type: string
-              description: AWS STS session token (for assumed_role type)
   securitySchemes:
     vaultToken:
       type: apiKey

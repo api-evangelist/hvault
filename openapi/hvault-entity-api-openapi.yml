@@ -280,34 +280,7 @@ paths:
         '403':
           description: Permission denied
 components:
-  parameters:
-    entityId:
-      name: id
-      in: path
-      required: true
-      description: Entity unique identifier
-      schema:
-        type: string
   schemas:
-    EntityRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the entity
-        metadata:
-          type: object
-          additionalProperties:
-            type: string
-          description: Metadata key-value pairs
-        policies:
-          type: array
-          items:
-            type: string
-          description: Policies to assign to the entity
-        disabled:
-          type: boolean
-          description: Whether the entity is disabled
     Entity:
       type: object
       properties:
@@ -353,6 +326,25 @@ components:
           type: string
           format: date-time
           description: Last update time
+    EntityRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the entity
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+          description: Metadata key-value pairs
+        policies:
+          type: array
+          items:
+            type: string
+          description: Policies to assign to the entity
+        disabled:
+          type: boolean
+          description: Whether the entity is disabled
     EntityAlias:
       type: object
       properties:
@@ -385,6 +377,14 @@ components:
         last_update_time:
           type: string
           format: date-time
+  parameters:
+    entityId:
+      name: id
+      in: path
+      required: true
+      description: Entity unique identifier
+      schema:
+        type: string
   securitySchemes:
     vaultToken:
       type: apiKey
