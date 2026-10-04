@@ -325,48 +325,6 @@ paths:
           description: Permission denied
 components:
   schemas:
-    KvV2Config:
-      type: object
-      properties:
-        cas_required:
-          type: boolean
-          description: Whether check-and-set is required for all writes
-        max_versions:
-          type: integer
-          description: Maximum number of versions to keep per key
-        delete_version_after:
-          type: string
-          description: Duration after which versions are automatically deleted
-    KvV2MetadataResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            cas_required:
-              type: boolean
-            created_time:
-              type: string
-              format: date-time
-            current_version:
-              type: integer
-            custom_metadata:
-              type: object
-              additionalProperties:
-                type: string
-            delete_version_after:
-              type: string
-            max_versions:
-              type: integer
-            oldest_version:
-              type: integer
-            updated_time:
-              type: string
-              format: date-time
-            versions:
-              type: object
-              additionalProperties:
-                $ref: '#/components/schemas/KvV2VersionMetadata'
     KvV2ReadResponse:
       type: object
       properties:
@@ -400,6 +358,48 @@ components:
         version:
           type: integer
           description: Version number
+    KvV2MetadataResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            cas_required:
+              type: boolean
+            created_time:
+              type: string
+              format: date-time
+            current_version:
+              type: integer
+            custom_metadata:
+              type: object
+              additionalProperties:
+                type: string
+            delete_version_after:
+              type: string
+            max_versions:
+              type: integer
+            oldest_version:
+              type: integer
+            updated_time:
+              type: string
+              format: date-time
+            versions:
+              type: object
+              additionalProperties:
+                $ref: '#/components/schemas/KvV2VersionMetadata'
+    KvV2Config:
+      type: object
+      properties:
+        cas_required:
+          type: boolean
+          description: Whether check-and-set is required for all writes
+        max_versions:
+          type: integer
+          description: Maximum number of versions to keep per key
+        delete_version_after:
+          type: string
+          description: Duration after which versions are automatically deleted
   parameters:
     secretPath:
       name: path

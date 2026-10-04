@@ -252,6 +252,33 @@ components:
         last_update_time:
           type: string
           format: date-time
+    GroupAlias:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the alias
+        canonical_id:
+          type: string
+          description: Group ID this alias belongs to
+        mount_accessor:
+          type: string
+          description: Auth mount accessor
+        mount_path:
+          type: string
+          description: Auth mount path
+        mount_type:
+          type: string
+          description: Auth mount type
+        name:
+          type: string
+          description: Name of the alias (external group name)
+        creation_time:
+          type: string
+          format: date-time
+        last_update_time:
+          type: string
+          format: date-time
     GroupRequest:
       type: object
       properties:
@@ -284,33 +311,6 @@ components:
           items:
             type: string
           description: Group IDs to add as members
-    GroupAlias:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the alias
-        canonical_id:
-          type: string
-          description: Group ID this alias belongs to
-        mount_accessor:
-          type: string
-          description: Auth mount accessor
-        mount_path:
-          type: string
-          description: Auth mount path
-        mount_type:
-          type: string
-          description: Auth mount type
-        name:
-          type: string
-          description: Name of the alias (external group name)
-        creation_time:
-          type: string
-          format: date-time
-        last_update_time:
-          type: string
-          format: date-time
   securitySchemes:
     vaultToken:
       type: apiKey
