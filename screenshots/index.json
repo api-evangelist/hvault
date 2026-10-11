@@ -1,0 +1,11 @@
+[
+  {
+    "repo": "hvault",
+    "captured_at": "2026-10-11T190546",
+    "source_url": "https://hashicorp.com",
+    "source_type": "root-domain",
+    "file": "hvault-2026-10-11T190546.png",
+    "bytes": 283680,
+    "capture": "playwright-local"
+  }
+]
