@@ -121,22 +121,6 @@ paths:
           description: Group alias deleted
 components:
   schemas:
-    GroupAliasRequest:
-      type: object
-      required:
-      - name
-      - mount_accessor
-      - canonical_id
-      properties:
-        name:
-          type: string
-          description: Name of the alias (external group identifier)
-        mount_accessor:
-          type: string
-          description: Auth mount accessor
-        canonical_id:
-          type: string
-          description: Group ID to associate with
     GroupAlias:
       type: object
       properties:
@@ -164,6 +148,22 @@ components:
         last_update_time:
           type: string
           format: date-time
+    GroupAliasRequest:
+      type: object
+      required:
+      - name
+      - mount_accessor
+      - canonical_id
+      properties:
+        name:
+          type: string
+          description: Name of the alias (external group identifier)
+        mount_accessor:
+          type: string
+          description: Auth mount accessor
+        canonical_id:
+          type: string
+          description: Group ID to associate with
   securitySchemes:
     vaultToken:
       type: apiKey

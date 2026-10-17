@@ -280,34 +280,39 @@ paths:
         '403':
           description: Permission denied
 components:
-  parameters:
-    entityId:
-      name: id
-      in: path
-      required: true
-      description: Entity unique identifier
-      schema:
-        type: string
   schemas:
-    EntityRequest:
+    EntityAlias:
       type: object
       properties:
+        id:
+          type: string
+          description: Unique identifier for the alias
+        canonical_id:
+          type: string
+          description: Entity ID this alias belongs to
+        mount_accessor:
+          type: string
+          description: Auth mount accessor
+        mount_path:
+          type: string
+          description: Auth mount path
+        mount_type:
+          type: string
+          description: Auth mount type
         name:
           type: string
-          description: Name of the entity
+          description: Name of the alias (auth-method-specific identifier)
         metadata:
           type: object
           additionalProperties:
             type: string
-          description: Metadata key-value pairs
-        policies:
-          type: array
-          items:
-            type: string
-          description: Policies to assign to the entity
-        disabled:
-          type: boolean
-          description: Whether the entity is disabled
+          description: Metadata from the auth method
+        creation_time:
+          type: string
+          format: date-time
+        last_update_time:
+          type: string
+          format: date-time
     Entity:
       type: object
       properties:
@@ -353,38 +358,33 @@ components:
           type: string
           format: date-time
           description: Last update time
-    EntityAlias:
+    EntityRequest:
       type: object
       properties:
-        id:
-          type: string
-          description: Unique identifier for the alias
-        canonical_id:
-          type: string
-          description: Entity ID this alias belongs to
-        mount_accessor:
-          type: string
-          description: Auth mount accessor
-        mount_path:
-          type: string
-          description: Auth mount path
-        mount_type:
-          type: string
-          description: Auth mount type
         name:
           type: string
-          description: Name of the alias (auth-method-specific identifier)
+          description: Name of the entity
         metadata:
           type: object
           additionalProperties:
             type: string
-          description: Metadata from the auth method
-        creation_time:
-          type: string
-          format: date-time
-        last_update_time:
-          type: string
-          format: date-time
+          description: Metadata key-value pairs
+        policies:
+          type: array
+          items:
+            type: string
+          description: Policies to assign to the entity
+        disabled:
+          type: boolean
+          description: Whether the entity is disabled
+  parameters:
+    entityId:
+      name: id
+      in: path
+      required: true
+      description: Entity unique identifier
+      schema:
+        type: string
   securitySchemes:
     vaultToken:
       type: apiKey

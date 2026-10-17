@@ -186,6 +186,54 @@ paths:
           description: Role deleted
 components:
   schemas:
+    KubernetesRole:
+      type: object
+      properties:
+        bound_service_account_names:
+          type: array
+          items:
+            type: string
+          description: Allowed service account names
+        bound_service_account_namespaces:
+          type: array
+          items:
+            type: string
+          description: Allowed Kubernetes namespaces
+        audience:
+          type: string
+          description: Expected audience claim
+        alias_name_source:
+          type: string
+          enum:
+          - serviceaccount_uid
+          - serviceaccount_name
+          description: Source for the identity alias name
+        token_ttl:
+          type: string
+          description: Default token TTL
+        token_max_ttl:
+          type: string
+          description: Maximum token TTL
+        token_policies:
+          type: array
+          items:
+            type: string
+          description: Policies to attach to tokens
+        token_bound_cidrs:
+          type: array
+          items:
+            type: string
+          description: CIDR blocks restricting token usage
+        token_num_uses:
+          type: integer
+          description: Maximum number of token uses
+        token_type:
+          type: string
+          enum:
+          - default
+          - service
+          - batch
+          description: Token type
     AuthResponse:
       type: object
       properties:
@@ -245,54 +293,6 @@ components:
             orphan:
               type: boolean
               description: Whether the token is an orphan
-    KubernetesRole:
-      type: object
-      properties:
-        bound_service_account_names:
-          type: array
-          items:
-            type: string
-          description: Allowed service account names
-        bound_service_account_namespaces:
-          type: array
-          items:
-            type: string
-          description: Allowed Kubernetes namespaces
-        audience:
-          type: string
-          description: Expected audience claim
-        alias_name_source:
-          type: string
-          enum:
-          - serviceaccount_uid
-          - serviceaccount_name
-          description: Source for the identity alias name
-        token_ttl:
-          type: string
-          description: Default token TTL
-        token_max_ttl:
-          type: string
-          description: Maximum token TTL
-        token_policies:
-          type: array
-          items:
-            type: string
-          description: Policies to attach to tokens
-        token_bound_cidrs:
-          type: array
-          items:
-            type: string
-          description: CIDR blocks restricting token usage
-        token_num_uses:
-          type: integer
-          description: Maximum number of token uses
-        token_type:
-          type: string
-          enum:
-          - default
-          - service
-          - batch
-          description: Token type
   securitySchemes:
     vaultToken:
       type: apiKey

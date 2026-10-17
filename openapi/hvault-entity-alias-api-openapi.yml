@@ -114,27 +114,6 @@ paths:
           description: Entity alias deleted
 components:
   schemas:
-    EntityAliasRequest:
-      type: object
-      required:
-      - name
-      - mount_accessor
-      - canonical_id
-      properties:
-        name:
-          type: string
-          description: Name of the alias
-        mount_accessor:
-          type: string
-          description: Auth mount accessor
-        canonical_id:
-          type: string
-          description: Entity ID to associate with
-        custom_metadata:
-          type: object
-          additionalProperties:
-            type: string
-          description: Custom metadata
     EntityAlias:
       type: object
       properties:
@@ -167,6 +146,27 @@ components:
         last_update_time:
           type: string
           format: date-time
+    EntityAliasRequest:
+      type: object
+      required:
+      - name
+      - mount_accessor
+      - canonical_id
+      properties:
+        name:
+          type: string
+          description: Name of the alias
+        mount_accessor:
+          type: string
+          description: Auth mount accessor
+        canonical_id:
+          type: string
+          description: Entity ID to associate with
+        custom_metadata:
+          type: object
+          additionalProperties:
+            type: string
+          description: Custom metadata
   securitySchemes:
     vaultToken:
       type: apiKey

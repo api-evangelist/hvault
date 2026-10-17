@@ -92,14 +92,6 @@ paths:
         '403':
           description: Permission denied
 components:
-  parameters:
-    mountPath:
-      name: path
-      in: path
-      required: true
-      description: The path to mount or access the resource
-      schema:
-        type: string
   schemas:
     AuditDevice:
       type: object
@@ -119,6 +111,14 @@ components:
         local:
           type: boolean
           description: Whether the audit device is local only
+  parameters:
+    mountPath:
+      name: path
+      in: path
+      required: true
+      description: The path to mount or access the resource
+      schema:
+        type: string
   securitySchemes:
     vaultToken:
       type: apiKey

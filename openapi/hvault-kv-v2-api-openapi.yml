@@ -325,39 +325,6 @@ paths:
           description: Permission denied
 components:
   schemas:
-    KvV2ReadResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            data:
-              type: object
-              additionalProperties: true
-              description: The secret key-value data
-            metadata:
-              $ref: '#/components/schemas/KvV2VersionMetadata'
-    KvV2VersionMetadata:
-      type: object
-      properties:
-        created_time:
-          type: string
-          format: date-time
-          description: When this version was created
-        custom_metadata:
-          type: object
-          additionalProperties:
-            type: string
-          description: Custom metadata key-value pairs
-        deletion_time:
-          type: string
-          description: When this version was deleted (empty if not deleted)
-        destroyed:
-          type: boolean
-          description: Whether this version has been permanently destroyed
-        version:
-          type: integer
-          description: Version number
     KvV2MetadataResponse:
       type: object
       properties:
@@ -388,6 +355,39 @@ components:
               type: object
               additionalProperties:
                 $ref: '#/components/schemas/KvV2VersionMetadata'
+    KvV2VersionMetadata:
+      type: object
+      properties:
+        created_time:
+          type: string
+          format: date-time
+          description: When this version was created
+        custom_metadata:
+          type: object
+          additionalProperties:
+            type: string
+          description: Custom metadata key-value pairs
+        deletion_time:
+          type: string
+          description: When this version was deleted (empty if not deleted)
+        destroyed:
+          type: boolean
+          description: Whether this version has been permanently destroyed
+        version:
+          type: integer
+          description: Version number
+    KvV2ReadResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            data:
+              type: object
+              additionalProperties: true
+              description: The secret key-value data
+            metadata:
+              $ref: '#/components/schemas/KvV2VersionMetadata'
     KvV2Config:
       type: object
       properties:
@@ -401,13 +401,6 @@ components:
           type: string
           description: Duration after which versions are automatically deleted
   parameters:
-    secretPath:
-      name: path
-      in: path
-      required: true
-      description: Path to the secret within the secrets engine
-      schema:
-        type: string
     kvMountPath:
       name: mount
       in: path
@@ -416,6 +409,13 @@ components:
       schema:
         type: string
         default: secret
+    secretPath:
+      name: path
+      in: path
+      required: true
+      description: Path to the secret within the secrets engine
+      schema:
+        type: string
   securitySchemes:
     vaultToken:
       type: apiKey

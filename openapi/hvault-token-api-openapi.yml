@@ -278,6 +278,14 @@ paths:
         '204':
           description: Token role deleted
 components:
+  parameters:
+    roleName:
+      name: role_name
+      in: path
+      required: true
+      description: Name of the role
+      schema:
+        type: string
   schemas:
     CreateTokenRequest:
       type: object
@@ -331,6 +339,69 @@ components:
           - service
           - batch
           description: Type of token to create
+    TokenLookupResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            accessor:
+              type: string
+              description: Token accessor
+            creation_time:
+              type: integer
+              description: Token creation time as Unix epoch
+            creation_ttl:
+              type: integer
+              description: Original TTL in seconds
+            display_name:
+              type: string
+              description: Display name
+            entity_id:
+              type: string
+              description: Identity entity ID
+            expire_time:
+              type: string
+              format: date-time
+              description: Token expiration time
+            explicit_max_ttl:
+              type: integer
+              description: Explicit max TTL in seconds
+            id:
+              type: string
+              description: Token ID
+            issue_time:
+              type: string
+              format: date-time
+              description: Token issue time
+            meta:
+              type: object
+              additionalProperties:
+                type: string
+              description: Token metadata
+            num_uses:
+              type: integer
+              description: Remaining number of uses
+            orphan:
+              type: boolean
+              description: Whether the token is an orphan
+            path:
+              type: string
+              description: Auth path that created this token
+            policies:
+              type: array
+              items:
+                type: string
+              description: Policies attached to the token
+            renewable:
+              type: boolean
+              description: Whether the token is renewable
+            ttl:
+              type: integer
+              description: Remaining TTL in seconds
+            type:
+              type: string
+              description: Token type (service, batch)
     TokenRole:
       type: object
       properties:
@@ -430,77 +501,6 @@ components:
             orphan:
               type: boolean
               description: Whether the token is an orphan
-    TokenLookupResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            accessor:
-              type: string
-              description: Token accessor
-            creation_time:
-              type: integer
-              description: Token creation time as Unix epoch
-            creation_ttl:
-              type: integer
-              description: Original TTL in seconds
-            display_name:
-              type: string
-              description: Display name
-            entity_id:
-              type: string
-              description: Identity entity ID
-            expire_time:
-              type: string
-              format: date-time
-              description: Token expiration time
-            explicit_max_ttl:
-              type: integer
-              description: Explicit max TTL in seconds
-            id:
-              type: string
-              description: Token ID
-            issue_time:
-              type: string
-              format: date-time
-              description: Token issue time
-            meta:
-              type: object
-              additionalProperties:
-                type: string
-              description: Token metadata
-            num_uses:
-              type: integer
-              description: Remaining number of uses
-            orphan:
-              type: boolean
-              description: Whether the token is an orphan
-            path:
-              type: string
-              description: Auth path that created this token
-            policies:
-              type: array
-              items:
-                type: string
-              description: Policies attached to the token
-            renewable:
-              type: boolean
-              description: Whether the token is renewable
-            ttl:
-              type: integer
-              description: Remaining TTL in seconds
-            type:
-              type: string
-              description: Token type (service, batch)
-  parameters:
-    roleName:
-      name: role_name
-      in: path
-      required: true
-      description: Name of the role
-      schema:
-        type: string
   securitySchemes:
     vaultToken:
       type: apiKey

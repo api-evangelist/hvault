@@ -204,54 +204,6 @@ paths:
           description: Group deleted
 components:
   schemas:
-    Group:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the group
-        name:
-          type: string
-          description: Name of the group
-        type:
-          type: string
-          enum:
-          - internal
-          - external
-          description: Group type
-        metadata:
-          type: object
-          additionalProperties:
-            type: string
-          description: Metadata key-value pairs
-        policies:
-          type: array
-          items:
-            type: string
-          description: Policies assigned to the group
-        member_entity_ids:
-          type: array
-          items:
-            type: string
-          description: Entity IDs that are members of this group
-        member_group_ids:
-          type: array
-          items:
-            type: string
-          description: Group IDs that are members of this group
-        parent_group_ids:
-          type: array
-          items:
-            type: string
-          description: Parent group IDs
-        alias:
-          $ref: '#/components/schemas/GroupAlias'
-        creation_time:
-          type: string
-          format: date-time
-        last_update_time:
-          type: string
-          format: date-time
     GroupAlias:
       type: object
       properties:
@@ -311,6 +263,54 @@ components:
           items:
             type: string
           description: Group IDs to add as members
+    Group:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the group
+        name:
+          type: string
+          description: Name of the group
+        type:
+          type: string
+          enum:
+          - internal
+          - external
+          description: Group type
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+          description: Metadata key-value pairs
+        policies:
+          type: array
+          items:
+            type: string
+          description: Policies assigned to the group
+        member_entity_ids:
+          type: array
+          items:
+            type: string
+          description: Entity IDs that are members of this group
+        member_group_ids:
+          type: array
+          items:
+            type: string
+          description: Group IDs that are members of this group
+        parent_group_ids:
+          type: array
+          items:
+            type: string
+          description: Parent group IDs
+        alias:
+          $ref: '#/components/schemas/GroupAlias'
+        creation_time:
+          type: string
+          format: date-time
+        last_update_time:
+          type: string
+          format: date-time
   securitySchemes:
     vaultToken:
       type: apiKey
