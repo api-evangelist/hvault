@@ -1,4 +1,4 @@
-# HashiCorp Vault (hvault)
+# HashiCorp Vault
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,135 +66,146 @@
 
 HashiCorp Vault secures, stores, and tightly controls access to tokens, passwords, certificates, API keys, and other secrets in modern computing. Vault handles leasing, key revocation, key rolling, and auditing. Through a unified API, users can access an encrypted Key/Value store and network encryption-as-a-service, or generate AWS IAM/STS credentials, SQL/NoSQL databases, X.509 certificates, SSH credentials, and more.
 
-**APIs.json:** [https://www.vaultproject.io/api-docs](https://www.vaultproject.io/api-docs)
+**Areas:** Encryption · Identity · Infrastructure · Secrets Management · Security
 
-## Tags
+## HashiCorp Vault on APIs.io
 
-- Encryption
-- Identity
-- Infrastructure
-- Secrets Management
-- Security
+Everything profiled for HashiCorp Vault is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/hvault/](https://apis.io/providers/hvault/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (28)
 
-- **Created:** 2024-01-15
-- **Modified:** 2026-05-19
+- [HashiCorp Vault AppRole API](https://apis.io/apis/hvault/hvault-approle-api/) — AppRole auth method for machine-to-machine authentication
+- [HashiCorp Vault Audit API](https://apis.io/apis/hvault/hvault-audit-api/) — Audit device management
+- [HashiCorp Vault Auth API](https://apis.io/apis/hvault/hvault-auth-api/) — Auth method management
+- [HashiCorp Vault AWS API](https://apis.io/apis/hvault/hvault-aws-api/) — AWS dynamic credentials secrets engine
+- [HashiCorp Vault Configuration API](https://apis.io/apis/hvault/hvault-configuration-api/) — General Vault configuration
+- [HashiCorp Vault Database API](https://apis.io/apis/hvault/hvault-database-api/) — Database dynamic credentials secrets engine
+- [HashiCorp Vault Entity Alias API](https://apis.io/apis/hvault/hvault-entity-alias-api/) — Identity entity alias management
+- [HashiCorp Vault Entity API](https://apis.io/apis/hvault/hvault-entity-api/) — Identity entity management
+- [HashiCorp Vault GitHub API](https://apis.io/apis/hvault/hvault-github-api/) — GitHub auth method for organization-based authentication
+- [HashiCorp Vault Group Alias API](https://apis.io/apis/hvault/hvault-group-alias-api/) — Identity group alias management
+- [HashiCorp Vault Group API](https://apis.io/apis/hvault/hvault-group-api/) — Identity group management
+- [HashiCorp Vault Health API](https://apis.io/apis/hvault/hvault-health-api/) — Health and status endpoints
+- [HashiCorp Vault Init API](https://apis.io/apis/hvault/hvault-init-api/) — Vault initialization
+- [HashiCorp Vault JWT/OIDC API](https://apis.io/apis/hvault/hvault-jwt-oidc-api/) — JWT/OIDC auth method for identity provider authentication
+- [HashiCorp Vault Kubernetes API](https://apis.io/apis/hvault/hvault-kubernetes-api/) — Kubernetes auth method for pod authentication
+- [HashiCorp Vault KV V2 API](https://apis.io/apis/hvault/hvault-kv-v2-api/) — Key/Value version 2 secrets engine
+- [HashiCorp Vault LDAP API](https://apis.io/apis/hvault/hvault-ldap-api/) — LDAP auth method for directory-based authentication
+- [HashiCorp Vault Leader API](https://apis.io/apis/hvault/hvault-leader-api/) — HA leader status
+- [HashiCorp Vault Lookup API](https://apis.io/apis/hvault/hvault-lookup-api/) — Identity lookup operations
+- [HashiCorp Vault Mounts API](https://apis.io/apis/hvault/hvault-mounts-api/) — Secrets engine mount management
+- [HashiCorp Vault OIDC API](https://apis.io/apis/hvault/hvault-oidc-api/) — OIDC identity provider operations
+- [HashiCorp Vault PKI API](https://apis.io/apis/hvault/hvault-pki-api/) — PKI certificate management secrets engine
+- [HashiCorp Vault Policy API](https://apis.io/apis/hvault/hvault-policy-api/) — Policy management
+- [HashiCorp Vault Seal API](https://apis.io/apis/hvault/hvault-seal-api/) — Seal and unseal operations
+- [HashiCorp Vault SSH API](https://apis.io/apis/hvault/hvault-ssh-api/) — SSH certificate signing secrets engine
+- [HashiCorp Vault Token API](https://apis.io/apis/hvault/hvault-token-api/) — Token auth method for token lifecycle management
+- [HashiCorp Vault Transit API](https://apis.io/apis/hvault/hvault-transit-api/) — Transit encryption-as-a-service secrets engine
+- [HashiCorp Vault Userpass API](https://apis.io/apis/hvault/hvault-userpass-api/) — Username and password auth method
 
-## APIs
+### Published properties
 
-### Vault System Backend API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-API for system-level operations including authentication, secrets engines, audit devices, and general Vault configuration.
+#### Agentic access (1)
 
-- **Human URL:** [https://www.vaultproject.io/](https://www.vaultproject.io/)
-- **Base URL:** `https://vault.example.com/v1/sys`
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Tags
+- [Hvault Agentic Access](https://apis.io/agentic-access/hvault/hvault-agentic-access/)
 
-- Administration
-- Configuration
-- System
+#### JSON Schema (6)
 
-#### Properties
+The data models the API reads and writes.
 
-- [Documentation](https://developer.hashicorp.com/vault/api-docs/system)
-- [X-openapi](https://github.com/hashicorp/vault/blob/main/openapi.json)
-- [Authentication](https://developer.hashicorp.com/vault/docs/auth)
-- [OpenAPI](openapi/hvault-system-backend-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/hvault-system-backend.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/hvault-system-backend.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Vault Identity Entity](https://apis.io/schemas/hvault/hvault-entity/)
+- [Vault Entity Alias](https://apis.io/schemas/hvault/hvault-entity-alias/)
+- [Vault Identity Group](https://apis.io/schemas/hvault/hvault-group/)
+- [Vault ACL Policy](https://apis.io/schemas/hvault/hvault-policy/)
+- [Vault Secret](https://apis.io/schemas/hvault/hvault-secret/)
+- [Vault Token](https://apis.io/schemas/hvault/hvault-token/)
 
-### Vault Secrets Engines API
+#### JSON-LD (1)
 
-APIs for various secrets engines including Key/Value, AWS, Azure, databases, PKI, SSH, and more.
+Linked-data contexts for the provider's vocabulary.
 
-- **Human URL:** [https://developer.hashicorp.com/vault/docs/secrets](https://developer.hashicorp.com/vault/docs/secrets)
-- **Base URL:** `https://vault.example.com/v1`
+- [Hvault Context](https://apis.io/jsonld/hvault/hvault-context/)
 
-#### Tags
+#### Collections (32)
 
-- Cloud
-- Databases
-- Kv
-- Secrets
+Postman and Open Collection request collections.
 
-#### Properties
+- [HashiCorp Vault Vault Auth Methods AppRole API](https://apis.io/collections/hvault/open-hvault-approle-api/)
+- [HashiCorp Vault Vault Auth Methods AppRole Audit API](https://apis.io/collections/hvault/open-hvault-audit-api/)
+- [HashiCorp Vault Vault Methods AppRole Auth API](https://apis.io/collections/hvault/open-hvault-auth-api/)
+- [HashiCorp Vault Vault Auth Methods API](https://apis.io/collections/hvault/open-hvault-auth-methods/)
+- [HashiCorp Vault Vault Auth Methods AppRole AWS API](https://apis.io/collections/hvault/open-hvault-aws-api/)
+- [HashiCorp Vault Vault Auth Methods AppRole Configuration API](https://apis.io/collections/hvault/open-hvault-configuration-api/)
+- [HashiCorp Vault Vault Auth Methods AppRole Database API](https://apis.io/collections/hvault/open-hvault-database-api/)
+- [HashiCorp Vault Vault Auth Methods AppRole Entity Alias API](https://apis.io/collections/hvault/open-hvault-entity-alias-api/)
+- [HashiCorp Vault Vault Auth Methods AppRole Entity API](https://apis.io/collections/hvault/open-hvault-entity-api/)
+- [HashiCorp Vault Vault Auth Methods AppRole GitHub API](https://apis.io/collections/hvault/open-hvault-github-api/)
+- [HashiCorp Vault Vault Auth Methods AppRole Group Alias API](https://apis.io/collections/hvault/open-hvault-group-alias-api/)
+- [HashiCorp Vault Vault Auth Methods AppRole Group API](https://apis.io/collections/hvault/open-hvault-group-api/)
+- [HashiCorp Vault Vault Auth Methods AppRole Health API](https://apis.io/collections/hvault/open-hvault-health-api/)
+- [HashiCorp Vault Vault Identity API](https://apis.io/collections/hvault/open-hvault-identity/)
+- [HashiCorp Vault Vault Auth Methods AppRole Init API](https://apis.io/collections/hvault/open-hvault-init-api/)
+- [HashiCorp Vault Vault Auth Methods AppRole JWT/OIDC API](https://apis.io/collections/hvault/open-hvault-jwt-oidc-api/)
+- [HashiCorp Vault Vault Auth Methods AppRole Kubernetes API](https://apis.io/collections/hvault/open-hvault-kubernetes-api/)
+- [HashiCorp Vault Vault Auth Methods AppRole KV V2 API](https://apis.io/collections/hvault/open-hvault-kv-v2-api/)
+- [HashiCorp Vault Vault Auth Methods AppRole LDAP API](https://apis.io/collections/hvault/open-hvault-ldap-api/)
+- [HashiCorp Vault Vault Auth Methods AppRole Leader API](https://apis.io/collections/hvault/open-hvault-leader-api/)
+- [HashiCorp Vault Vault Auth Methods AppRole Lookup API](https://apis.io/collections/hvault/open-hvault-lookup-api/)
+- [HashiCorp Vault Vault Auth Methods AppRole Mounts API](https://apis.io/collections/hvault/open-hvault-mounts-api/)
+- [HashiCorp Vault Vault Auth Methods AppRole OIDC API](https://apis.io/collections/hvault/open-hvault-oidc-api/)
+- [HashiCorp Vault Vault Auth Methods AppRole PKI API](https://apis.io/collections/hvault/open-hvault-pki-api/)
+- [HashiCorp Vault Vault Auth Methods AppRole Policy API](https://apis.io/collections/hvault/open-hvault-policy-api/)
+- …and 7 more published on APIs.io
 
-- [Documentation](https://developer.hashicorp.com/vault/api-docs/secret)
-- [X-kv-docs](https://developer.hashicorp.com/vault/api-docs/secret/kv/kv-v2)
-- [X-aws-docs](https://developer.hashicorp.com/vault/api-docs/secret/aws)
-- [X-database-docs](https://developer.hashicorp.com/vault/api-docs/secret/databases)
-- [OpenAPI](openapi/hvault-secrets-engines-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/hvault-secrets-engines.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/hvault-secrets-engines.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Governance rules (1)
 
-### Vault Auth Methods API
+Spectral rulesets for the provider's contracts.
 
-APIs for authentication methods including Token, AppRole, Kubernetes, LDAP, JWT/OIDC, GitHub, and more.
+- [HashiCorp Vault — jsonschema rules](https://apis.io/rules/hvault/hvault-jsonschema-spectral-rules/)
 
-- **Human URL:** [https://developer.hashicorp.com/vault/docs/auth](https://developer.hashicorp.com/vault/docs/auth)
-- **Base URL:** `https://vault.example.com/v1/auth`
+#### Security (2)
 
-#### Tags
+Authentication, trust centre, and vulnerability disclosure.
 
-- Access Control
-- Authentication
-- Identity
+- [Hvault Authentication](https://apis.io/security/hvault/hvault-authentication/)
+- [Hvault Domain Security](https://apis.io/security/hvault/hvault-domain-security/)
 
-#### Properties
+#### Plans and pricing (1)
 
-- [Documentation](https://developer.hashicorp.com/vault/api-docs/auth)
-- [X-token-docs](https://developer.hashicorp.com/vault/api-docs/auth/token)
-- [X-approle-docs](https://developer.hashicorp.com/vault/api-docs/auth/approle)
-- [X-kubernetes-docs](https://developer.hashicorp.com/vault/api-docs/auth/kubernetes)
-- [OpenAPI](openapi/hvault-auth-methods-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/hvault-auth-methods.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/hvault-auth-methods.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Published plans, tiers and prices.
 
-### Vault Identity API
+- [Hvault Plans Pricing](https://apis.io/plans/hvault/hvault-plans-pricing/)
 
-APIs for managing entities, entity aliases, and groups for identity management across authentication methods.
+#### Rate limits (1)
 
-- **Human URL:** [https://developer.hashicorp.com/vault/docs/secrets/identity](https://developer.hashicorp.com/vault/docs/secrets/identity)
-- **Base URL:** `https://vault.example.com/v1/identity`
+Published request limits.
 
-#### Tags
+- [Hvault Rate Limits](https://apis.io/rate-limits/hvault/hvault-rate-limits/)
 
-- Entities
-- Groups
-- Identity
+#### FinOps (1)
 
-#### Properties
+What the API costs to run, by operation.
 
-- [Documentation](https://developer.hashicorp.com/vault/api-docs/secret/identity)
-- [OpenAPI](openapi/hvault-identity-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/hvault-identity.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/hvault-identity.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Hvault Finops](https://apis.io/finops/hvault/hvault-finops/)
 
-## Common Properties
+## API Evangelist rating
 
-- [LinkedIn](https://www.linkedin.com/company/hashicorp)
-- [X-website](https://www.vaultproject.io/)
-- [X-documentation](https://developer.hashicorp.com/vault/docs)
-- [X-api-documentation](https://developer.hashicorp.com/vault/api-docs)
-- [X-github](https://github.com/hashicorp/vault)
-- [X-tutorials](https://developer.hashicorp.com/vault/tutorials)
-- [X-support](https://support.hashicorp.com/)
-- [X-terms-of-service](https://www.hashicorp.com/terms-of-service)
-- [X-privacy-policy](https://www.hashicorp.com/privacy)
-- [X-pricing](https://www.hashicorp.com/products/vault/pricing)
-- [X-blog](https://www.hashicorp.com/blog)
-- [X-status](https://status.hashicorp.com/)
-- [JSON-LD](json-ld/hvault-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-- [JSON Schema](json-schema/hvault-secret-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/hvault-entity-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/hvault-entity-alias-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/hvault-token-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/hvault-policy-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/hvault-group-schema.json) — [JSON Schema](https://json-schema.org/specification)
+**Unrated** — no public website could be reached for this company, so there was almost nothing to measure and nothing a reader could check.
 
-## Maintainers
+This is not a score of zero. No rating is published for this company. If that is wrong because something public exists that we missed, say so on this repository or email [info@apievangelist.com](mailto:info@apievangelist.com) and it will be re-run — free, and no justification needed.
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for HashiCorp Vault: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/hvault/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
